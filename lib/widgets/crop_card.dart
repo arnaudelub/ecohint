@@ -2,9 +2,9 @@ import 'package:ecohint/widgets/crop_timer.dart';
 import 'package:flutter/material.dart';
 
 class CropCard extends StatefulWidget {
-  int index;
+  final int index;
 
-  CropCard(this.index);
+  const CropCard(this.index);
 
   @override
   _CropCardState createState() => _CropCardState();
@@ -24,8 +24,11 @@ class _CropCardState extends State<CropCard> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text("🌷", style: TextStyle(fontSize: 32.0),),
-            Text("Lilies"),
+            const Text(
+              "🌷",
+              style: TextStyle(fontSize: 32.0),
+            ),
+            const Text("Lilies"),
             CropTimer()
           ],
         ),

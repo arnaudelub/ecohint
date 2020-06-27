@@ -6,24 +6,28 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text("EcoHint")),
+        title: const Center(child: Text("EcoHint")),
       ),
-      body: Container(
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: MediaQuery.of(context).size.height * 0.4,
-            mainAxisSpacing: 0.0,
-            crossAxisSpacing: 0.0,
-            childAspectRatio: 1,
-          ),
-          itemBuilder: (BuildContext context, int index) {
-            return CropCard(index);
-          },
-          itemCount: 30,
+      body: GridView.builder(
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: MediaQuery.of(context).size.height * 0.4,
+          mainAxisSpacing: 0.0,
+          crossAxisSpacing: 0.0,
+          childAspectRatio: 1,
         ),
+        itemBuilder: (BuildContext context, int index) {
+          return CropCard(index);
+        },
+        itemCount: 30,
       ),
+      floatingActionButton: FloatingActionButton(
+        clipBehavior: Clip.hardEdge,
+        onPressed: () => print("TODO"),
+        child: const Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavigationBar(
-        items: [
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Icon(Icons.local_florist), title: Text("Crops")),
           BottomNavigationBarItem(

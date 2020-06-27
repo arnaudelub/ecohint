@@ -8,8 +8,8 @@ class CropTimer extends StatefulWidget {
 class _CropTimerState extends State<CropTimer> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 15.0),
       child: FittedBox(
           child: Text(
         "192h 50m 09s",
