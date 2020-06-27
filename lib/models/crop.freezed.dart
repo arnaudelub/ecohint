@@ -8,6 +8,9 @@ part of 'crop.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+Crop _$CropFromJson(Map<String, dynamic> json) {
+  return _Crop.fromJson(json);
+}
 
 class _$CropTearOff {
   const _$CropTearOff();
@@ -35,6 +38,7 @@ mixin _$Crop {
   DateTime get cropStartDate;
   int get timer;
 
+  Map<String, dynamic> toJson();
   $CropCopyWith<Crop> get copyWith;
 }
 
@@ -102,8 +106,9 @@ class __$CropCopyWithImpl<$Res> extends _$CropCopyWithImpl<$Res>
   }
 }
 
+@JsonSerializable()
 class _$_Crop implements _Crop {
-  const _$_Crop(
+  _$_Crop(
       {@required this.name,
       @required this.picture,
       @required this.cropStartDate,
@@ -112,6 +117,9 @@ class _$_Crop implements _Crop {
         assert(picture != null),
         assert(cropStartDate != null),
         assert(timer != null);
+
+  factory _$_Crop.fromJson(Map<String, dynamic> json) =>
+      _$_$_CropFromJson(json);
 
   @override
   final String name;
@@ -154,14 +162,21 @@ class _$_Crop implements _Crop {
   @override
   _$CropCopyWith<_Crop> get copyWith =>
       __$CropCopyWithImpl<_Crop>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_CropToJson(this);
+  }
 }
 
 abstract class _Crop implements Crop {
-  const factory _Crop(
+  factory _Crop(
       {@required String name,
       @required String picture,
       @required DateTime cropStartDate,
       @required int timer}) = _$_Crop;
+
+  factory _Crop.fromJson(Map<String, dynamic> json) = _$_Crop.fromJson;
 
   @override
   String get name;

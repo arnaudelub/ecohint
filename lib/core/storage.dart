@@ -1,38 +1,47 @@
+import 'dart:convert';
+
 import 'package:ecohint/models/crop.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class IStorage {
-  Future<void> storeCrop(Crop crops);
-  Future<Crop> getCrops();
-  Future<Crop> getCrop(String key);
+  Future<void> storeCrop(Crop crop);
+  List<Crop> getCrops();
+  Crop getCrop(String key);
   Future<void> removeCrop(String key);
 }
 
 class Storage implements IStorage {
-  final SharedPreferences storage;
+  final SharedPreferences _storage;
 
-  Storage(this.storage);
+  Storage(this._storage);
   @override
-  Future<Crop> getCrop(String key) {
-    // TODO: implement getCrop
-    throw UnimplementedError();
+  Crop getCrop(String key) {
+    final Map<String, dynamic> json =
+        jsonDecode(_storage.getString(key)) as Map<String, dynamic>;
+    final Crop crop = Crop.fromJson(json);
+    return crop;
   }
 
   @override
-  Future<Crop> getCrops() {
-    // TODO: implement getCrops
-    throw UnimplementedError();
+  List<Crop> getCrops() {
+    final cropsList = <Crop>[];
+    final allKeys = _storage.getKeys();
+    final List<String> cropsKey =
+        allKeys.where((key) => key.contains('crop')).toList();
+    cropsKey.map((key) async {
+      final json = _storage.getString(key) as Map<String, dynamic>;
+      cropsList.add(Crop.fromJson(json));
+    });
+    return cropsList;
   }
 
   @override
-  Future<void> removeCrop(String key) {
-    // TODO: implement removeCrop
-    throw UnimplementedError();
+  Future<void> removeCrop(String key) async {
+    await _storage.remove(key);
   }
 
   @override
-  Future<void> storeCrop(Crop crops) {
-    // TODO: implement storeCrop
-    throw UnimplementedError();
+  Future<void> storeCrop(Crop crop) async {
+    await _storage.setString('crop_${crop.name}', crop.toJson().toString());
   }
 }
