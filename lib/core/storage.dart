@@ -18,32 +18,48 @@ class Storage implements IStorage {
   Storage(this._storage);
   @override
   Crop getCrop(String key) {
-    final Map<String, dynamic> json =
-        jsonDecode(_storage.getString(key)) as Map<String, dynamic>;
-    final Crop crop = Crop.fromJson(json);
-    return crop;
+    try {
+      final Map<String, dynamic> json =
+          jsonDecode(_storage.getString(key)) as Map<String, dynamic>;
+      final Crop crop = Crop.fromJson(json);
+      return crop;
+    } catch (_) {
+      throw 'Error';
+    }
   }
 
   @override
   List<Crop> getCrops() {
-    final cropsList = <Crop>[];
-    final allKeys = _storage.getKeys();
-    final List<String> cropsKey =
-        allKeys.where((key) => key.contains('crop')).toList();
-    cropsKey.map((key) async {
-      final json = _storage.getString(key) as Map<String, dynamic>;
-      cropsList.add(Crop.fromJson(json));
-    });
-    return cropsList;
+    try {
+      final cropsList = <Crop>[];
+      final allKeys = _storage.getKeys();
+      final List<String> cropsKey =
+          allKeys.where((key) => key.contains('crop')).toList();
+      cropsKey.map((key) async {
+        final json = _storage.getString(key) as Map<String, dynamic>;
+        cropsList.add(Crop.fromJson(json));
+      });
+      return cropsList;
+    } catch (_) {
+      throw 'Error';
+    }
   }
 
   @override
   Future<void> removeCrop(String key) async {
-    await _storage.remove(key);
+    try {
+      await _storage.remove(key);
+    } catch (_) {
+      throw 'Error';
+    }
   }
 
   @override
   Future<void> storeCrop(Crop crop) async {
-    await _storage.setString('crop_${crop.name}', crop.toJson().toString());
+    try {
+      await _storage.setString('crop_${crop.name}', crop.toJson().toString());
+    } catch (_) {
+      throw 'Error';
+    }
   }
 }

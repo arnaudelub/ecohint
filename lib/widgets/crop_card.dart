@@ -1,16 +1,12 @@
+import 'package:ecohint/models/crop.dart';
 import 'package:ecohint/widgets/crop_timer.dart';
 import 'package:flutter/material.dart';
 
-class CropCard extends StatefulWidget {
-  final int index;
+class CropCard extends StatelessWidget {
+  final Crop crop;
 
-  const CropCard(this.index);
+  const CropCard(this.crop);
 
-  @override
-  _CropCardState createState() => _CropCardState();
-}
-
-class _CropCardState extends State<CropCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -24,11 +20,11 @@ class _CropCardState extends State<CropCard> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const Text(
-              "🌷",
-              style: TextStyle(fontSize: 32.0),
+            Text(
+              crop.picture,
+              style: const TextStyle(fontSize: 32.0),
             ),
-            const Text("Lilies"),
+            Text(crop.name),
             CropTimer()
           ],
         ),
