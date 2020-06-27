@@ -35,13 +35,15 @@ class Storage implements IStorage {
       final allKeys = _storage.getKeys();
       final List<String> cropsKey =
           allKeys.where((key) => key.contains('crop')).toList();
-      cropsKey.map((key) async {
-        final json = _storage.getString(key) as Map<String, dynamic>;
-        cropsList.add(Crop.fromJson(json));
-      });
+      for (final key in cropsKey) {
+        final String json = _storage.getString(key);
+        final Map<String, dynamic> decoded =
+            jsonDecode(json) as Map<String, dynamic>;
+        cropsList.add(Crop.fromJson(decoded));
+      }
       return cropsList;
-    } catch (_) {
-      throw 'Error';
+    } catch (e) {
+      throw 'Error $e';
     }
   }
 
@@ -57,7 +59,8 @@ class Storage implements IStorage {
   @override
   Future<void> storeCrop(Crop crop) async {
     try {
-      await _storage.setString('crop_${crop.name}', crop.toJson().toString());
+      await _storage.setString(
+          'crop_${crop.name}', jsonEncode(crop.toJson()).toString());
     } catch (_) {
       throw 'Error';
     }

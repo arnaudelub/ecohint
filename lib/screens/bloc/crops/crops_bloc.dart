@@ -60,7 +60,6 @@ class CropsBloc extends Bloc<CropsEvent, CropsState> {
         crops: listCrops,
       );
     }, nameChanged: (NameChanged value) async* {
-      print("Name changed: ${value.name}");
       yield state.copyWith(cropName: value.name);
     }, pictureChanged: (PictureChanged value) async* {
       yield state.copyWith(cropPicture: value.picture);

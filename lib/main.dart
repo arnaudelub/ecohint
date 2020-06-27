@@ -3,11 +3,13 @@ import 'package:ecohint/screens/crop_data_screen.dart';
 import 'package:ecohint/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'injections.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureInjection(Environment.dev);
+
   runApp(MyApp());
 }
 
