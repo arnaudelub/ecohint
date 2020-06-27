@@ -4,6 +4,7 @@ import 'package:ecohint/screens/home_screen.dart';
 import 'package:ecohint/screens/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'injections.dart';
 import 'screens/home_screen.dart';
 import 'screens/home_screen.dart';
@@ -12,6 +13,7 @@ import 'screens/home_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureInjection(Environment.dev);
+
   runApp(MyApp());
 }
 

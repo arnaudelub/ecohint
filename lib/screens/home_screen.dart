@@ -47,6 +47,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
+                actions: [
+                  PopupMenuButton(
+                    onSelected: (_) => _showConfirmationDialog(blocContext),
+                    icon: const Icon(Icons.menu),
+                    elevation: 12,
+                    itemBuilder: (BuildContext context) {
+                      return {'remove crops'}
+                          .map((choice) => PopupMenuItem(
+                                value: choice,
+                                child: Text(choice),
+                              ))
+                          .toList();
+                    },
+                  ),
+                ],
               ),
               body: MultiBlocProvider(
                 providers: [
@@ -140,5 +155,35 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   )));
         });
+  }
+
+  void _showConfirmationDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              title: const Text(
+                "Removing crops",
+                textAlign: TextAlign.center,
+              ),
+              content: const Text(
+                "Are you sure you want to remove every crops?",
+                textAlign: TextAlign.center,
+              ),
+              actions: [
+                FlatButton(
+                  onPressed: () {
+                    context
+                        .bloc<CropsBloc>()
+                        .add(const CropsEvent.deleteCrops());
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Yes"),
+                ),
+                FlatButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text("No"),
+                ),
+              ],
+            ));
   }
 }

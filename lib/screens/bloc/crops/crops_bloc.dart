@@ -50,6 +50,16 @@ class CropsBloc extends Bloc<CropsEvent, CropsState> {
         isLoading: false,
         crops: listCrops,
       );
+    }, deleteCrops: (DeleteCrops value) async* {
+      yield state.copyWith(
+        isLoading: true,
+      );
+      await _storage.removeCrops();
+      listCrops.clear();
+      yield state.copyWith(
+        isLoading: false,
+        crops: listCrops,
+      );
     }, getCrops: (GetCrops value) async* {
       yield state.copyWith(
         isLoading: true,
@@ -60,7 +70,6 @@ class CropsBloc extends Bloc<CropsEvent, CropsState> {
         crops: listCrops,
       );
     }, nameChanged: (NameChanged value) async* {
-      print("Name changed: ${value.name}");
       yield state.copyWith(cropName: value.name);
     }, pictureChanged: (PictureChanged value) async* {
       yield state.copyWith(cropPicture: value.picture);

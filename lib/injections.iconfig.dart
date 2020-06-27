@@ -13,7 +13,7 @@ import 'package:get_it/get_it.dart';
 Future<void> $initGetIt(GetIt g, {String environment}) async {
   final storageInjectableModule = _$StorageInjectableModule();
   final sharedPreferences = await storageInjectableModule.storage;
-  g.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
+  g.registerFactory<SharedPreferences>(() => sharedPreferences);
   g.registerLazySingleton<IStorage>(() => Storage(g<SharedPreferences>()));
   g.registerFactory<CropsBloc>(() => CropsBloc(g<IStorage>()));
 }

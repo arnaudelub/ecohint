@@ -9,10 +9,10 @@ abstract class CropsState with _$CropsState {
       @required String cropName,
       @required String cropPicture}) = _CropState;
 
-  factory CropsState.initial() => CropsState(
+  factory CropsState.initial() => const CropsState(
         isLoading: false,
         showErrorMessage: false,
-        crops: getIt<IStorage>().getCrops(),
+        crops: [],
         cropName: '',
         cropPicture: '',
       );
