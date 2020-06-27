@@ -26,6 +26,10 @@ class _$CropsEventTearOff {
     );
   }
 
+  DeleteCrops deleteCrops() {
+    return const DeleteCrops();
+  }
+
   NameChanged nameChanged(String name) {
     return NameChanged(
       name,
@@ -48,6 +52,7 @@ mixin _$CropsEvent {
     @required Result getCrops(),
     @required Result createCrop(),
     @required Result deleteCrop(Crop crop),
+    @required Result deleteCrops(),
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
   });
@@ -56,6 +61,7 @@ mixin _$CropsEvent {
     Result getCrops(),
     Result createCrop(),
     Result deleteCrop(Crop crop),
+    Result deleteCrops(),
     Result nameChanged(String name),
     Result pictureChanged(String picture),
     @required Result orElse(),
@@ -65,6 +71,7 @@ mixin _$CropsEvent {
     @required Result getCrops(GetCrops value),
     @required Result createCrop(CreateCrop value),
     @required Result deleteCrop(DeleteCrop value),
+    @required Result deleteCrops(DeleteCrops value),
     @required Result nameChanged(NameChanged value),
     @required Result pictureChanged(PictureChanged value),
   });
@@ -73,6 +80,7 @@ mixin _$CropsEvent {
     Result getCrops(GetCrops value),
     Result createCrop(CreateCrop value),
     Result deleteCrop(DeleteCrop value),
+    Result deleteCrops(DeleteCrops value),
     Result nameChanged(NameChanged value),
     Result pictureChanged(PictureChanged value),
     @required Result orElse(),
@@ -129,12 +137,14 @@ class _$GetCrops implements GetCrops {
     @required Result getCrops(),
     @required Result createCrop(),
     @required Result deleteCrop(Crop crop),
+    @required Result deleteCrops(),
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
     assert(deleteCrop != null);
+    assert(deleteCrops != null);
     assert(nameChanged != null);
     assert(pictureChanged != null);
     return getCrops();
@@ -146,6 +156,7 @@ class _$GetCrops implements GetCrops {
     Result getCrops(),
     Result createCrop(),
     Result deleteCrop(Crop crop),
+    Result deleteCrops(),
     Result nameChanged(String name),
     Result pictureChanged(String picture),
     @required Result orElse(),
@@ -163,12 +174,14 @@ class _$GetCrops implements GetCrops {
     @required Result getCrops(GetCrops value),
     @required Result createCrop(CreateCrop value),
     @required Result deleteCrop(DeleteCrop value),
+    @required Result deleteCrops(DeleteCrops value),
     @required Result nameChanged(NameChanged value),
     @required Result pictureChanged(PictureChanged value),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
     assert(deleteCrop != null);
+    assert(deleteCrops != null);
     assert(nameChanged != null);
     assert(pictureChanged != null);
     return getCrops(this);
@@ -180,6 +193,7 @@ class _$GetCrops implements GetCrops {
     Result getCrops(GetCrops value),
     Result createCrop(CreateCrop value),
     Result deleteCrop(DeleteCrop value),
+    Result deleteCrops(DeleteCrops value),
     Result nameChanged(NameChanged value),
     Result pictureChanged(PictureChanged value),
     @required Result orElse(),
@@ -233,12 +247,14 @@ class _$CreateCrop implements CreateCrop {
     @required Result getCrops(),
     @required Result createCrop(),
     @required Result deleteCrop(Crop crop),
+    @required Result deleteCrops(),
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
     assert(deleteCrop != null);
+    assert(deleteCrops != null);
     assert(nameChanged != null);
     assert(pictureChanged != null);
     return createCrop();
@@ -250,6 +266,7 @@ class _$CreateCrop implements CreateCrop {
     Result getCrops(),
     Result createCrop(),
     Result deleteCrop(Crop crop),
+    Result deleteCrops(),
     Result nameChanged(String name),
     Result pictureChanged(String picture),
     @required Result orElse(),
@@ -267,12 +284,14 @@ class _$CreateCrop implements CreateCrop {
     @required Result getCrops(GetCrops value),
     @required Result createCrop(CreateCrop value),
     @required Result deleteCrop(DeleteCrop value),
+    @required Result deleteCrops(DeleteCrops value),
     @required Result nameChanged(NameChanged value),
     @required Result pictureChanged(PictureChanged value),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
     assert(deleteCrop != null);
+    assert(deleteCrops != null);
     assert(nameChanged != null);
     assert(pictureChanged != null);
     return createCrop(this);
@@ -284,6 +303,7 @@ class _$CreateCrop implements CreateCrop {
     Result getCrops(GetCrops value),
     Result createCrop(CreateCrop value),
     Result deleteCrop(DeleteCrop value),
+    Result deleteCrops(DeleteCrops value),
     Result nameChanged(NameChanged value),
     Result pictureChanged(PictureChanged value),
     @required Result orElse(),
@@ -370,12 +390,14 @@ class _$DeleteCrop implements DeleteCrop {
     @required Result getCrops(),
     @required Result createCrop(),
     @required Result deleteCrop(Crop crop),
+    @required Result deleteCrops(),
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
     assert(deleteCrop != null);
+    assert(deleteCrops != null);
     assert(nameChanged != null);
     assert(pictureChanged != null);
     return deleteCrop(crop);
@@ -387,6 +409,7 @@ class _$DeleteCrop implements DeleteCrop {
     Result getCrops(),
     Result createCrop(),
     Result deleteCrop(Crop crop),
+    Result deleteCrops(),
     Result nameChanged(String name),
     Result pictureChanged(String picture),
     @required Result orElse(),
@@ -404,12 +427,14 @@ class _$DeleteCrop implements DeleteCrop {
     @required Result getCrops(GetCrops value),
     @required Result createCrop(CreateCrop value),
     @required Result deleteCrop(DeleteCrop value),
+    @required Result deleteCrops(DeleteCrops value),
     @required Result nameChanged(NameChanged value),
     @required Result pictureChanged(PictureChanged value),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
     assert(deleteCrop != null);
+    assert(deleteCrops != null);
     assert(nameChanged != null);
     assert(pictureChanged != null);
     return deleteCrop(this);
@@ -421,6 +446,7 @@ class _$DeleteCrop implements DeleteCrop {
     Result getCrops(GetCrops value),
     Result createCrop(CreateCrop value),
     Result deleteCrop(DeleteCrop value),
+    Result deleteCrops(DeleteCrops value),
     Result nameChanged(NameChanged value),
     Result pictureChanged(PictureChanged value),
     @required Result orElse(),
@@ -438,6 +464,117 @@ abstract class DeleteCrop implements CropsEvent {
 
   Crop get crop;
   $DeleteCropCopyWith<DeleteCrop> get copyWith;
+}
+
+abstract class $DeleteCropsCopyWith<$Res> {
+  factory $DeleteCropsCopyWith(
+          DeleteCrops value, $Res Function(DeleteCrops) then) =
+      _$DeleteCropsCopyWithImpl<$Res>;
+}
+
+class _$DeleteCropsCopyWithImpl<$Res> extends _$CropsEventCopyWithImpl<$Res>
+    implements $DeleteCropsCopyWith<$Res> {
+  _$DeleteCropsCopyWithImpl(
+      DeleteCrops _value, $Res Function(DeleteCrops) _then)
+      : super(_value, (v) => _then(v as DeleteCrops));
+
+  @override
+  DeleteCrops get _value => super._value as DeleteCrops;
+}
+
+class _$DeleteCrops implements DeleteCrops {
+  const _$DeleteCrops();
+
+  @override
+  String toString() {
+    return 'CropsEvent.deleteCrops()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is DeleteCrops);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result getCrops(),
+    @required Result createCrop(),
+    @required Result deleteCrop(Crop crop),
+    @required Result deleteCrops(),
+    @required Result nameChanged(String name),
+    @required Result pictureChanged(String picture),
+  }) {
+    assert(getCrops != null);
+    assert(createCrop != null);
+    assert(deleteCrop != null);
+    assert(deleteCrops != null);
+    assert(nameChanged != null);
+    assert(pictureChanged != null);
+    return deleteCrops();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result getCrops(),
+    Result createCrop(),
+    Result deleteCrop(Crop crop),
+    Result deleteCrops(),
+    Result nameChanged(String name),
+    Result pictureChanged(String picture),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (deleteCrops != null) {
+      return deleteCrops();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result getCrops(GetCrops value),
+    @required Result createCrop(CreateCrop value),
+    @required Result deleteCrop(DeleteCrop value),
+    @required Result deleteCrops(DeleteCrops value),
+    @required Result nameChanged(NameChanged value),
+    @required Result pictureChanged(PictureChanged value),
+  }) {
+    assert(getCrops != null);
+    assert(createCrop != null);
+    assert(deleteCrop != null);
+    assert(deleteCrops != null);
+    assert(nameChanged != null);
+    assert(pictureChanged != null);
+    return deleteCrops(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result getCrops(GetCrops value),
+    Result createCrop(CreateCrop value),
+    Result deleteCrop(DeleteCrop value),
+    Result deleteCrops(DeleteCrops value),
+    Result nameChanged(NameChanged value),
+    Result pictureChanged(PictureChanged value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (deleteCrops != null) {
+      return deleteCrops(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DeleteCrops implements CropsEvent {
+  const factory DeleteCrops() = _$DeleteCrops;
 }
 
 abstract class $NameChangedCopyWith<$Res> {
@@ -499,12 +636,14 @@ class _$NameChanged implements NameChanged {
     @required Result getCrops(),
     @required Result createCrop(),
     @required Result deleteCrop(Crop crop),
+    @required Result deleteCrops(),
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
     assert(deleteCrop != null);
+    assert(deleteCrops != null);
     assert(nameChanged != null);
     assert(pictureChanged != null);
     return nameChanged(name);
@@ -516,6 +655,7 @@ class _$NameChanged implements NameChanged {
     Result getCrops(),
     Result createCrop(),
     Result deleteCrop(Crop crop),
+    Result deleteCrops(),
     Result nameChanged(String name),
     Result pictureChanged(String picture),
     @required Result orElse(),
@@ -533,12 +673,14 @@ class _$NameChanged implements NameChanged {
     @required Result getCrops(GetCrops value),
     @required Result createCrop(CreateCrop value),
     @required Result deleteCrop(DeleteCrop value),
+    @required Result deleteCrops(DeleteCrops value),
     @required Result nameChanged(NameChanged value),
     @required Result pictureChanged(PictureChanged value),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
     assert(deleteCrop != null);
+    assert(deleteCrops != null);
     assert(nameChanged != null);
     assert(pictureChanged != null);
     return nameChanged(this);
@@ -550,6 +692,7 @@ class _$NameChanged implements NameChanged {
     Result getCrops(GetCrops value),
     Result createCrop(CreateCrop value),
     Result deleteCrop(DeleteCrop value),
+    Result deleteCrops(DeleteCrops value),
     Result nameChanged(NameChanged value),
     Result pictureChanged(PictureChanged value),
     @required Result orElse(),
@@ -628,12 +771,14 @@ class _$PictureChanged implements PictureChanged {
     @required Result getCrops(),
     @required Result createCrop(),
     @required Result deleteCrop(Crop crop),
+    @required Result deleteCrops(),
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
     assert(deleteCrop != null);
+    assert(deleteCrops != null);
     assert(nameChanged != null);
     assert(pictureChanged != null);
     return pictureChanged(picture);
@@ -645,6 +790,7 @@ class _$PictureChanged implements PictureChanged {
     Result getCrops(),
     Result createCrop(),
     Result deleteCrop(Crop crop),
+    Result deleteCrops(),
     Result nameChanged(String name),
     Result pictureChanged(String picture),
     @required Result orElse(),
@@ -662,12 +808,14 @@ class _$PictureChanged implements PictureChanged {
     @required Result getCrops(GetCrops value),
     @required Result createCrop(CreateCrop value),
     @required Result deleteCrop(DeleteCrop value),
+    @required Result deleteCrops(DeleteCrops value),
     @required Result nameChanged(NameChanged value),
     @required Result pictureChanged(PictureChanged value),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
     assert(deleteCrop != null);
+    assert(deleteCrops != null);
     assert(nameChanged != null);
     assert(pictureChanged != null);
     return pictureChanged(this);
@@ -679,6 +827,7 @@ class _$PictureChanged implements PictureChanged {
     Result getCrops(GetCrops value),
     Result createCrop(CreateCrop value),
     Result deleteCrop(DeleteCrop value),
+    Result deleteCrops(DeleteCrops value),
     Result nameChanged(NameChanged value),
     Result pictureChanged(PictureChanged value),
     @required Result orElse(),

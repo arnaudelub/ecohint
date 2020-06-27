@@ -9,6 +9,7 @@ abstract class IStorage {
   List<Crop> getCrops();
   Crop getCrop(String key);
   Future<void> removeCrop(String key);
+  Future<void> removeCrops();
 }
 
 @LazySingleton(as: IStorage)
@@ -64,5 +65,10 @@ class Storage implements IStorage {
     } catch (_) {
       throw 'Error';
     }
+  }
+
+  @override
+  Future<void> removeCrops() async {
+    await _storage.clear();
   }
 }
