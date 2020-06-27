@@ -19,6 +19,7 @@ class HomeScreen extends StatelessWidget {
             return Scaffold(
               backgroundColor: kCreme,
               appBar: AppBar(
+                centerTitle: true,
                 title: Container(
                   width: 100,
                   child: Stack(
