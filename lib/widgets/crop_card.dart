@@ -47,7 +47,6 @@ class CropCard extends StatelessWidget {
                 crop.name,
                 style: const TextStyle(
                     fontSize: 25,
-                    fontFamily: "Poppins",
                     fontWeight: FontWeight.w300,
                     color: Colors.white),
               )),

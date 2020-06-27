@@ -33,7 +33,6 @@ class HomeScreen extends StatelessWidget {
                             "EcoHint",
                             style: TextStyle(
                                 color: Colors.white,
-                                fontFamily: "Poppins",
                                 fontWeight: FontWeight.w100),
                           ),
                         ),

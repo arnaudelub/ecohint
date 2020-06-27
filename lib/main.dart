@@ -21,6 +21,8 @@ class MyApp extends StatelessWidget {
         primaryColor: kGreenAlgua,
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        fontFamily: 'Poppins',
+        accentColor: Colors.green,
       ),
       home: HomeScreen(),
       routes: {

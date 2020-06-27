@@ -20,7 +20,6 @@ class _CropDataState extends State<CropData> {
                   style: TextStyle(
                       color: Colors.white,
                       decoration: TextDecoration.underline,
-                      fontFamily: "Poppins",
                       fontSize: 34)),
             ),
           ),
