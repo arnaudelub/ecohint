@@ -17,7 +17,9 @@ class CropCard extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
       child: InkWell(
         onTap: () {
-          kIsWeb || Platform.isWindows || Platform.isLinux ? null : Navigator.of(context).pushNamed(CropDataScreen.routeName);
+          if (Platform.isIOS || Platform.isAndroid) {
+            Navigator.of(context).pushNamed(CropDataScreen.routeName);
+          }
         },
         child: Container(
           decoration: BoxDecoration(

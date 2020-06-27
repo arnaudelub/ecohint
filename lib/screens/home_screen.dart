@@ -17,8 +17,32 @@ class HomeScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Scaffold(
+              backgroundColor: kCreme,
               appBar: AppBar(
-                title: const Center(child: Text("EcoHint")),
+                title: Container(
+                  width: 100,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Image.asset(
+                        "assets/images/logoSmall.png",
+                        height: 40,
+                      ),
+                      Positioned(
+                        top: 15,
+                        child: FittedBox(
+                          child: Text(
+                            "EcoHint",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: "Poppins",
+                                fontWeight: FontWeight.w100),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ),
               body: MultiBlocProvider(
                 providers: [
