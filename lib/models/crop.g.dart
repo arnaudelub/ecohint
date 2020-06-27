@@ -6,6 +6,7 @@ part of 'crop.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+// ignore: non_constant_identifier_names
 _$_Crop _$_$_CropFromJson(Map<String, dynamic> json) {
   return _$_Crop(
     name: json['name'] as String,
@@ -17,6 +18,7 @@ _$_Crop _$_$_CropFromJson(Map<String, dynamic> json) {
   );
 }
 
+// ignore: non_constant_identifier_names
 Map<String, dynamic> _$_$_CropToJson(_$_Crop instance) => <String, dynamic>{
       'name': instance.name,
       'picture': instance.picture,

@@ -1,5 +1,4 @@
-import 'package:ecohint/misc/kConstant.dart';
-import 'package:ecohint/models/crop.dart';
+import 'package:ecohint/misc/k_constant.dart';
 import 'package:ecohint/screens/bloc/crops/crops_bloc.dart';
 import 'package:ecohint/widgets/crop_card.dart';
 import 'package:ecohint/widgets/crop_data.dart';
@@ -18,9 +17,6 @@ class CropListener extends StatelessWidget {
             return GridView.builder(
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: MediaQuery.of(context).size.height * 0.4,
-                mainAxisSpacing: 0.0,
-                crossAxisSpacing: 0.0,
-                childAspectRatio: 1,
               ),
               itemBuilder: (BuildContext context, int index) {
                 //return CropCard(state.crops[index]);
@@ -29,66 +25,60 @@ class CropListener extends StatelessWidget {
               itemCount: state.crops.length,
             );
           } else {
-            return Container(
-              child: Row(
-                children: [
-                  Column(
-                    children: [
-                      Container(
-                        width: constraints.maxWidth * 0.25,
-                        height: constraints.maxHeight,
-                        child: GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent:
-                                MediaQuery.of(context).size.height * .4,
-                            mainAxisSpacing: 0.0,
-                            crossAxisSpacing: 0.0,
-                            childAspectRatio: 1,
-                          ),
-                          itemBuilder: (BuildContext context, int index) {
-                            // See line 12.
-                            //return CropCard(state.crops[index]);
-                            return CropCard(state.crops[index]);
-                          },
-                          itemCount: state.crops.length,
+            return Row(
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      width: constraints.maxWidth * 0.25,
+                      height: constraints.maxHeight,
+                      child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent:
+                              MediaQuery.of(context).size.height * .4,
                         ),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Stack(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(top: 10, left: 10),
+                        itemBuilder: (BuildContext context, int index) {
+                          // See line 12.
+                          //return CropCard(state.crops[index]);
+                          return CropCard(state.crops[index]);
+                        },
+                        itemCount: state.crops.length,
+                      ),
+                    )
+                  ],
+                ),
+                Column(
+                  children: [
+                    Stack(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(top: 10, left: 10),
+                          height: constraints.maxHeight - 10,
+                          width: (constraints.maxWidth * .75) - 10,
+                          decoration: BoxDecoration(
+                            color: kGreenAlgua.withOpacity(.7),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(65),
+                            ),
+                          ),
+                          child: Container(
+                            margin: const EdgeInsets.only(top: 10, left: 40),
                             height: constraints.maxHeight - 10,
-                            width: (constraints.maxWidth * .75) - 10,
+                            width: (constraints.maxWidth * .7) - 40,
                             decoration: BoxDecoration(
-                              color: kGreenAlgua.withOpacity(.7),
-                              borderRadius: BorderRadius.only(
+                              color: kGreenAlgua.withOpacity(1),
+                              borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(65),
                               ),
                             ),
-                            child: Container(
-                              margin: EdgeInsets.only(top: 10, left: 40),
-                              height: constraints.maxHeight - 10,
-                              width: (constraints.maxWidth * .7) - 40,
-                              decoration: BoxDecoration(
-                                color: kGreenAlgua.withOpacity(1),
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(65),
-                                ),
-                              ),
-                              child: CropData(),
-                            ),
+                            child: CropData(),
                           ),
-                        ],
-                      ),
-                    ],
-                  )
-                ],
-              ),
+                        ),
+                      ],
+                    ),
+                  ],
+                )
+              ],
             );
           }
         },

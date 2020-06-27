@@ -1,4 +1,4 @@
-import 'package:ecohint/misc/kConstant.dart';
+import 'package:ecohint/misc/k_constant.dart';
 import 'package:ecohint/widgets/crop_data.dart';
 import 'package:flutter/material.dart';
 

@@ -1,7 +1,6 @@
-import 'package:ecohint/misc/kConstant.dart';
+import 'package:ecohint/misc/k_constant.dart';
 import 'package:ecohint/screens/crop_data_screen.dart';
 import 'package:ecohint/screens/home_screen.dart';
-import 'package:ecohint/widgets/crop_data.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'injections.dart';

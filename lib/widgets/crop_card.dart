@@ -1,10 +1,9 @@
 import 'dart:io';
-import 'package:ecohint/misc/kConstant.dart';
+import 'package:ecohint/misc/k_constant.dart';
 import 'package:ecohint/screens/crop_data_screen.dart';
 import 'package:ecohint/models/crop.dart';
 import 'package:ecohint/widgets/crop_timer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 
 class CropCard extends StatelessWidget {
   final Crop crop;
@@ -23,26 +22,30 @@ class CropCard extends StatelessWidget {
         },
         child: Container(
           decoration: BoxDecoration(
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
-                  offset: Offset(0, 5), blurRadius: 5, color: Colors.black),
+                offset: Offset(0, 5),
+                blurRadius: 5,
+              ),
             ],
-            borderRadius: BorderRadius.all(Radius.circular(35)),
+            borderRadius: const BorderRadius.all(Radius.circular(35)),
             color: kGreenBush,
             border: Border.all(
-                color: kGreenAlgua, width: 2, style: BorderStyle.solid),
+              color: kGreenAlgua,
+              width: 2,
+            ),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
                 crop.picture,
-                style: TextStyle(fontSize: 70.0),
+                style: const TextStyle(fontSize: 70.0),
               ),
               FittedBox(
                   child: Text(
                 crop.name,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 25,
                     fontFamily: "Poppins",
                     fontWeight: FontWeight.w300,

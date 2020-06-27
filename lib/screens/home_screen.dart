@@ -1,7 +1,4 @@
-import 'package:ecohint/misc/kConstant.dart';
-import 'package:ecohint/widgets/crop_card.dart';
-import 'package:ecohint/widgets/crop_data.dart';
-import 'dart:async';
+import 'package:ecohint/misc/k_constant.dart';
 import 'package:ecohint/injections.dart';
 import 'package:ecohint/screens/bloc/crops/crops_bloc.dart';
 import 'package:ecohint/widgets/crop_listener.dart';
@@ -28,7 +25,7 @@ class HomeScreen extends StatelessWidget {
                         "assets/images/logoSmall.png",
                         height: 40,
                       ),
-                      Positioned(
+                      const Positioned(
                         top: 15,
                         child: FittedBox(
                           child: Text(
@@ -111,7 +108,7 @@ class HomeScreen extends StatelessWidget {
               actions: <Widget>[
                 FlatButton(
                   onPressed: () {
-                    context.bloc<CropsBloc>().add(CropsEvent.createCrop());
+                    context.bloc<CropsBloc>().add(const CropsEvent.createCrop());
                     Navigator.of(context).pop();
                   },
                   child: const Text('Save me!'),
