@@ -1,9 +1,11 @@
 import 'package:ecohint/misc/k_constant.dart';
 import 'package:ecohint/screens/crop_data_screen.dart';
 import 'package:ecohint/screens/home_screen.dart';
+import 'package:ecohint/screens/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'injections.dart';
+import 'screens/home_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

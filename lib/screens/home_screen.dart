@@ -2,10 +2,18 @@ import 'package:ecohint/misc/k_constant.dart';
 import 'package:ecohint/injections.dart';
 import 'package:ecohint/screens/bloc/crops/crops_bloc.dart';
 import 'package:ecohint/widgets/crop_listener.dart';
+import 'package:flare_loading/flare_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  bool _isLoading = true;
+
   @override
   Widget build(BuildContext context) {
     BuildContext blocContext;
@@ -71,49 +79,67 @@ class HomeScreen extends StatelessWidget {
             );
           } else {
             return const Scaffold(
-                body: Center(child: CircularProgressIndicator()));
+                body: Center(
+              child: CircularProgressIndicator(),
+            ));
           }
         });
   }
 
   void _showAddCropDialog(BuildContext context) {
-    showDialog(
+    showGeneralDialog(
         context: context,
-        builder: (_) => AlertDialog(
-              title: const Text("Add a new Crop"),
-              content: Form(
-                child: Column(
-                  children: [
-                    TextFormField(
-                        decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.title),
-                          labelText: 'name',
-                        ),
-                        onChanged: (value) => context
-                            .bloc<CropsBloc>()
-                            .add(CropsEvent.nameChanged(value))),
-                    const SizedBox(height: 8),
-                    TextFormField(
-                        keyboardType: TextInputType.text,
-                        decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.description),
-                          labelText: 'Emoji',
-                        ),
-                        onChanged: (value) => context
-                            .bloc<CropsBloc>()
-                            .add(CropsEvent.pictureChanged(value))),
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                FlatButton(
-                  onPressed: () {
-                    context.bloc<CropsBloc>().add(const CropsEvent.createCrop());
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Save me!'),
-                )
-              ],
-            ));
+        pageBuilder: (context, anim1, anim2) {
+          return null;
+        },
+        barrierDismissible: true,
+        barrierColor: Theme.of(context).accentColor.withOpacity(0.4),
+        barrierLabel: '',
+        transitionDuration: const Duration(milliseconds: 200),
+        transitionBuilder: (_, anim1, anim2, child) {
+          final curvedValue = Curves.easeInOutQuad.transform(anim1.value) - 1.0;
+          return Transform(
+              transform: Matrix4.translationValues(0.0, curvedValue * 200, 0.0),
+              child: Opacity(
+                  opacity: anim1.value,
+                  child: AlertDialog(
+                    title: const Text("Add a new Crop"),
+                    content: Form(
+                      child: Column(
+                        children: [
+                          TextFormField(
+                              decoration: const InputDecoration(
+                                prefixIcon: Icon(Icons.title),
+                                labelText: 'name',
+                              ),
+                              onChanged: (value) => context
+                                  .bloc<CropsBloc>()
+                                  .add(CropsEvent.nameChanged(value))),
+                          const SizedBox(height: 8),
+                          TextFormField(
+                              keyboardType: TextInputType.text,
+                              decoration: const InputDecoration(
+                                prefixIcon: Icon(Icons.description),
+                                labelText: 'Emoji',
+                              ),
+                              onChanged: (value) => context
+                                  .bloc<CropsBloc>()
+                                  .add(CropsEvent.pictureChanged(value))),
+                        ],
+                      ),
+                    ),
+                    actions: <Widget>[
+                      FlatButton(
+                        onPressed: () {
+                          context
+                              .bloc<CropsBloc>()
+                              .add(const CropsEvent.createCrop());
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Save me!'),
+                      )
+                    ],
+                  )));
+        });
   }
 }
