@@ -1,6 +1,7 @@
 import 'dart:async';
-
+import 'package:injectable/injectable.dart';
 import 'package:ecohint/core/storage.dart';
+import 'package:ecohint/injections.dart';
 import 'package:ecohint/models/crop.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:bloc/bloc.dart';
