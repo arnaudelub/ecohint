@@ -16,15 +16,25 @@ class _$CropsEventTearOff {
     return const GetCrops();
   }
 
-  CreateCrop createCrop(Crop crop) {
-    return CreateCrop(
-      crop,
-    );
+  CreateCrop createCrop() {
+    return const CreateCrop();
   }
 
   DeleteCrop deleteCrop(Crop crop) {
     return DeleteCrop(
       crop,
+    );
+  }
+
+  NameChanged nameChanged(String name) {
+    return NameChanged(
+      name,
+    );
+  }
+
+  PictureChanged pictureChanged(String picture) {
+    return PictureChanged(
+      picture,
     );
   }
 }
@@ -36,14 +46,18 @@ mixin _$CropsEvent {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result getCrops(),
-    @required Result createCrop(Crop crop),
+    @required Result createCrop(),
     @required Result deleteCrop(Crop crop),
+    @required Result nameChanged(String name),
+    @required Result pictureChanged(String picture),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result getCrops(),
-    Result createCrop(Crop crop),
+    Result createCrop(),
     Result deleteCrop(Crop crop),
+    Result nameChanged(String name),
+    Result pictureChanged(String picture),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -51,12 +65,16 @@ mixin _$CropsEvent {
     @required Result getCrops(GetCrops value),
     @required Result createCrop(CreateCrop value),
     @required Result deleteCrop(DeleteCrop value),
+    @required Result nameChanged(NameChanged value),
+    @required Result pictureChanged(PictureChanged value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result getCrops(GetCrops value),
     Result createCrop(CreateCrop value),
     Result deleteCrop(DeleteCrop value),
+    Result nameChanged(NameChanged value),
+    Result pictureChanged(PictureChanged value),
     @required Result orElse(),
   });
 }
@@ -109,12 +127,16 @@ class _$GetCrops implements GetCrops {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result getCrops(),
-    @required Result createCrop(Crop crop),
+    @required Result createCrop(),
     @required Result deleteCrop(Crop crop),
+    @required Result nameChanged(String name),
+    @required Result pictureChanged(String picture),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
     assert(deleteCrop != null);
+    assert(nameChanged != null);
+    assert(pictureChanged != null);
     return getCrops();
   }
 
@@ -122,8 +144,10 @@ class _$GetCrops implements GetCrops {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result getCrops(),
-    Result createCrop(Crop crop),
+    Result createCrop(),
     Result deleteCrop(Crop crop),
+    Result nameChanged(String name),
+    Result pictureChanged(String picture),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -139,10 +163,14 @@ class _$GetCrops implements GetCrops {
     @required Result getCrops(GetCrops value),
     @required Result createCrop(CreateCrop value),
     @required Result deleteCrop(DeleteCrop value),
+    @required Result nameChanged(NameChanged value),
+    @required Result pictureChanged(PictureChanged value),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
     assert(deleteCrop != null);
+    assert(nameChanged != null);
+    assert(pictureChanged != null);
     return getCrops(this);
   }
 
@@ -152,6 +180,8 @@ class _$GetCrops implements GetCrops {
     Result getCrops(GetCrops value),
     Result createCrop(CreateCrop value),
     Result deleteCrop(DeleteCrop value),
+    Result nameChanged(NameChanged value),
+    Result pictureChanged(PictureChanged value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -170,9 +200,6 @@ abstract class $CreateCropCopyWith<$Res> {
   factory $CreateCropCopyWith(
           CreateCrop value, $Res Function(CreateCrop) then) =
       _$CreateCropCopyWithImpl<$Res>;
-  $Res call({Crop crop});
-
-  $CropCopyWith<$Res> get crop;
 }
 
 class _$CreateCropCopyWithImpl<$Res> extends _$CropsEventCopyWithImpl<$Res>
@@ -182,78 +209,54 @@ class _$CreateCropCopyWithImpl<$Res> extends _$CropsEventCopyWithImpl<$Res>
 
   @override
   CreateCrop get _value => super._value as CreateCrop;
-
-  @override
-  $Res call({
-    Object crop = freezed,
-  }) {
-    return _then(CreateCrop(
-      crop == freezed ? _value.crop : crop as Crop,
-    ));
-  }
-
-  @override
-  $CropCopyWith<$Res> get crop {
-    if (_value.crop == null) {
-      return null;
-    }
-    return $CropCopyWith<$Res>(_value.crop, (value) {
-      return _then(_value.copyWith(crop: value));
-    });
-  }
 }
 
 class _$CreateCrop implements CreateCrop {
-  const _$CreateCrop(this.crop) : assert(crop != null);
-
-  @override
-  final Crop crop;
+  const _$CreateCrop();
 
   @override
   String toString() {
-    return 'CropsEvent.createCrop(crop: $crop)';
+    return 'CropsEvent.createCrop()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is CreateCrop &&
-            (identical(other.crop, crop) ||
-                const DeepCollectionEquality().equals(other.crop, crop)));
+    return identical(this, other) || (other is CreateCrop);
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(crop);
-
-  @override
-  $CreateCropCopyWith<CreateCrop> get copyWith =>
-      _$CreateCropCopyWithImpl<CreateCrop>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result getCrops(),
-    @required Result createCrop(Crop crop),
+    @required Result createCrop(),
     @required Result deleteCrop(Crop crop),
+    @required Result nameChanged(String name),
+    @required Result pictureChanged(String picture),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
     assert(deleteCrop != null);
-    return createCrop(crop);
+    assert(nameChanged != null);
+    assert(pictureChanged != null);
+    return createCrop();
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result getCrops(),
-    Result createCrop(Crop crop),
+    Result createCrop(),
     Result deleteCrop(Crop crop),
+    Result nameChanged(String name),
+    Result pictureChanged(String picture),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (createCrop != null) {
-      return createCrop(crop);
+      return createCrop();
     }
     return orElse();
   }
@@ -264,10 +267,14 @@ class _$CreateCrop implements CreateCrop {
     @required Result getCrops(GetCrops value),
     @required Result createCrop(CreateCrop value),
     @required Result deleteCrop(DeleteCrop value),
+    @required Result nameChanged(NameChanged value),
+    @required Result pictureChanged(PictureChanged value),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
     assert(deleteCrop != null);
+    assert(nameChanged != null);
+    assert(pictureChanged != null);
     return createCrop(this);
   }
 
@@ -277,6 +284,8 @@ class _$CreateCrop implements CreateCrop {
     Result getCrops(GetCrops value),
     Result createCrop(CreateCrop value),
     Result deleteCrop(DeleteCrop value),
+    Result nameChanged(NameChanged value),
+    Result pictureChanged(PictureChanged value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -288,10 +297,7 @@ class _$CreateCrop implements CreateCrop {
 }
 
 abstract class CreateCrop implements CropsEvent {
-  const factory CreateCrop(Crop crop) = _$CreateCrop;
-
-  Crop get crop;
-  $CreateCropCopyWith<CreateCrop> get copyWith;
+  const factory CreateCrop() = _$CreateCrop;
 }
 
 abstract class $DeleteCropCopyWith<$Res> {
@@ -362,12 +368,16 @@ class _$DeleteCrop implements DeleteCrop {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result getCrops(),
-    @required Result createCrop(Crop crop),
+    @required Result createCrop(),
     @required Result deleteCrop(Crop crop),
+    @required Result nameChanged(String name),
+    @required Result pictureChanged(String picture),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
     assert(deleteCrop != null);
+    assert(nameChanged != null);
+    assert(pictureChanged != null);
     return deleteCrop(crop);
   }
 
@@ -375,8 +385,10 @@ class _$DeleteCrop implements DeleteCrop {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result getCrops(),
-    Result createCrop(Crop crop),
+    Result createCrop(),
     Result deleteCrop(Crop crop),
+    Result nameChanged(String name),
+    Result pictureChanged(String picture),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -392,10 +404,14 @@ class _$DeleteCrop implements DeleteCrop {
     @required Result getCrops(GetCrops value),
     @required Result createCrop(CreateCrop value),
     @required Result deleteCrop(DeleteCrop value),
+    @required Result nameChanged(NameChanged value),
+    @required Result pictureChanged(PictureChanged value),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
     assert(deleteCrop != null);
+    assert(nameChanged != null);
+    assert(pictureChanged != null);
     return deleteCrop(this);
   }
 
@@ -405,6 +421,8 @@ class _$DeleteCrop implements DeleteCrop {
     Result getCrops(GetCrops value),
     Result createCrop(CreateCrop value),
     Result deleteCrop(DeleteCrop value),
+    Result nameChanged(NameChanged value),
+    Result pictureChanged(PictureChanged value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -422,17 +440,279 @@ abstract class DeleteCrop implements CropsEvent {
   $DeleteCropCopyWith<DeleteCrop> get copyWith;
 }
 
+abstract class $NameChangedCopyWith<$Res> {
+  factory $NameChangedCopyWith(
+          NameChanged value, $Res Function(NameChanged) then) =
+      _$NameChangedCopyWithImpl<$Res>;
+  $Res call({String name});
+}
+
+class _$NameChangedCopyWithImpl<$Res> extends _$CropsEventCopyWithImpl<$Res>
+    implements $NameChangedCopyWith<$Res> {
+  _$NameChangedCopyWithImpl(
+      NameChanged _value, $Res Function(NameChanged) _then)
+      : super(_value, (v) => _then(v as NameChanged));
+
+  @override
+  NameChanged get _value => super._value as NameChanged;
+
+  @override
+  $Res call({
+    Object name = freezed,
+  }) {
+    return _then(NameChanged(
+      name == freezed ? _value.name : name as String,
+    ));
+  }
+}
+
+class _$NameChanged implements NameChanged {
+  const _$NameChanged(this.name) : assert(name != null);
+
+  @override
+  final String name;
+
+  @override
+  String toString() {
+    return 'CropsEvent.nameChanged(name: $name)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is NameChanged &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(name);
+
+  @override
+  $NameChangedCopyWith<NameChanged> get copyWith =>
+      _$NameChangedCopyWithImpl<NameChanged>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result getCrops(),
+    @required Result createCrop(),
+    @required Result deleteCrop(Crop crop),
+    @required Result nameChanged(String name),
+    @required Result pictureChanged(String picture),
+  }) {
+    assert(getCrops != null);
+    assert(createCrop != null);
+    assert(deleteCrop != null);
+    assert(nameChanged != null);
+    assert(pictureChanged != null);
+    return nameChanged(name);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result getCrops(),
+    Result createCrop(),
+    Result deleteCrop(Crop crop),
+    Result nameChanged(String name),
+    Result pictureChanged(String picture),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (nameChanged != null) {
+      return nameChanged(name);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result getCrops(GetCrops value),
+    @required Result createCrop(CreateCrop value),
+    @required Result deleteCrop(DeleteCrop value),
+    @required Result nameChanged(NameChanged value),
+    @required Result pictureChanged(PictureChanged value),
+  }) {
+    assert(getCrops != null);
+    assert(createCrop != null);
+    assert(deleteCrop != null);
+    assert(nameChanged != null);
+    assert(pictureChanged != null);
+    return nameChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result getCrops(GetCrops value),
+    Result createCrop(CreateCrop value),
+    Result deleteCrop(DeleteCrop value),
+    Result nameChanged(NameChanged value),
+    Result pictureChanged(PictureChanged value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (nameChanged != null) {
+      return nameChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NameChanged implements CropsEvent {
+  const factory NameChanged(String name) = _$NameChanged;
+
+  String get name;
+  $NameChangedCopyWith<NameChanged> get copyWith;
+}
+
+abstract class $PictureChangedCopyWith<$Res> {
+  factory $PictureChangedCopyWith(
+          PictureChanged value, $Res Function(PictureChanged) then) =
+      _$PictureChangedCopyWithImpl<$Res>;
+  $Res call({String picture});
+}
+
+class _$PictureChangedCopyWithImpl<$Res> extends _$CropsEventCopyWithImpl<$Res>
+    implements $PictureChangedCopyWith<$Res> {
+  _$PictureChangedCopyWithImpl(
+      PictureChanged _value, $Res Function(PictureChanged) _then)
+      : super(_value, (v) => _then(v as PictureChanged));
+
+  @override
+  PictureChanged get _value => super._value as PictureChanged;
+
+  @override
+  $Res call({
+    Object picture = freezed,
+  }) {
+    return _then(PictureChanged(
+      picture == freezed ? _value.picture : picture as String,
+    ));
+  }
+}
+
+class _$PictureChanged implements PictureChanged {
+  const _$PictureChanged(this.picture) : assert(picture != null);
+
+  @override
+  final String picture;
+
+  @override
+  String toString() {
+    return 'CropsEvent.pictureChanged(picture: $picture)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is PictureChanged &&
+            (identical(other.picture, picture) ||
+                const DeepCollectionEquality().equals(other.picture, picture)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(picture);
+
+  @override
+  $PictureChangedCopyWith<PictureChanged> get copyWith =>
+      _$PictureChangedCopyWithImpl<PictureChanged>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result getCrops(),
+    @required Result createCrop(),
+    @required Result deleteCrop(Crop crop),
+    @required Result nameChanged(String name),
+    @required Result pictureChanged(String picture),
+  }) {
+    assert(getCrops != null);
+    assert(createCrop != null);
+    assert(deleteCrop != null);
+    assert(nameChanged != null);
+    assert(pictureChanged != null);
+    return pictureChanged(picture);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result getCrops(),
+    Result createCrop(),
+    Result deleteCrop(Crop crop),
+    Result nameChanged(String name),
+    Result pictureChanged(String picture),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (pictureChanged != null) {
+      return pictureChanged(picture);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result getCrops(GetCrops value),
+    @required Result createCrop(CreateCrop value),
+    @required Result deleteCrop(DeleteCrop value),
+    @required Result nameChanged(NameChanged value),
+    @required Result pictureChanged(PictureChanged value),
+  }) {
+    assert(getCrops != null);
+    assert(createCrop != null);
+    assert(deleteCrop != null);
+    assert(nameChanged != null);
+    assert(pictureChanged != null);
+    return pictureChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result getCrops(GetCrops value),
+    Result createCrop(CreateCrop value),
+    Result deleteCrop(DeleteCrop value),
+    Result nameChanged(NameChanged value),
+    Result pictureChanged(PictureChanged value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (pictureChanged != null) {
+      return pictureChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PictureChanged implements CropsEvent {
+  const factory PictureChanged(String picture) = _$PictureChanged;
+
+  String get picture;
+  $PictureChangedCopyWith<PictureChanged> get copyWith;
+}
+
 class _$CropsStateTearOff {
   const _$CropsStateTearOff();
 
   _CropState call(
       {@required bool isLoading,
       @required bool showErrorMessage,
-      @required List<Crop> crops}) {
+      @required List<Crop> crops,
+      @required String cropName,
+      @required String cropPicture}) {
     return _CropState(
       isLoading: isLoading,
       showErrorMessage: showErrorMessage,
       crops: crops,
+      cropName: cropName,
+      cropPicture: cropPicture,
     );
   }
 }
@@ -444,6 +724,8 @@ mixin _$CropsState {
   bool get isLoading;
   bool get showErrorMessage;
   List<Crop> get crops;
+  String get cropName;
+  String get cropPicture;
 
   $CropsStateCopyWith<CropsState> get copyWith;
 }
@@ -452,7 +734,12 @@ abstract class $CropsStateCopyWith<$Res> {
   factory $CropsStateCopyWith(
           CropsState value, $Res Function(CropsState) then) =
       _$CropsStateCopyWithImpl<$Res>;
-  $Res call({bool isLoading, bool showErrorMessage, List<Crop> crops});
+  $Res call(
+      {bool isLoading,
+      bool showErrorMessage,
+      List<Crop> crops,
+      String cropName,
+      String cropPicture});
 }
 
 class _$CropsStateCopyWithImpl<$Res> implements $CropsStateCopyWith<$Res> {
@@ -467,6 +754,8 @@ class _$CropsStateCopyWithImpl<$Res> implements $CropsStateCopyWith<$Res> {
     Object isLoading = freezed,
     Object showErrorMessage = freezed,
     Object crops = freezed,
+    Object cropName = freezed,
+    Object cropPicture = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
@@ -474,6 +763,9 @@ class _$CropsStateCopyWithImpl<$Res> implements $CropsStateCopyWith<$Res> {
           ? _value.showErrorMessage
           : showErrorMessage as bool,
       crops: crops == freezed ? _value.crops : crops as List<Crop>,
+      cropName: cropName == freezed ? _value.cropName : cropName as String,
+      cropPicture:
+          cropPicture == freezed ? _value.cropPicture : cropPicture as String,
     ));
   }
 }
@@ -483,7 +775,12 @@ abstract class _$CropStateCopyWith<$Res> implements $CropsStateCopyWith<$Res> {
           _CropState value, $Res Function(_CropState) then) =
       __$CropStateCopyWithImpl<$Res>;
   @override
-  $Res call({bool isLoading, bool showErrorMessage, List<Crop> crops});
+  $Res call(
+      {bool isLoading,
+      bool showErrorMessage,
+      List<Crop> crops,
+      String cropName,
+      String cropPicture});
 }
 
 class __$CropStateCopyWithImpl<$Res> extends _$CropsStateCopyWithImpl<$Res>
@@ -499,6 +796,8 @@ class __$CropStateCopyWithImpl<$Res> extends _$CropsStateCopyWithImpl<$Res>
     Object isLoading = freezed,
     Object showErrorMessage = freezed,
     Object crops = freezed,
+    Object cropName = freezed,
+    Object cropPicture = freezed,
   }) {
     return _then(_CropState(
       isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
@@ -506,6 +805,9 @@ class __$CropStateCopyWithImpl<$Res> extends _$CropsStateCopyWithImpl<$Res>
           ? _value.showErrorMessage
           : showErrorMessage as bool,
       crops: crops == freezed ? _value.crops : crops as List<Crop>,
+      cropName: cropName == freezed ? _value.cropName : cropName as String,
+      cropPicture:
+          cropPicture == freezed ? _value.cropPicture : cropPicture as String,
     ));
   }
 }
@@ -514,10 +816,14 @@ class _$_CropState implements _CropState {
   const _$_CropState(
       {@required this.isLoading,
       @required this.showErrorMessage,
-      @required this.crops})
+      @required this.crops,
+      @required this.cropName,
+      @required this.cropPicture})
       : assert(isLoading != null),
         assert(showErrorMessage != null),
-        assert(crops != null);
+        assert(crops != null),
+        assert(cropName != null),
+        assert(cropPicture != null);
 
   @override
   final bool isLoading;
@@ -525,10 +831,14 @@ class _$_CropState implements _CropState {
   final bool showErrorMessage;
   @override
   final List<Crop> crops;
+  @override
+  final String cropName;
+  @override
+  final String cropPicture;
 
   @override
   String toString() {
-    return 'CropsState(isLoading: $isLoading, showErrorMessage: $showErrorMessage, crops: $crops)';
+    return 'CropsState(isLoading: $isLoading, showErrorMessage: $showErrorMessage, crops: $crops, cropName: $cropName, cropPicture: $cropPicture)';
   }
 
   @override
@@ -542,7 +852,13 @@ class _$_CropState implements _CropState {
                 const DeepCollectionEquality()
                     .equals(other.showErrorMessage, showErrorMessage)) &&
             (identical(other.crops, crops) ||
-                const DeepCollectionEquality().equals(other.crops, crops)));
+                const DeepCollectionEquality().equals(other.crops, crops)) &&
+            (identical(other.cropName, cropName) ||
+                const DeepCollectionEquality()
+                    .equals(other.cropName, cropName)) &&
+            (identical(other.cropPicture, cropPicture) ||
+                const DeepCollectionEquality()
+                    .equals(other.cropPicture, cropPicture)));
   }
 
   @override
@@ -550,7 +866,9 @@ class _$_CropState implements _CropState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(isLoading) ^
       const DeepCollectionEquality().hash(showErrorMessage) ^
-      const DeepCollectionEquality().hash(crops);
+      const DeepCollectionEquality().hash(crops) ^
+      const DeepCollectionEquality().hash(cropName) ^
+      const DeepCollectionEquality().hash(cropPicture);
 
   @override
   _$CropStateCopyWith<_CropState> get copyWith =>
@@ -561,7 +879,9 @@ abstract class _CropState implements CropsState {
   const factory _CropState(
       {@required bool isLoading,
       @required bool showErrorMessage,
-      @required List<Crop> crops}) = _$_CropState;
+      @required List<Crop> crops,
+      @required String cropName,
+      @required String cropPicture}) = _$_CropState;
 
   @override
   bool get isLoading;
@@ -569,6 +889,10 @@ abstract class _CropState implements CropsState {
   bool get showErrorMessage;
   @override
   List<Crop> get crops;
+  @override
+  String get cropName;
+  @override
+  String get cropPicture;
   @override
   _$CropStateCopyWith<_CropState> get copyWith;
 }

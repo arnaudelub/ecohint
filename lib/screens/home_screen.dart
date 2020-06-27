@@ -1,7 +1,5 @@
-import 'dart:async';
 import 'package:ecohint/injections.dart';
 import 'package:ecohint/screens/bloc/crops/crops_bloc.dart';
-import 'package:ecohint/widgets/crop_card.dart';
 import 'package:ecohint/widgets/crop_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    BuildContext blocContext;
     return FutureBuilder(
         future: getIt.allReady(),
         builder: (context, snapshot) {
@@ -20,14 +19,18 @@ class HomeScreen extends StatelessWidget {
               body: MultiBlocProvider(
                 providers: [
                   BlocProvider(
-                      create: (contexT) =>
+                      create: (context) =>
                           getIt<CropsBloc>()..add(const CropsEvent.getCrops()))
                 ],
-                child: CropListener(),
+                child: BlocBuilder<CropsBloc, CropsState>(
+                    builder: (newContext, state) {
+                  blocContext = newContext;
+                  return CropListener();
+                }),
               ),
               floatingActionButton: FloatingActionButton(
                 clipBehavior: Clip.hardEdge,
-                onPressed: () => _showAddCropDialog(context),
+                onPressed: () => _showAddCropDialog(blocContext),
                 child: const Icon(Icons.add),
               ),
               floatingActionButtonLocation:
@@ -57,28 +60,33 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     TextFormField(
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.title),
-                        labelText: 'name',
-                      ),
-                    ),
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.title),
+                          labelText: 'name',
+                        ),
+                        onChanged: (value) => context
+                            .bloc<CropsBloc>()
+                            .add(CropsEvent.nameChanged(value))),
                     const SizedBox(height: 8),
                     TextFormField(
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.description),
-                        labelText: 'Description',
-                      ),
-                    ),
-                    const SizedBox(height: 8),
+                        keyboardType: TextInputType.text,
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.description),
+                          labelText: 'Emoji',
+                        ),
+                        onChanged: (value) => context
+                            .bloc<CropsBloc>()
+                            .add(CropsEvent.pictureChanged(value))),
                   ],
                 ),
               ),
               actions: <Widget>[
                 FlatButton(
                   onPressed: () {
+                    context.bloc<CropsBloc>().add(CropsEvent.createCrop());
                     Navigator.of(context).pop();
                   },
-                  child: const Text('Close me!'),
+                  child: const Text('Save me!'),
                 )
               ],
             ));
