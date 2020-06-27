@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:ecohint/models/crop.dart';
+import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class IStorage {
@@ -10,6 +11,7 @@ abstract class IStorage {
   Future<void> removeCrop(String key);
 }
 
+@LazySingleton(as: IStorage)
 class Storage implements IStorage {
   final SharedPreferences _storage;
 
