@@ -33,6 +33,7 @@ dependencies:
   get_it: ^4.0.2
   freezed_annotation:
   json_annotation:
+  flutter_bloc: ^4.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

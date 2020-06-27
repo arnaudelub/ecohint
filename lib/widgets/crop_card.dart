@@ -1,20 +1,16 @@
 import 'dart:io';
 import 'package:ecohint/misc/kConstant.dart';
 import 'package:ecohint/screens/crop_data_screen.dart';
+import 'package:ecohint/models/crop.dart';
 import 'package:ecohint/widgets/crop_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
-class CropCard extends StatefulWidget {
-  final int index;
+class CropCard extends StatelessWidget {
+  final Crop crop;
 
-  const CropCard(this.index);
+  const CropCard(this.crop);
 
-  @override
-  _CropCardState createState() => _CropCardState();
-}
-
-class _CropCardState extends State<CropCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(

@@ -7,13 +7,15 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ecohint/core/storage_injectable.dart';
 import 'package:ecohint/core/storage.dart';
+import 'package:ecohint/screens/bloc/crops/crops_bloc.dart';
 import 'package:get_it/get_it.dart';
 
-void $initGetIt(GetIt g, {String environment}) {
+Future<void> $initGetIt(GetIt g, {String environment}) async {
   final storageInjectableModule = _$StorageInjectableModule();
-  g.registerLazySingletonAsync<SharedPreferences>(
-      () => storageInjectableModule.storage);
+  final sharedPreferences = await storageInjectableModule.storage;
+  g.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
   g.registerLazySingleton<IStorage>(() => Storage(g<SharedPreferences>()));
+  g.registerFactory<CropsBloc>(() => CropsBloc(g<IStorage>()));
 }
 
 class _$StorageInjectableModule extends StorageInjectableModule {}
