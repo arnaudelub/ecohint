@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'injections.dart';
 import 'screens/home_screen.dart';
+import 'screens/home_screen.dart';
+import 'screens/home_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,9 +15,26 @@ Future<void> main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool _isLoading = true;
+
+  void doneLoading(int loadTime) {
+    Future.delayed(Duration(seconds: loadTime), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+      const int loadTime = 2;
+            doneLoading(loadTime);
     return MaterialApp(
       title: 'EcoHint',
       debugShowCheckedModeBanner: false,
@@ -26,7 +45,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Poppins',
         accentColor: Colors.green,
       ),
-      home: HomeScreen(),
+      home: _isLoading ? const Loader(loadTime: Duration(seconds: 2)) : HomeScreen(),
       routes: {
         CropDataScreen.routeName: (BuildContext ctx) => CropDataScreen(),
       },
