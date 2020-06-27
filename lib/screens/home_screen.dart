@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     icon: const Icon(Icons.menu),
                     elevation: 12,
                     itemBuilder: (BuildContext context) {
-                      return {'remove crops'}
+                      return {'Remove crops'}
                           .map((choice) => PopupMenuItem(
                                 value: choice,
                                 child: Text(choice),
