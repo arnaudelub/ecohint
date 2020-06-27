@@ -10,8 +10,6 @@ class CropListener extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: For purpose of front testing
-    Crop crop = Crop(
-        name: "Lilies", cropStartDate: DateTime.now(), picture: "", timer: 10);
 
     return BlocBuilder<CropsBloc, CropsState>(builder: (context, state) {
       return LayoutBuilder(
@@ -26,9 +24,9 @@ class CropListener extends StatelessWidget {
               ),
               itemBuilder: (BuildContext context, int index) {
                 //return CropCard(state.crops[index]);
-                return CropCard(crop);
+                return CropCard(state.crops[index]);
               },
-              itemCount: 30,
+              itemCount: state.crops.length,
             );
           } else {
             return Container(
@@ -51,9 +49,9 @@ class CropListener extends StatelessWidget {
                           itemBuilder: (BuildContext context, int index) {
                             // See line 12.
                             //return CropCard(state.crops[index]);
-                            return CropCard(crop);
+                            return CropCard(state.crops[index]);
                           },
-                          itemCount: 30,
+                          itemCount: state.crops.length,
                         ),
                       )
                     ],

@@ -36,12 +36,12 @@ class CropCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                "🌷",
+                crop.picture,
                 style: TextStyle(fontSize: 70.0),
               ),
               FittedBox(
                   child: Text(
-                "Lilies",
+                crop.name,
                 style: TextStyle(
                     fontSize: 25,
                     fontFamily: "Poppins",
