@@ -10,10 +10,10 @@ import 'injections.dart';
 import 'screens/home_screen.dart';
 
 Future<void> main() async {
-  final cropTimerService = CropTimerService();
   WidgetsFlutterBinding.ensureInitialized();
   await configureInjection(Environment.dev);
-
+  final cropTimerService = CropTimerService();
+  print(cropTimerService);
   runApp(CropTimerProvider(service: cropTimerService, child: MyApp()));
 }
 

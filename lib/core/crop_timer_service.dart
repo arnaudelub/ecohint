@@ -56,8 +56,8 @@ class CropTimerService extends ChangeNotifier {
   }
 
   static CropTimerService of(BuildContext context) {
-    var provider = context.dependOnInheritedWidgetOfExactType(
-        aspect: CropTimerProvider) as CropTimerProvider;
+    var provider = context.inheritFromWidgetOfExactType(CropTimerProvider)
+        as CropTimerProvider;
     return provider.service;
   }
 }
