@@ -5,6 +5,7 @@ import 'package:ecohint/models/crop.dart';
 import 'package:ecohint/screens/bloc/crops/crops_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ecohint/core/string_extensions.dart';
 
 class TimerControllerWidget extends StatefulWidget {
   final Crop crop;
@@ -26,24 +27,28 @@ class _TimerControllerWidgetState extends State<TimerControllerWidget> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(widget.crop.name),
+          Text("${widget.crop.picture} (${widget.crop.name.toUCFirst()})",
+              style: TextStyle(
+                  fontSize: 22,
+                  letterSpacing: 0.21,
+                  fontWeight: FontWeight.w600)),
           Expanded(
               child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             mainAxisSize: MainAxisSize.max,
             children: [
               IconButton(
-                  icon: Icon(Icons.play_arrow),
+                  icon: Icon(Icons.play_arrow, size: 32),
                   onPressed: widget.timerService.isRunning(widget.index)
                       ? null
                       : () => start(widget.index)),
               IconButton(
-                  icon: Icon(Icons.stop),
+                  icon: Icon(Icons.stop, size: 32),
                   onPressed: !widget.timerService.isRunning(widget.index)
                       ? null
                       : () => stop(widget.index)),
               IconButton(
-                  icon: Icon(Icons.refresh),
+                  icon: Icon(Icons.refresh, size: 32),
                   onPressed: !widget.timerService.isRunning(widget.index)
                       ? null
                       : () => restart(widget.index)),
@@ -63,7 +68,8 @@ class _TimerControllerWidgetState extends State<TimerControllerWidget> {
 
   void start(int index) {
     widget.timerService.start(index);
-    getIt<IStorage>().storeTimer(widget.crop, widget.crop.timer);
+    getIt<IStorage>().storeTimer(widget.crop,
+        widget.crop.timer == 0 ? widget.crop.originalTimer : widget.crop.timer);
     context.bloc<CropsBloc>().add(CropsEvent.timerChanged(widget.crop.timer));
     setState(() {});
   }

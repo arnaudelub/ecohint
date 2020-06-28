@@ -9,7 +9,7 @@ import 'package:ecohint/models/crop.dart';
 import 'package:ecohint/widgets/crop_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-
+import 'package:ecohint/core/string_extensions.dart';
 import '../screens/crop_data_screen.dart';
 
 class CropCard extends StatefulWidget {
@@ -30,7 +30,6 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    print(widget.crop);
     timerCounter = 0;
     _controller = AnimationController(
       vsync: this,
@@ -107,7 +106,7 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
                 ),
                 FittedBox(
                     child: Text(
-                  widget.crop.name,
+                  widget.crop.name.toUCFirst(),
                   style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w300,
