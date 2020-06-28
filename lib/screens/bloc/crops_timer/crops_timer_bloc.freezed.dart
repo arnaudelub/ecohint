@@ -29,25 +29,32 @@ class _$CropsTimerEventTearOff {
       timerService,
     );
   }
+
+  TickReceived tickReceived(int timer, Crop crop) {
+    return TickReceived(
+      timer,
+      crop,
+    );
+  }
 }
 
 // ignore: unused_element
 const $CropsTimerEvent = _$CropsTimerEventTearOff();
 
 mixin _$CropsTimerEvent {
-  CropTimerService get timerService;
-
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result timerStarted(CropTimerService timerService),
     @required Result timerStopped(CropTimerService timerService),
     @required Result timerRestarted(CropTimerService timerService),
+    @required Result tickReceived(int timer, Crop crop),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result timerStarted(CropTimerService timerService),
     Result timerStopped(CropTimerService timerService),
     Result timerRestarted(CropTimerService timerService),
+    Result tickReceived(int timer, Crop crop),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -55,23 +62,22 @@ mixin _$CropsTimerEvent {
     @required Result timerStarted(TimerStarted value),
     @required Result timerStopped(TimerStopped value),
     @required Result timerRestarted(TimerRestarted value),
+    @required Result tickReceived(TickReceived value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result timerStarted(TimerStarted value),
     Result timerStopped(TimerStopped value),
     Result timerRestarted(TimerRestarted value),
+    Result tickReceived(TickReceived value),
     @required Result orElse(),
   });
-
-  $CropsTimerEventCopyWith<CropsTimerEvent> get copyWith;
 }
 
 abstract class $CropsTimerEventCopyWith<$Res> {
   factory $CropsTimerEventCopyWith(
           CropsTimerEvent value, $Res Function(CropsTimerEvent) then) =
       _$CropsTimerEventCopyWithImpl<$Res>;
-  $Res call({CropTimerService timerService});
 }
 
 class _$CropsTimerEventCopyWithImpl<$Res>
@@ -81,25 +87,12 @@ class _$CropsTimerEventCopyWithImpl<$Res>
   final CropsTimerEvent _value;
   // ignore: unused_field
   final $Res Function(CropsTimerEvent) _then;
-
-  @override
-  $Res call({
-    Object timerService = freezed,
-  }) {
-    return _then(_value.copyWith(
-      timerService: timerService == freezed
-          ? _value.timerService
-          : timerService as CropTimerService,
-    ));
-  }
 }
 
-abstract class $TimerStartedCopyWith<$Res>
-    implements $CropsTimerEventCopyWith<$Res> {
+abstract class $TimerStartedCopyWith<$Res> {
   factory $TimerStartedCopyWith(
           TimerStarted value, $Res Function(TimerStarted) then) =
       _$TimerStartedCopyWithImpl<$Res>;
-  @override
   $Res call({CropTimerService timerService});
 }
 
@@ -159,10 +152,12 @@ class _$TimerStarted implements TimerStarted {
     @required Result timerStarted(CropTimerService timerService),
     @required Result timerStopped(CropTimerService timerService),
     @required Result timerRestarted(CropTimerService timerService),
+    @required Result tickReceived(int timer, Crop crop),
   }) {
     assert(timerStarted != null);
     assert(timerStopped != null);
     assert(timerRestarted != null);
+    assert(tickReceived != null);
     return timerStarted(timerService);
   }
 
@@ -172,6 +167,7 @@ class _$TimerStarted implements TimerStarted {
     Result timerStarted(CropTimerService timerService),
     Result timerStopped(CropTimerService timerService),
     Result timerRestarted(CropTimerService timerService),
+    Result tickReceived(int timer, Crop crop),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -187,10 +183,12 @@ class _$TimerStarted implements TimerStarted {
     @required Result timerStarted(TimerStarted value),
     @required Result timerStopped(TimerStopped value),
     @required Result timerRestarted(TimerRestarted value),
+    @required Result tickReceived(TickReceived value),
   }) {
     assert(timerStarted != null);
     assert(timerStopped != null);
     assert(timerRestarted != null);
+    assert(tickReceived != null);
     return timerStarted(this);
   }
 
@@ -200,6 +198,7 @@ class _$TimerStarted implements TimerStarted {
     Result timerStarted(TimerStarted value),
     Result timerStopped(TimerStopped value),
     Result timerRestarted(TimerRestarted value),
+    Result tickReceived(TickReceived value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -213,18 +212,14 @@ class _$TimerStarted implements TimerStarted {
 abstract class TimerStarted implements CropsTimerEvent {
   const factory TimerStarted(CropTimerService timerService) = _$TimerStarted;
 
-  @override
   CropTimerService get timerService;
-  @override
   $TimerStartedCopyWith<TimerStarted> get copyWith;
 }
 
-abstract class $TimerStoppedCopyWith<$Res>
-    implements $CropsTimerEventCopyWith<$Res> {
+abstract class $TimerStoppedCopyWith<$Res> {
   factory $TimerStoppedCopyWith(
           TimerStopped value, $Res Function(TimerStopped) then) =
       _$TimerStoppedCopyWithImpl<$Res>;
-  @override
   $Res call({CropTimerService timerService});
 }
 
@@ -284,10 +279,12 @@ class _$TimerStopped implements TimerStopped {
     @required Result timerStarted(CropTimerService timerService),
     @required Result timerStopped(CropTimerService timerService),
     @required Result timerRestarted(CropTimerService timerService),
+    @required Result tickReceived(int timer, Crop crop),
   }) {
     assert(timerStarted != null);
     assert(timerStopped != null);
     assert(timerRestarted != null);
+    assert(tickReceived != null);
     return timerStopped(timerService);
   }
 
@@ -297,6 +294,7 @@ class _$TimerStopped implements TimerStopped {
     Result timerStarted(CropTimerService timerService),
     Result timerStopped(CropTimerService timerService),
     Result timerRestarted(CropTimerService timerService),
+    Result tickReceived(int timer, Crop crop),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -312,10 +310,12 @@ class _$TimerStopped implements TimerStopped {
     @required Result timerStarted(TimerStarted value),
     @required Result timerStopped(TimerStopped value),
     @required Result timerRestarted(TimerRestarted value),
+    @required Result tickReceived(TickReceived value),
   }) {
     assert(timerStarted != null);
     assert(timerStopped != null);
     assert(timerRestarted != null);
+    assert(tickReceived != null);
     return timerStopped(this);
   }
 
@@ -325,6 +325,7 @@ class _$TimerStopped implements TimerStopped {
     Result timerStarted(TimerStarted value),
     Result timerStopped(TimerStopped value),
     Result timerRestarted(TimerRestarted value),
+    Result tickReceived(TickReceived value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -338,18 +339,14 @@ class _$TimerStopped implements TimerStopped {
 abstract class TimerStopped implements CropsTimerEvent {
   const factory TimerStopped(CropTimerService timerService) = _$TimerStopped;
 
-  @override
   CropTimerService get timerService;
-  @override
   $TimerStoppedCopyWith<TimerStopped> get copyWith;
 }
 
-abstract class $TimerRestartedCopyWith<$Res>
-    implements $CropsTimerEventCopyWith<$Res> {
+abstract class $TimerRestartedCopyWith<$Res> {
   factory $TimerRestartedCopyWith(
           TimerRestarted value, $Res Function(TimerRestarted) then) =
       _$TimerRestartedCopyWithImpl<$Res>;
-  @override
   $Res call({CropTimerService timerService});
 }
 
@@ -409,10 +406,12 @@ class _$TimerRestarted implements TimerRestarted {
     @required Result timerStarted(CropTimerService timerService),
     @required Result timerStopped(CropTimerService timerService),
     @required Result timerRestarted(CropTimerService timerService),
+    @required Result tickReceived(int timer, Crop crop),
   }) {
     assert(timerStarted != null);
     assert(timerStopped != null);
     assert(timerRestarted != null);
+    assert(tickReceived != null);
     return timerRestarted(timerService);
   }
 
@@ -422,6 +421,7 @@ class _$TimerRestarted implements TimerRestarted {
     Result timerStarted(CropTimerService timerService),
     Result timerStopped(CropTimerService timerService),
     Result timerRestarted(CropTimerService timerService),
+    Result tickReceived(int timer, Crop crop),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -437,10 +437,12 @@ class _$TimerRestarted implements TimerRestarted {
     @required Result timerStarted(TimerStarted value),
     @required Result timerStopped(TimerStopped value),
     @required Result timerRestarted(TimerRestarted value),
+    @required Result tickReceived(TickReceived value),
   }) {
     assert(timerStarted != null);
     assert(timerStopped != null);
     assert(timerRestarted != null);
+    assert(tickReceived != null);
     return timerRestarted(this);
   }
 
@@ -450,6 +452,7 @@ class _$TimerRestarted implements TimerRestarted {
     Result timerStarted(TimerStarted value),
     Result timerStopped(TimerStopped value),
     Result timerRestarted(TimerRestarted value),
+    Result tickReceived(TickReceived value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -464,10 +467,155 @@ abstract class TimerRestarted implements CropsTimerEvent {
   const factory TimerRestarted(CropTimerService timerService) =
       _$TimerRestarted;
 
-  @override
   CropTimerService get timerService;
-  @override
   $TimerRestartedCopyWith<TimerRestarted> get copyWith;
+}
+
+abstract class $TickReceivedCopyWith<$Res> {
+  factory $TickReceivedCopyWith(
+          TickReceived value, $Res Function(TickReceived) then) =
+      _$TickReceivedCopyWithImpl<$Res>;
+  $Res call({int timer, Crop crop});
+
+  $CropCopyWith<$Res> get crop;
+}
+
+class _$TickReceivedCopyWithImpl<$Res>
+    extends _$CropsTimerEventCopyWithImpl<$Res>
+    implements $TickReceivedCopyWith<$Res> {
+  _$TickReceivedCopyWithImpl(
+      TickReceived _value, $Res Function(TickReceived) _then)
+      : super(_value, (v) => _then(v as TickReceived));
+
+  @override
+  TickReceived get _value => super._value as TickReceived;
+
+  @override
+  $Res call({
+    Object timer = freezed,
+    Object crop = freezed,
+  }) {
+    return _then(TickReceived(
+      timer == freezed ? _value.timer : timer as int,
+      crop == freezed ? _value.crop : crop as Crop,
+    ));
+  }
+
+  @override
+  $CropCopyWith<$Res> get crop {
+    if (_value.crop == null) {
+      return null;
+    }
+    return $CropCopyWith<$Res>(_value.crop, (value) {
+      return _then(_value.copyWith(crop: value));
+    });
+  }
+}
+
+class _$TickReceived implements TickReceived {
+  const _$TickReceived(this.timer, this.crop)
+      : assert(timer != null),
+        assert(crop != null);
+
+  @override
+  final int timer;
+  @override
+  final Crop crop;
+
+  @override
+  String toString() {
+    return 'CropsTimerEvent.tickReceived(timer: $timer, crop: $crop)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is TickReceived &&
+            (identical(other.timer, timer) ||
+                const DeepCollectionEquality().equals(other.timer, timer)) &&
+            (identical(other.crop, crop) ||
+                const DeepCollectionEquality().equals(other.crop, crop)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(timer) ^
+      const DeepCollectionEquality().hash(crop);
+
+  @override
+  $TickReceivedCopyWith<TickReceived> get copyWith =>
+      _$TickReceivedCopyWithImpl<TickReceived>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result timerStarted(CropTimerService timerService),
+    @required Result timerStopped(CropTimerService timerService),
+    @required Result timerRestarted(CropTimerService timerService),
+    @required Result tickReceived(int timer, Crop crop),
+  }) {
+    assert(timerStarted != null);
+    assert(timerStopped != null);
+    assert(timerRestarted != null);
+    assert(tickReceived != null);
+    return tickReceived(timer, crop);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result timerStarted(CropTimerService timerService),
+    Result timerStopped(CropTimerService timerService),
+    Result timerRestarted(CropTimerService timerService),
+    Result tickReceived(int timer, Crop crop),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (tickReceived != null) {
+      return tickReceived(timer, crop);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result timerStarted(TimerStarted value),
+    @required Result timerStopped(TimerStopped value),
+    @required Result timerRestarted(TimerRestarted value),
+    @required Result tickReceived(TickReceived value),
+  }) {
+    assert(timerStarted != null);
+    assert(timerStopped != null);
+    assert(timerRestarted != null);
+    assert(tickReceived != null);
+    return tickReceived(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result timerStarted(TimerStarted value),
+    Result timerStopped(TimerStopped value),
+    Result timerRestarted(TimerRestarted value),
+    Result tickReceived(TickReceived value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (tickReceived != null) {
+      return tickReceived(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class TickReceived implements CropsTimerEvent {
+  const factory TickReceived(int timer, Crop crop) = _$TickReceived;
+
+  int get timer;
+  Crop get crop;
+  $TickReceivedCopyWith<TickReceived> get copyWith;
 }
 
 class _$CropsTimerStateTearOff {

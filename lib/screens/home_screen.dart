@@ -1,6 +1,7 @@
 import 'package:ecohint/misc/k_constant.dart';
 import 'package:ecohint/injections.dart';
 import 'package:ecohint/screens/bloc/crops/crops_bloc.dart';
+import 'package:ecohint/screens/bloc/crops_timer/crops_timer_bloc.dart';
 import 'package:ecohint/screens/posts_screen.dart';
 import 'package:ecohint/widgets/crop_listener.dart';
 import 'package:ecohint/widgets/item_selector_dropdown.dart';
@@ -25,7 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
       providers: [
         BlocProvider(
             create: (context) =>
-                getIt<CropsBloc>()..add(const CropsEvent.getCrops()))
+                getIt<CropsBloc>()..add(const CropsEvent.getCrops())),
+        BlocProvider(create: (context) => getIt<CropsTimerBloc>()),
       ],
       child: BlocBuilder<CropsBloc, CropsState>(builder: (newContext, state) {
         blocContext = newContext;
@@ -198,8 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   final timer =
                                       Duration(hours: int.parse(value));
                                   context.bloc<CropsBloc>().add(
-                                      CropsEvent.timerChanged(
-                                          timer.inMilliseconds));
+                                      CropsEvent.timerChanged(timer.inSeconds));
                                 }),
                           ],
                         ),

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:ecohint/core/crop_timer_service.dart';
+import 'package:ecohint/core/storage.dart';
 import 'package:ecohint/injections.dart';
 import 'package:ecohint/screens/bloc/crops/crops_bloc.dart';
 import 'package:ecohint/screens/bloc/crops_timer/crops_timer_bloc.dart';
@@ -27,9 +28,12 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
   double _scale;
   AnimationController _controller;
   CropTimerService timerService;
+  int timerCounter;
   @override
   void initState() {
     super.initState();
+    print(widget.crop);
+    timerCounter = 0;
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 100),
@@ -37,6 +41,17 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
     )..addListener(() {
         setState(() {});
       });
+    timerService = getIt<CropTimerService>();
+    timerService.setIndex(widget.cropIndex);
+    timerService.start();
+    timerService.addListener(_onTick);
+  }
+
+  void _onTick() {
+    timerCounter += 1;
+    getIt<IStorage>().storeTimer(widget.crop, widget.crop.timer - timerCounter);
+    //context.bloc<CropsTimerBloc>().add(
+    //    CropsTimerEvent.tickReceived(widget.crop.timer - 1000, widget.crop));
   }
 
   @override
@@ -49,9 +64,6 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     _scale = 1 - _controller.value;
-    final timerServce = CropTimerService.of(context);
-    timerServce.setIndex(widget.cropIndex);
-    timerServce.start();
     return BlocProvider(
       create: (context) => getIt<CropsTimerBloc>(),
       child: BlocListener<CropsTimerBloc, CropsTimerState>(

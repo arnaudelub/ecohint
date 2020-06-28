@@ -13,7 +13,7 @@ class CropTimer extends StatelessWidget {
       child: FittedBox(
           child: SlideCountdownClock(
         textStyle: const TextStyle(color: Colors.white, fontSize: 24.0),
-        duration: Duration(milliseconds: crop.timer),
+        duration: Duration(seconds: crop.timer),
         separator: ':',
         shouldShowDays: true,
       )),

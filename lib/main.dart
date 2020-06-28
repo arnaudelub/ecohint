@@ -12,8 +12,7 @@ import 'screens/home_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureInjection(Environment.dev);
-  final cropTimerService = CropTimerService();
-  print(cropTimerService);
+  final cropTimerService = getIt<CropTimerService>();
   runApp(CropTimerProvider(service: cropTimerService, child: MyApp()));
 }
 

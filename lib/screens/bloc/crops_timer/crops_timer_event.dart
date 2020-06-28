@@ -8,4 +8,6 @@ abstract class CropsTimerEvent with _$CropsTimerEvent {
       TimerStopped;
   const factory CropsTimerEvent.timerRestarted(CropTimerService timerService) =
       TimerRestarted;
+  const factory CropsTimerEvent.tickReceived(int timer, Crop crop) =
+      TickReceived;
 }

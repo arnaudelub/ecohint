@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:ecohint/core/crop_timer_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class CropTimerService extends ChangeNotifier {
   Stopwatch _watch;
   List<Timer> _timers = List();
@@ -13,7 +15,6 @@ class CropTimerService extends ChangeNotifier {
   bool get isRunning => _timers[index] != null;
 
   CropTimerService() {
-    print("Starting StopWatch");
     _watch = Stopwatch();
   }
 
@@ -25,7 +26,6 @@ class CropTimerService extends ChangeNotifier {
   }
 
   void start() {
-    print("Starting timer at index $index");
     try {
       if (_timers[index] != null) return;
 
