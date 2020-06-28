@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class CropTimerService extends ChangeNotifier {
   Stopwatch _watch;
-  List<Timer> _timers;
+  List<Timer> _timers = List();
   int index;
 
   Duration get currentDuration => _currentDuration;
@@ -12,7 +12,8 @@ class CropTimerService extends ChangeNotifier {
 
   bool get isRunning => _timers[index] != null;
 
-  TimerService() {
+  CropTimerService() {
+    print("Starting StopWatch");
     _watch = Stopwatch();
   }
 
@@ -25,18 +26,26 @@ class CropTimerService extends ChangeNotifier {
 
   void start() {
     print("Starting timer at index $index");
-    if (_timers[index] != null) return;
+    try {
+      if (_timers[index] != null) return;
 
-    _timers[index] = Timer.periodic(Duration(seconds: 1), _onTick);
-    _watch.start();
+      _timers.add(Timer.periodic(Duration(seconds: 1), _onTick));
+      _watch.start();
 
-    notifyListeners();
+      notifyListeners();
+    } catch (_) {
+      _timers.add(Timer.periodic(Duration(seconds: 1), _onTick));
+      _watch.start();
+
+      notifyListeners();
+    }
   }
 
   void stop() {
     Timer _timer = _timers[index];
     _timer?.cancel();
     _timer = null;
+    _timers.removeAt(index);
     _watch.stop();
     _currentDuration = _watch.elapsed;
 
@@ -52,7 +61,8 @@ class CropTimerService extends ChangeNotifier {
   }
 
   void setIndex(int index) {
-    index = index;
+    print("Setting index $index");
+    this.index = index;
   }
 
   static CropTimerService of(BuildContext context) {

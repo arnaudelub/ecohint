@@ -51,6 +51,7 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
     _scale = 1 - _controller.value;
     final timerServce = CropTimerService.of(context);
     timerServce.setIndex(widget.cropIndex);
+    timerServce.start();
     return BlocProvider(
       create: (context) => getIt<CropsTimerBloc>(),
       child: BlocListener<CropsTimerBloc, CropsTimerState>(
