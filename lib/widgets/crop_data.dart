@@ -1,18 +1,37 @@
+import 'package:ecohint/models/crop.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 class CropData extends StatefulWidget {
-  static const routeName = "/cropdata";
+  final Crop crop;
+
+  const CropData({Key key, this.crop}) : super(key: key);
 
   @override
   _CropDataState createState() => _CropDataState();
 }
 
 class _CropDataState extends State<CropData> {
+  final _webViewPlugin = FlutterWebviewPlugin();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // on pressing back button, exiting the screen instead of showing loading symbol
+    _webViewPlugin.onDestroy.listen((_) {
+      if (Navigator.canPop(context)) {
+        // exiting the screen
+        Navigator.of(context).pop();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        children: const [
+        children: [
           Padding(
             padding: EdgeInsets.symmetric(vertical: 20.0),
             child: FittedBox(
@@ -21,6 +40,19 @@ class _CropDataState extends State<CropData> {
                       color: Colors.white,
                       decoration: TextDecoration.underline,
                       fontSize: 34)),
+            ),
+          ),
+          Flexible(
+            child: WillPopScope(
+              onWillPop: () => _webViewPlugin.close(),
+              child: WebviewScaffold(
+                url:
+                    "http://www.gardenology.org/wiki/${widget.crop.picture.split('_')[1]}",
+                withZoom: false,
+                withLocalStorage: true,
+                withJavascript: true,
+                appCacheEnabled: true,
+              ),
             ),
           ),
         ],

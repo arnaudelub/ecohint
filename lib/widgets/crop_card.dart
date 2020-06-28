@@ -1,18 +1,16 @@
-import 'dart:io';
-
+import 'package:auto_route/auto_route.dart';
 import 'package:ecohint/core/crop_timer_service.dart';
 import 'package:ecohint/core/storage.dart';
 import 'package:ecohint/injections.dart';
+import 'package:ecohint/routes/router.gr.dart';
 import 'package:ecohint/screens/bloc/crops/crops_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ecohint/misc/k_constant.dart';
-import 'package:ecohint/screens/crop_data_screen.dart';
 import 'package:ecohint/models/crop.dart';
 import 'package:ecohint/widgets/crop_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:ecohint/core/string_extensions.dart';
-import '../screens/crop_data_screen.dart';
 
 class CropCard extends StatefulWidget {
   final Crop crop;
@@ -56,8 +54,6 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
     } else {
       timerService.removeListener(_onTick);
     }
-    //context.bloc<CropsTimerBloc>().add(
-    //    CropsTimerEvent.tickReceived(widget.crop.timer - 1000, widget.crop));
   }
 
   @override
@@ -77,7 +73,8 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
           _controller.forward().whenComplete(() {
             _controller.reverse();
             if (!kIsWeb) {
-              Navigator.of(context).pushNamed(CropDataScreen.routeName);
+              ExtendedNavigator.of(context).pushNamed(Routes.cropDataScreen,
+                  arguments: CropDataScreenArguments(crop: crop));
             } else if (kIsWeb) {
               //TODO: afficher les infos
               //Navigator.of(context).pushNamed(CropDataScreen.routeName);
@@ -109,7 +106,7 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      crop.picture,
+                      crop.picture.split("_")[0],
                       style: const TextStyle(fontSize: 40.0),
                     ),
                     FittedBox(
@@ -164,7 +161,7 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
                 textAlign: TextAlign.center,
               ),
               content: Text(
-                "Are you sure you want to remove this crop: ${crop.name} ${crop.picture}?",
+                "Are you sure you want to remove this crop: ${crop.name} ${crop.picture.split('_')[0]}?",
                 textAlign: TextAlign.center,
               ),
               actions: [

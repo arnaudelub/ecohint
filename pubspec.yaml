@@ -40,6 +40,8 @@ dependencies:
   webview_flutter: ^0.3.22+1
   frefresh: ^1.1.0
   animated_card: ^1.0.0+8
+  flutter_webview_plugin: ^0.3.11
+  auto_route: ^0.5.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -48,15 +50,16 @@ dev_dependencies:
   freezed:
   json_serializable:
   flutter_launcher_icons: "^0.7.3"
+  auto_route_generator: ^0.5.0
 
 flutter_icons:
-  android: true 
+  android: true
   ios: true
   image_path_android: "assets/images/launcher_icons/launcher_icon.png"
   image_path_ios: "assets/images/launcher_icons/launcher_icon.png"
   adaptive_icon_background: "assets/images/launcher_icons/adaptive_icon_background.png"
   adaptive_icon_foreground: "assets/images/launcher_icons/adaptive_icon_foreground.png"
-  
+
   # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

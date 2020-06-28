@@ -41,7 +41,7 @@ class _TimerControllerWidgetState extends State<TimerControllerWidget> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("${crop.picture} (${crop.name.toUCFirst()})",
+          Text("${crop.picture.split('_')[0]} (${crop.name.toUCFirst()})",
               style: TextStyle(
                   fontSize: 22,
                   letterSpacing: 0.21,

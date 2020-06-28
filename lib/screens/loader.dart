@@ -1,12 +1,10 @@
 import 'dart:math';
 
+import 'package:auto_route/auto_route.dart';
+import 'package:ecohint/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 
 class Loader extends StatefulWidget {
-  final Duration loadTime;
-
-  const Loader({this.loadTime});
-
   @override
   _LoaderState createState() => _LoaderState();
 }
@@ -66,9 +64,9 @@ class _LoaderState extends State<Loader> with SingleTickerProviderStateMixin {
 
     controller.repeat();
 
-    /*Future.delayed(widget.loadTime - const Duration(milliseconds: 500), () {
-      controller.dispose();
-    });*/
+    Future.delayed(const Duration(milliseconds: 1500), () {
+      ExtendedNavigator.of(context).pushReplacementNamed(Routes.homeScreen);
+    });
   }
 
   @override

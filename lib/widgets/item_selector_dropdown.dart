@@ -11,7 +11,7 @@ class ItemSelectorDropDown extends StatefulWidget {
 }
 
 class _ItemSelectorDropDownState extends State<ItemSelectorDropDown> {
-  String dropdownValue = '🍈';
+  String dropdownValue = '🍈_melon';
 
   @override
   void initState() {
@@ -43,39 +43,38 @@ class _ItemSelectorDropDownState extends State<ItemSelectorDropDown> {
               .add(CropsEvent.pictureChanged(selected));
         },
         items: <String>[
-          '🍈',
-          '🍇',
-          '🍉',
-          '🍊',
-          '🍋',
-          '🍌',
-          '🍍',
-          '🥭',
-          '🍎',
-          '🍏',
-          '🍐',
-          '🍑',
-          '🍒',
-          '🍓',
-          '🥝',
-          '🍅',
-          '🥑',
-          '🍆',
-          '🥔',
-          '🥕',
-          '🌽',
-          '🌶',
-          '🥒',
-          '🥬',
-          '🥦',
-          '🧄',
-          '🧅',
-          '🍄',
+          '🍈_melon',
+          '🍇_grape',
+          '🍉_watermelon',
+          '🍊_tangerine',
+          '🍋_lemon',
+          '🍌_banana',
+          '🍍_pineapple',
+          '🥭_mango',
+          '🍎_apple',
+          '🍏_apple',
+          '🍐_pear',
+          '🍑_peach',
+          '🍒_cherry',
+          '🍓_strawberry',
+          '🥝_kiwi',
+          '🍅_tomato',
+          '🥑_avocado',
+          '🍆_eggplant',
+          '🥔_potato',
+          '🥕_carrot',
+          '🌽_corn',
+          '🥒_cucumber',
+          '🥬_leaf',
+          '🥦_broccoli',
+          '🧄_garlic',
+          '🧅_onion',
+          '🍄_mushroom',
         ].map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem(
             value: value,
             child: Text(
-              value,
+              value.split("_")[0],
               style: TextStyle(fontSize: 32),
             ),
           );
