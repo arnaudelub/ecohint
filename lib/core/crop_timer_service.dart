@@ -24,6 +24,7 @@ class CropTimerService extends ChangeNotifier {
   }
 
   void start() {
+    print("Starting timer at index $index");
     if (_timers[index] != null) return;
 
     _timers[index] = Timer.periodic(Duration(seconds: 1), _onTick);

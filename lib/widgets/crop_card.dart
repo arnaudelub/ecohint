@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:ecohint/core/crop_timer_service.dart';
 import 'package:ecohint/injections.dart';
 import 'package:ecohint/screens/bloc/crops/crops_bloc.dart';
 import 'package:ecohint/screens/bloc/crops_timer/crops_timer_bloc.dart';
@@ -14,8 +15,8 @@ import '../screens/crop_data_screen.dart';
 
 class CropCard extends StatefulWidget {
   final Crop crop;
-
-  const CropCard(this.crop);
+  final int cropIndex;
+  const CropCard(this.crop, this.cropIndex);
 
   @override
   _CropCardState createState() => _CropCardState();
@@ -25,7 +26,7 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
   //Animation
   double _scale;
   AnimationController _controller;
-
+  CropTimerService timerService;
   @override
   void initState() {
     super.initState();
@@ -48,7 +49,8 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     _scale = 1 - _controller.value;
-
+    final timerServce = CropTimerService.of(context);
+    timerServce.setIndex(widget.cropIndex);
     return BlocProvider(
       create: (context) => getIt<CropsTimerBloc>(),
       child: BlocListener<CropsTimerBloc, CropsTimerState>(
