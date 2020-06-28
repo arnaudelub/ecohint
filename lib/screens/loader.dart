@@ -59,7 +59,7 @@ class _LoaderState extends State<Loader> with SingleTickerProviderStateMixin {
 
     controller.repeat();
 
-    Future.delayed(widget.loadTime - const Duration(milliseconds: 200), () {
+    Future.delayed(widget.loadTime - const Duration(milliseconds: 500), () {
       controller.dispose();
     });
   }
@@ -67,6 +67,7 @@ class _LoaderState extends State<Loader> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
         width: 100.0,
         height: 100.0,
         child: Stack(children: [

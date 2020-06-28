@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
   bool _isLoading = true;
 
   void doneLoading(int loadTime) {
-    Future.delayed(Duration(seconds: loadTime), () {
+    Future.delayed(Duration(milliseconds: loadTime), () {
       setState(() {
         _isLoading = false;
       });
@@ -35,8 +35,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-      const int loadTime = 2;
-            doneLoading(loadTime);
+      const double loadTime = 2;
+            doneLoading(loadTime.toInt() * 1000);
     return MaterialApp(
       title: 'EcoHint',
       debugShowCheckedModeBanner: false,
@@ -47,7 +47,7 @@ class _MyAppState extends State<MyApp> {
         fontFamily: 'Poppins',
         accentColor: Colors.green,
       ),
-      home: _isLoading ? const Loader(loadTime: Duration(seconds: 2)) : HomeScreen(),
+      home: _isLoading ? const Loader(loadTime: Duration(milliseconds: 2000)) : HomeScreen(),
       routes: {
         CropDataScreen.routeName: (BuildContext ctx) => CropDataScreen(),
       },
