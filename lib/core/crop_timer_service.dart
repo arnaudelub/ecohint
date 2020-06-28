@@ -3,18 +3,22 @@ import 'package:ecohint/core/crop_timer_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
-@injectable
+@lazySingleton
 class CropTimerService extends ChangeNotifier {
   Stopwatch _watch;
   List<Timer> _timers = List();
-  int index;
 
   Duration get currentDuration => _currentDuration;
   Duration _currentDuration = Duration.zero;
 
-  bool get isRunning {
-    print("isRunning????");
-    return _timers[index] != null;
+  bool isRunning(int index) {
+    print("isRunning $index????");
+    print(_timers.length);
+    try {
+      return _timers[index] != null;
+    } catch (_) {
+      return false;
+    }
   }
 
   CropTimerService() {
@@ -28,7 +32,7 @@ class CropTimerService extends ChangeNotifier {
     notifyListeners();
   }
 
-  void start() {
+  void start(int index) {
     try {
       if (_timers[index] != null) return;
 
@@ -36,15 +40,17 @@ class CropTimerService extends ChangeNotifier {
       _watch.start();
 
       notifyListeners();
+      print(_timers.length);
     } catch (_) {
       _timers.add(Timer.periodic(Duration(seconds: 1), _onTick));
       _watch.start();
 
+      print(_timers.length);
       notifyListeners();
     }
   }
 
-  void stop() {
+  void stop(int index) {
     Timer _timer = _timers[index];
     _timer?.cancel();
     _timer = null;
@@ -55,17 +61,20 @@ class CropTimerService extends ChangeNotifier {
     notifyListeners();
   }
 
-  void reset() {
-    stop();
+  void reset(int index) {
+    stop(index);
     _watch.reset();
     _currentDuration = Duration.zero;
 
     notifyListeners();
   }
 
-  void setIndex(int index) {
-    print("Setting index $index");
-    this.index = index;
+  void restart(int index) {
+    stop(index);
+    _watch.reset();
+    _currentDuration = Duration.zero;
+    start(index);
+    notifyListeners();
   }
 
   static CropTimerService of(BuildContext context) {

@@ -19,11 +19,13 @@ class _$CropTearOff {
       {@required String name,
       @required String picture,
       @required DateTime cropStartDate,
+      @required int originalTimer,
       @required int timer}) {
     return _Crop(
       name: name,
       picture: picture,
       cropStartDate: cropStartDate,
+      originalTimer: originalTimer,
       timer: timer,
     );
   }
@@ -36,6 +38,7 @@ mixin _$Crop {
   String get name;
   String get picture;
   DateTime get cropStartDate;
+  int get originalTimer;
   int get timer;
 
   Map<String, dynamic> toJson();
@@ -45,7 +48,12 @@ mixin _$Crop {
 abstract class $CropCopyWith<$Res> {
   factory $CropCopyWith(Crop value, $Res Function(Crop) then) =
       _$CropCopyWithImpl<$Res>;
-  $Res call({String name, String picture, DateTime cropStartDate, int timer});
+  $Res call(
+      {String name,
+      String picture,
+      DateTime cropStartDate,
+      int originalTimer,
+      int timer});
 }
 
 class _$CropCopyWithImpl<$Res> implements $CropCopyWith<$Res> {
@@ -60,6 +68,7 @@ class _$CropCopyWithImpl<$Res> implements $CropCopyWith<$Res> {
     Object name = freezed,
     Object picture = freezed,
     Object cropStartDate = freezed,
+    Object originalTimer = freezed,
     Object timer = freezed,
   }) {
     return _then(_value.copyWith(
@@ -68,6 +77,9 @@ class _$CropCopyWithImpl<$Res> implements $CropCopyWith<$Res> {
       cropStartDate: cropStartDate == freezed
           ? _value.cropStartDate
           : cropStartDate as DateTime,
+      originalTimer: originalTimer == freezed
+          ? _value.originalTimer
+          : originalTimer as int,
       timer: timer == freezed ? _value.timer : timer as int,
     ));
   }
@@ -77,7 +89,12 @@ abstract class _$CropCopyWith<$Res> implements $CropCopyWith<$Res> {
   factory _$CropCopyWith(_Crop value, $Res Function(_Crop) then) =
       __$CropCopyWithImpl<$Res>;
   @override
-  $Res call({String name, String picture, DateTime cropStartDate, int timer});
+  $Res call(
+      {String name,
+      String picture,
+      DateTime cropStartDate,
+      int originalTimer,
+      int timer});
 }
 
 class __$CropCopyWithImpl<$Res> extends _$CropCopyWithImpl<$Res>
@@ -93,6 +110,7 @@ class __$CropCopyWithImpl<$Res> extends _$CropCopyWithImpl<$Res>
     Object name = freezed,
     Object picture = freezed,
     Object cropStartDate = freezed,
+    Object originalTimer = freezed,
     Object timer = freezed,
   }) {
     return _then(_Crop(
@@ -101,6 +119,9 @@ class __$CropCopyWithImpl<$Res> extends _$CropCopyWithImpl<$Res>
       cropStartDate: cropStartDate == freezed
           ? _value.cropStartDate
           : cropStartDate as DateTime,
+      originalTimer: originalTimer == freezed
+          ? _value.originalTimer
+          : originalTimer as int,
       timer: timer == freezed ? _value.timer : timer as int,
     ));
   }
@@ -112,10 +133,12 @@ class _$_Crop implements _Crop {
       {@required this.name,
       @required this.picture,
       @required this.cropStartDate,
+      @required this.originalTimer,
       @required this.timer})
       : assert(name != null),
         assert(picture != null),
         assert(cropStartDate != null),
+        assert(originalTimer != null),
         assert(timer != null);
 
   factory _$_Crop.fromJson(Map<String, dynamic> json) =>
@@ -128,11 +151,13 @@ class _$_Crop implements _Crop {
   @override
   final DateTime cropStartDate;
   @override
+  final int originalTimer;
+  @override
   final int timer;
 
   @override
   String toString() {
-    return 'Crop(name: $name, picture: $picture, cropStartDate: $cropStartDate, timer: $timer)';
+    return 'Crop(name: $name, picture: $picture, cropStartDate: $cropStartDate, originalTimer: $originalTimer, timer: $timer)';
   }
 
   @override
@@ -147,6 +172,9 @@ class _$_Crop implements _Crop {
             (identical(other.cropStartDate, cropStartDate) ||
                 const DeepCollectionEquality()
                     .equals(other.cropStartDate, cropStartDate)) &&
+            (identical(other.originalTimer, originalTimer) ||
+                const DeepCollectionEquality()
+                    .equals(other.originalTimer, originalTimer)) &&
             (identical(other.timer, timer) ||
                 const DeepCollectionEquality().equals(other.timer, timer)));
   }
@@ -157,6 +185,7 @@ class _$_Crop implements _Crop {
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(picture) ^
       const DeepCollectionEquality().hash(cropStartDate) ^
+      const DeepCollectionEquality().hash(originalTimer) ^
       const DeepCollectionEquality().hash(timer);
 
   @override
@@ -174,6 +203,7 @@ abstract class _Crop implements Crop {
       {@required String name,
       @required String picture,
       @required DateTime cropStartDate,
+      @required int originalTimer,
       @required int timer}) = _$_Crop;
 
   factory _Crop.fromJson(Map<String, dynamic> json) = _$_Crop.fromJson;
@@ -184,6 +214,8 @@ abstract class _Crop implements Crop {
   String get picture;
   @override
   DateTime get cropStartDate;
+  @override
+  int get originalTimer;
   @override
   int get timer;
   @override

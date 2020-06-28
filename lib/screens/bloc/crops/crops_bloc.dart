@@ -32,9 +32,9 @@ class CropsBloc extends Bloc<CropsEvent, CropsState> {
             name: state.cropName,
             picture: state.cropPicture,
             cropStartDate: DateTime.now(),
-            timer: state.timer);
+            timer: 0,
+            originalTimer: state.timer);
         await _storage.storeCrop(crop);
-        await _storage.storeTimer(crop, state.timer);
         listCrops.add(crop);
         yield state.copyWith(
           isLoading: false,

@@ -9,6 +9,7 @@ abstract class Crop with _$Crop {
     @required String name,
     @required String picture,
     @required DateTime cropStartDate,
+    @required int originalTimer,
     @required int timer,
   }) = _Crop;
 

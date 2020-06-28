@@ -21,10 +21,12 @@ class TimersScreen extends StatelessWidget {
           child: ListView.builder(
             itemCount: state.crops.length,
             itemBuilder: (context, int index) {
-              timerService.setIndex(index);
+              print("doing index $index");
               print("index set to $index, crop is ${state.crops[index]}");
               return TimerControllerWidget(
-                  crop: state.crops[index], timerService: timerService);
+                  crop: state.crops[index],
+                  timerService: timerService,
+                  index: index);
             },
           ),
         );
