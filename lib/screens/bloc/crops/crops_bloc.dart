@@ -48,8 +48,8 @@ class CropsBloc extends Bloc<CropsEvent, CropsState> {
         yield state.copyWith(
           isLoading: true,
         );
-        await _storage.removeCrop(value.crop);
-        listCrops.remove(value.crop);
+        await _storage.removeCrop(state.crops[value.cropIndex]);
+        listCrops.removeAt(value.cropIndex);
         yield state.copyWith(
           isLoading: false,
           crops: listCrops,
@@ -89,7 +89,7 @@ class CropsBloc extends Bloc<CropsEvent, CropsState> {
       timerChanged: (TimerChanged value) async* {
         if (value.index != null) {
           final Crop actual = state.crops[value.index];
-          final newList = state.crops;
+          final List<Crop> newList = List.from(state.crops);
           newList[value.index] = Crop(
             name: actual.name,
             picture: actual.picture,
@@ -97,7 +97,6 @@ class CropsBloc extends Bloc<CropsEvent, CropsState> {
             originalTimer: actual.originalTimer,
             cropStartDate: actual.cropStartDate,
           );
-          print(state.crops);
           yield state.copyWith(crops: newList);
         } else {
           yield state.copyWith(timer: value.timer);

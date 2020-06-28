@@ -65,7 +65,7 @@ class _LoaderState extends State<Loader> with SingleTickerProviderStateMixin {
     controller.repeat();
 
     Future.delayed(const Duration(milliseconds: 1500), () {
-      ExtendedNavigator.of(context).pushReplacementNamed(Routes.homeScreen);
+      ExtendedNavigator.of(context).pushReplacementNamed(Routes.splashScreen);
     });
   }
 

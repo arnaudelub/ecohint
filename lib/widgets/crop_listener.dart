@@ -1,4 +1,5 @@
 import 'package:ecohint/misc/k_constant.dart';
+import 'package:ecohint/models/crop.dart';
 import 'package:ecohint/screens/bloc/crops/crops_bloc.dart';
 import 'package:ecohint/widgets/crop_card.dart';
 import 'package:ecohint/widgets/crop_data.dart';
@@ -6,12 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CropListener extends StatelessWidget {
+  const CropListener({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     // TODO: For purpose of front testing
-
     return BlocBuilder<CropsBloc, CropsState>(builder: (context, state) {
-      print("New state: $state");
       return LayoutBuilder(
         builder: (context, constraints) {
           if (constraints.maxWidth < 770) {
@@ -20,7 +20,6 @@ class CropListener extends StatelessWidget {
                 maxCrossAxisExtent: MediaQuery.of(context).size.height * 0.4,
               ),
               itemBuilder: (BuildContext context, int index) {
-                //return CropCard(state.crops[index]);
                 return CropCard(state.crops[index], index);
               },
               itemCount: state.crops.length,

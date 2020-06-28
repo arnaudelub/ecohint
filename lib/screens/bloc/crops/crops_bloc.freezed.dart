@@ -20,9 +20,9 @@ class _$CropsEventTearOff {
     return const CreateCrop();
   }
 
-  DeleteCrop deleteCrop(Crop crop) {
+  DeleteCrop deleteCrop(int cropIndex) {
     return DeleteCrop(
-      crop,
+      cropIndex,
     );
   }
 
@@ -58,7 +58,7 @@ mixin _$CropsEvent {
   Result when<Result extends Object>({
     @required Result getCrops(),
     @required Result createCrop(),
-    @required Result deleteCrop(Crop crop),
+    @required Result deleteCrop(int cropIndex),
     @required Result deleteCrops(),
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
@@ -68,7 +68,7 @@ mixin _$CropsEvent {
   Result maybeWhen<Result extends Object>({
     Result getCrops(),
     Result createCrop(),
-    Result deleteCrop(Crop crop),
+    Result deleteCrop(int cropIndex),
     Result deleteCrops(),
     Result nameChanged(String name),
     Result pictureChanged(String picture),
@@ -147,7 +147,7 @@ class _$GetCrops implements GetCrops {
   Result when<Result extends Object>({
     @required Result getCrops(),
     @required Result createCrop(),
-    @required Result deleteCrop(Crop crop),
+    @required Result deleteCrop(int cropIndex),
     @required Result deleteCrops(),
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
@@ -168,7 +168,7 @@ class _$GetCrops implements GetCrops {
   Result maybeWhen<Result extends Object>({
     Result getCrops(),
     Result createCrop(),
-    Result deleteCrop(Crop crop),
+    Result deleteCrop(int cropIndex),
     Result deleteCrops(),
     Result nameChanged(String name),
     Result pictureChanged(String picture),
@@ -263,7 +263,7 @@ class _$CreateCrop implements CreateCrop {
   Result when<Result extends Object>({
     @required Result getCrops(),
     @required Result createCrop(),
-    @required Result deleteCrop(Crop crop),
+    @required Result deleteCrop(int cropIndex),
     @required Result deleteCrops(),
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
@@ -284,7 +284,7 @@ class _$CreateCrop implements CreateCrop {
   Result maybeWhen<Result extends Object>({
     Result getCrops(),
     Result createCrop(),
-    Result deleteCrop(Crop crop),
+    Result deleteCrop(int cropIndex),
     Result deleteCrops(),
     Result nameChanged(String name),
     Result pictureChanged(String picture),
@@ -347,9 +347,7 @@ abstract class $DeleteCropCopyWith<$Res> {
   factory $DeleteCropCopyWith(
           DeleteCrop value, $Res Function(DeleteCrop) then) =
       _$DeleteCropCopyWithImpl<$Res>;
-  $Res call({Crop crop});
-
-  $CropCopyWith<$Res> get crop;
+  $Res call({int cropIndex});
 }
 
 class _$DeleteCropCopyWithImpl<$Res> extends _$CropsEventCopyWithImpl<$Res>
@@ -362,46 +360,37 @@ class _$DeleteCropCopyWithImpl<$Res> extends _$CropsEventCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object crop = freezed,
+    Object cropIndex = freezed,
   }) {
     return _then(DeleteCrop(
-      crop == freezed ? _value.crop : crop as Crop,
+      cropIndex == freezed ? _value.cropIndex : cropIndex as int,
     ));
-  }
-
-  @override
-  $CropCopyWith<$Res> get crop {
-    if (_value.crop == null) {
-      return null;
-    }
-    return $CropCopyWith<$Res>(_value.crop, (value) {
-      return _then(_value.copyWith(crop: value));
-    });
   }
 }
 
 class _$DeleteCrop implements DeleteCrop {
-  const _$DeleteCrop(this.crop) : assert(crop != null);
+  const _$DeleteCrop(this.cropIndex) : assert(cropIndex != null);
 
   @override
-  final Crop crop;
+  final int cropIndex;
 
   @override
   String toString() {
-    return 'CropsEvent.deleteCrop(crop: $crop)';
+    return 'CropsEvent.deleteCrop(cropIndex: $cropIndex)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is DeleteCrop &&
-            (identical(other.crop, crop) ||
-                const DeepCollectionEquality().equals(other.crop, crop)));
+            (identical(other.cropIndex, cropIndex) ||
+                const DeepCollectionEquality()
+                    .equals(other.cropIndex, cropIndex)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(crop);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(cropIndex);
 
   @override
   $DeleteCropCopyWith<DeleteCrop> get copyWith =>
@@ -412,7 +401,7 @@ class _$DeleteCrop implements DeleteCrop {
   Result when<Result extends Object>({
     @required Result getCrops(),
     @required Result createCrop(),
-    @required Result deleteCrop(Crop crop),
+    @required Result deleteCrop(int cropIndex),
     @required Result deleteCrops(),
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
@@ -425,7 +414,7 @@ class _$DeleteCrop implements DeleteCrop {
     assert(nameChanged != null);
     assert(pictureChanged != null);
     assert(timerChanged != null);
-    return deleteCrop(crop);
+    return deleteCrop(cropIndex);
   }
 
   @override
@@ -433,7 +422,7 @@ class _$DeleteCrop implements DeleteCrop {
   Result maybeWhen<Result extends Object>({
     Result getCrops(),
     Result createCrop(),
-    Result deleteCrop(Crop crop),
+    Result deleteCrop(int cropIndex),
     Result deleteCrops(),
     Result nameChanged(String name),
     Result pictureChanged(String picture),
@@ -442,7 +431,7 @@ class _$DeleteCrop implements DeleteCrop {
   }) {
     assert(orElse != null);
     if (deleteCrop != null) {
-      return deleteCrop(crop);
+      return deleteCrop(cropIndex);
     }
     return orElse();
   }
@@ -489,9 +478,9 @@ class _$DeleteCrop implements DeleteCrop {
 }
 
 abstract class DeleteCrop implements CropsEvent {
-  const factory DeleteCrop(Crop crop) = _$DeleteCrop;
+  const factory DeleteCrop(int cropIndex) = _$DeleteCrop;
 
-  Crop get crop;
+  int get cropIndex;
   $DeleteCropCopyWith<DeleteCrop> get copyWith;
 }
 
@@ -532,7 +521,7 @@ class _$DeleteCrops implements DeleteCrops {
   Result when<Result extends Object>({
     @required Result getCrops(),
     @required Result createCrop(),
-    @required Result deleteCrop(Crop crop),
+    @required Result deleteCrop(int cropIndex),
     @required Result deleteCrops(),
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
@@ -553,7 +542,7 @@ class _$DeleteCrops implements DeleteCrops {
   Result maybeWhen<Result extends Object>({
     Result getCrops(),
     Result createCrop(),
-    Result deleteCrop(Crop crop),
+    Result deleteCrop(int cropIndex),
     Result deleteCrops(),
     Result nameChanged(String name),
     Result pictureChanged(String picture),
@@ -670,7 +659,7 @@ class _$NameChanged implements NameChanged {
   Result when<Result extends Object>({
     @required Result getCrops(),
     @required Result createCrop(),
-    @required Result deleteCrop(Crop crop),
+    @required Result deleteCrop(int cropIndex),
     @required Result deleteCrops(),
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
@@ -691,7 +680,7 @@ class _$NameChanged implements NameChanged {
   Result maybeWhen<Result extends Object>({
     Result getCrops(),
     Result createCrop(),
-    Result deleteCrop(Crop crop),
+    Result deleteCrop(int cropIndex),
     Result deleteCrops(),
     Result nameChanged(String name),
     Result pictureChanged(String picture),
@@ -811,7 +800,7 @@ class _$PictureChanged implements PictureChanged {
   Result when<Result extends Object>({
     @required Result getCrops(),
     @required Result createCrop(),
-    @required Result deleteCrop(Crop crop),
+    @required Result deleteCrop(int cropIndex),
     @required Result deleteCrops(),
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
@@ -832,7 +821,7 @@ class _$PictureChanged implements PictureChanged {
   Result maybeWhen<Result extends Object>({
     Result getCrops(),
     Result createCrop(),
-    Result deleteCrop(Crop crop),
+    Result deleteCrop(int cropIndex),
     Result deleteCrops(),
     Result nameChanged(String name),
     Result pictureChanged(String picture),
@@ -960,7 +949,7 @@ class _$TimerChanged implements TimerChanged {
   Result when<Result extends Object>({
     @required Result getCrops(),
     @required Result createCrop(),
-    @required Result deleteCrop(Crop crop),
+    @required Result deleteCrop(int cropIndex),
     @required Result deleteCrops(),
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
@@ -981,7 +970,7 @@ class _$TimerChanged implements TimerChanged {
   Result maybeWhen<Result extends Object>({
     Result getCrops(),
     Result createCrop(),
-    Result deleteCrop(Crop crop),
+    Result deleteCrop(int cropIndex),
     Result deleteCrops(),
     Result nameChanged(String name),
     Result pictureChanged(String picture),

@@ -8,16 +8,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ecohint/screens/loader.dart';
+import 'package:ecohint/screens/splash_screen.dart';
 import 'package:ecohint/screens/home_screen.dart';
-import 'package:ecohint/screens/crop_data_screen.dart';
 import 'package:ecohint/models/crop.dart';
+import 'package:ecohint/screens/crop_data_screen.dart';
 
 abstract class Routes {
   static const loader = '/';
+  static const splashScreen = '/splash-screen';
   static const homeScreen = '/home-screen';
   static const cropDataScreen = '/crop-data-screen';
   static const all = {
     loader,
+    splashScreen,
     homeScreen,
     cropDataScreen,
   };
@@ -40,9 +43,19 @@ class Router extends RouterBase {
           builder: (context) => Loader(),
           settings: settings,
         );
-      case Routes.homeScreen:
+      case Routes.splashScreen:
         return MaterialPageRoute<dynamic>(
-          builder: (context) => HomeScreen(),
+          builder: (context) => SplashScreen(),
+          settings: settings,
+        );
+      case Routes.homeScreen:
+        if (hasInvalidArgs<HomeScreenArguments>(args)) {
+          return misTypedArgsRoute<HomeScreenArguments>(args);
+        }
+        final typedArgs = args as HomeScreenArguments ?? HomeScreenArguments();
+        return MaterialPageRoute<dynamic>(
+          builder: (context) =>
+              HomeScreen(key: typedArgs.key, crops: typedArgs.crops),
           settings: settings,
         );
       case Routes.cropDataScreen:
@@ -66,6 +79,13 @@ class Router extends RouterBase {
 // Arguments holder classes
 // **************************************************************************
 
+//HomeScreen arguments holder class
+class HomeScreenArguments {
+  final Key key;
+  final List<Crop> crops;
+  HomeScreenArguments({this.key, this.crops});
+}
+
 //CropDataScreen arguments holder class
 class CropDataScreenArguments {
   final Key key;
@@ -80,7 +100,16 @@ class CropDataScreenArguments {
 extension RouterNavigationHelperMethods on ExtendedNavigatorState {
   Future pushLoader() => pushNamed(Routes.loader);
 
-  Future pushHomeScreen() => pushNamed(Routes.homeScreen);
+  Future pushSplashScreen() => pushNamed(Routes.splashScreen);
+
+  Future pushHomeScreen({
+    Key key,
+    List<Crop> crops,
+  }) =>
+      pushNamed(
+        Routes.homeScreen,
+        arguments: HomeScreenArguments(key: key, crops: crops),
+      );
 
   Future pushCropDataScreen({
     Key key,

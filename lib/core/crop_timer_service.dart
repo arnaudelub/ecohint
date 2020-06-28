@@ -13,9 +13,6 @@ class CropTimerService extends ChangeNotifier {
 
   bool isRunning(int index) {
     try {
-      print(_timers[index]['on']);
-      print(_timers[index]);
-
       return _timers[index] != null && _timers[index]['on'];
     } catch (_) {
       return false;
@@ -34,7 +31,6 @@ class CropTimerService extends ChangeNotifier {
   }
 
   void start(int index) {
-    print("Starting service");
     try {
       if (_timers[index]['on']) return;
 
@@ -45,15 +41,14 @@ class CropTimerService extends ChangeNotifier {
       _watch.start();
 
       notifyListeners();
-      print(_timers.length);
-    } catch (_) {
+    } catch (e) {
+      print("error $e");
       _timers[index] = {
         'on': true,
         'timer': Timer.periodic(Duration(seconds: 1), _onTick)
       };
       _watch.start();
 
-      print(_timers.length);
       notifyListeners();
     }
   }
@@ -63,6 +58,7 @@ class CropTimerService extends ChangeNotifier {
     _timer?.cancel();
     _timer = null;
     _timers[index]['on'] = false;
+    _timers[index]['timer'] = _timer;
     _watch.stop();
     _currentDuration = _watch.elapsed;
 
@@ -86,20 +82,13 @@ class CropTimerService extends ChangeNotifier {
   }
 
   void addingTimer(bool hasTimer) {
-    print("Adding timer with $hasTimer");
     _timers.add({
       'on': hasTimer,
-      'timer': Timer.periodic(Duration(seconds: 1), _onTick)
+      'timer': hasTimer ? Timer.periodic(Duration(seconds: 1), _onTick) : null
     });
   }
 
   void resetTimers() {
     _timers = List();
-  }
-
-  static CropTimerService of(BuildContext context) {
-    var provider = context.inheritFromWidgetOfExactType(CropTimerProvider)
-        as CropTimerProvider;
-    return provider.service;
   }
 }

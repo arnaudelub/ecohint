@@ -1,5 +1,7 @@
+import 'package:ecohint/core/observables.dart';
 import 'package:ecohint/misc/k_constant.dart';
 import 'package:ecohint/injections.dart';
+import 'package:ecohint/models/crop.dart';
 import 'package:ecohint/screens/bloc/crops/crops_bloc.dart';
 import 'package:ecohint/screens/posts_screen.dart';
 import 'package:ecohint/screens/timers_screen.dart';
@@ -8,8 +10,12 @@ import 'package:ecohint/widgets/item_selector_dropdown.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rxdart/streams.dart';
 
 class HomeScreen extends StatefulWidget {
+  final List<Crop> crops;
+
+  const HomeScreen({Key key, this.crops}) : super(key: key);
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -17,27 +23,25 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   int _selectedIndex = 0;
-  BuildContext blocContext;
-
+  ValueStream<Map<String, dynamic>> timerObs = timerSubject.stream;
   static List<Widget> _widgetOptions;
-
-  Widget getProvider() {
-    return BlocBuilder<CropsBloc, CropsState>(builder: (newContext, state) {
-      blocContext = newContext;
-      return CropListener();
-    });
-  }
 
   @override
   void initState() {
     super.initState();
-
+    timerObs.listen(_onValue);
     _widgetOptions = [
-      getProvider(),
+      CropListener(),
       TimersScreen(),
       PostsScreen(),
       Text('About')
     ];
+  }
+
+  void _onValue(Map<String, dynamic> data) {
+    context
+        .bloc<CropsBloc>()
+        .add(CropsEvent.timerChanged(data['timer'], index: data['index']));
   }
 
   @override
@@ -56,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: <Widget>[
                     kIsWeb
                         ? InkWell(
-                            onTap: () => _showAddCropDialog(blocContext),
+                            onTap: () => _showAddCropDialog(context),
                             child: Container(
                               padding: EdgeInsets.symmetric(
                                   vertical: 5, horizontal: 5),
@@ -97,8 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     _selectedIndex == 0
                         ? PopupMenuButton(
-                            onSelected: (_) =>
-                                _showConfirmationDialog(blocContext),
+                            onSelected: (_) => _showConfirmationDialog(context),
                             icon: const Icon(Icons.menu),
                             elevation: 12,
                             itemBuilder: (BuildContext context) {
@@ -119,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
               floatingActionButton: _selectedIndex == 0
                   ? FloatingActionButton(
                       clipBehavior: Clip.hardEdge,
-                      onPressed: () => _showAddCropDialog(blocContext),
+                      onPressed: () => _showAddCropDialog(context),
                       child: const Icon(Icons.add),
                     )
                   : null,
