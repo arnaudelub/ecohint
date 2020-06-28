@@ -26,7 +26,7 @@ List<Post> parsePosts(String responseBody) {
 
 Future<List<Post>> fetchPosts(http.Client client, String sortBy) async {
   final response =
-      await client.get('https://www.reddit.com/r/ecology/$sortBy.json');
+      await client.get('https://www.reddit.com/r/ecology/$sortBy.json?limit=100');
 
   return compute(parsePosts, response.body);
 }
@@ -163,7 +163,7 @@ class _PostsListState extends State<PostsList> {
       onLoad: () {
         controller.finishLoad();
       },
-      onRefresh: () {
+      onRefresh: () async {
         controller.finishRefresh();
       },
       child: ListView.builder(

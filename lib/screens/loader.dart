@@ -23,7 +23,7 @@ class _LoaderState extends State<Loader> with SingleTickerProviderStateMixin {
   @override
   void dispose() {
     controller.dispose();
-    this.dispose();
+    //this.dispose();
     super.dispose();
   }
 
