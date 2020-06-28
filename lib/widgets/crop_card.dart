@@ -37,6 +37,13 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
   }
 
   @override
+  void dispose() {
+    this.dispose;
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     _scale = 1 - _controller.value;
 
