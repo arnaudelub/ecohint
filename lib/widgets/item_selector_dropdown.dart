@@ -18,8 +18,13 @@ class _ItemSelectorDropDownState extends State<ItemSelectorDropDown> {
         isExpanded: true,
         value: dropdownValue,
         icon: Icon(Icons.arrow_downward),
+        underline: Container(
+          height: 2,
+          color: Theme.of(context).accentColor,
+        ),
         iconSize: 18,
         elevation: 12,
+        itemHeight: 60.0,
         onChanged: (String selected) {
           setState(() {
             dropdownValue = selected;
@@ -59,7 +64,12 @@ class _ItemSelectorDropDownState extends State<ItemSelectorDropDown> {
           '🍄',
         ].map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem(
-              value: value, child: Text(value, style: TextStyle(fontSize: 32)));
+            value: value,
+            child: Text(
+              value,
+              style: TextStyle(fontSize: 32),
+            ),
+          );
         }).toList());
   }
 }

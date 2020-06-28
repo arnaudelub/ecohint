@@ -161,11 +161,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 validator: (value) {
                                   if (value.isEmpty) {
                                     return 'Please enter a name.';
+                                  } else if (value.length > 15) {
+                                    return 'Name is too long';
                                   }
                                   return null;
                                 },
                                 decoration: const InputDecoration(
-                                  prefixIcon: Icon(Icons.title),
+                                  prefixIcon: Icon(Icons.description),
                                   labelText: 'Name',
                                 ),
                                 onChanged: (value) => context
