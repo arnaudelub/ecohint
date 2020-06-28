@@ -57,17 +57,18 @@ class Storage implements IStorage {
     try {
       await _storage.remove('crop_${crop.name}');
       await removeTimer(crop);
-    } catch (_) {
-      throw 'Error';
+    } catch (e) {
+      throw 'Error $e';
     }
   }
 
   @override
   Future<void> storeCrop(Crop crop) async {
     try {
+      await storeTimer(crop, crop.timer);
+
       await _storage.setString(
           'crop_${crop.name}', jsonEncode(crop.toJson()).toString());
-      await storeTimer(crop, crop.timer);
     } catch (_) {
       throw 'Error';
     }

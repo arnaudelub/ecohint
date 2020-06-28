@@ -12,20 +12,22 @@ T _$identity<T>(T value) => value;
 class _$CropsTimerEventTearOff {
   const _$CropsTimerEventTearOff();
 
-  TimerStarted timerStarted() {
-    return const TimerStarted();
+  TimerStarted timerStarted(CropTimerService timerService) {
+    return TimerStarted(
+      timerService,
+    );
   }
 
-  TimerStopped timerStopped() {
-    return const TimerStopped();
+  TimerStopped timerStopped(CropTimerService timerService) {
+    return TimerStopped(
+      timerService,
+    );
   }
 
-  TimerPaused timerPaused() {
-    return const TimerPaused();
-  }
-
-  TimerRestarted timerRestarted() {
-    return const TimerRestarted();
+  TimerRestarted timerRestarted(CropTimerService timerService) {
+    return TimerRestarted(
+      timerService,
+    );
   }
 }
 
@@ -33,42 +35,43 @@ class _$CropsTimerEventTearOff {
 const $CropsTimerEvent = _$CropsTimerEventTearOff();
 
 mixin _$CropsTimerEvent {
+  CropTimerService get timerService;
+
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result timerStarted(),
-    @required Result timerStopped(),
-    @required Result timerPaused(),
-    @required Result timerRestarted(),
+    @required Result timerStarted(CropTimerService timerService),
+    @required Result timerStopped(CropTimerService timerService),
+    @required Result timerRestarted(CropTimerService timerService),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result timerStarted(),
-    Result timerStopped(),
-    Result timerPaused(),
-    Result timerRestarted(),
+    Result timerStarted(CropTimerService timerService),
+    Result timerStopped(CropTimerService timerService),
+    Result timerRestarted(CropTimerService timerService),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result timerStarted(TimerStarted value),
     @required Result timerStopped(TimerStopped value),
-    @required Result timerPaused(TimerPaused value),
     @required Result timerRestarted(TimerRestarted value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result timerStarted(TimerStarted value),
     Result timerStopped(TimerStopped value),
-    Result timerPaused(TimerPaused value),
     Result timerRestarted(TimerRestarted value),
     @required Result orElse(),
   });
+
+  $CropsTimerEventCopyWith<CropsTimerEvent> get copyWith;
 }
 
 abstract class $CropsTimerEventCopyWith<$Res> {
   factory $CropsTimerEventCopyWith(
           CropsTimerEvent value, $Res Function(CropsTimerEvent) then) =
       _$CropsTimerEventCopyWithImpl<$Res>;
+  $Res call({CropTimerService timerService});
 }
 
 class _$CropsTimerEventCopyWithImpl<$Res>
@@ -78,12 +81,26 @@ class _$CropsTimerEventCopyWithImpl<$Res>
   final CropsTimerEvent _value;
   // ignore: unused_field
   final $Res Function(CropsTimerEvent) _then;
+
+  @override
+  $Res call({
+    Object timerService = freezed,
+  }) {
+    return _then(_value.copyWith(
+      timerService: timerService == freezed
+          ? _value.timerService
+          : timerService as CropTimerService,
+    ));
+  }
 }
 
-abstract class $TimerStartedCopyWith<$Res> {
+abstract class $TimerStartedCopyWith<$Res>
+    implements $CropsTimerEventCopyWith<$Res> {
   factory $TimerStartedCopyWith(
           TimerStarted value, $Res Function(TimerStarted) then) =
       _$TimerStartedCopyWithImpl<$Res>;
+  @override
+  $Res call({CropTimerService timerService});
 }
 
 class _$TimerStartedCopyWithImpl<$Res>
@@ -95,51 +112,71 @@ class _$TimerStartedCopyWithImpl<$Res>
 
   @override
   TimerStarted get _value => super._value as TimerStarted;
+
+  @override
+  $Res call({
+    Object timerService = freezed,
+  }) {
+    return _then(TimerStarted(
+      timerService == freezed
+          ? _value.timerService
+          : timerService as CropTimerService,
+    ));
+  }
 }
 
 class _$TimerStarted implements TimerStarted {
-  const _$TimerStarted();
+  const _$TimerStarted(this.timerService) : assert(timerService != null);
+
+  @override
+  final CropTimerService timerService;
 
   @override
   String toString() {
-    return 'CropsTimerEvent.timerStarted()';
+    return 'CropsTimerEvent.timerStarted(timerService: $timerService)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is TimerStarted);
+    return identical(this, other) ||
+        (other is TimerStarted &&
+            (identical(other.timerService, timerService) ||
+                const DeepCollectionEquality()
+                    .equals(other.timerService, timerService)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(timerService);
+
+  @override
+  $TimerStartedCopyWith<TimerStarted> get copyWith =>
+      _$TimerStartedCopyWithImpl<TimerStarted>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result timerStarted(),
-    @required Result timerStopped(),
-    @required Result timerPaused(),
-    @required Result timerRestarted(),
+    @required Result timerStarted(CropTimerService timerService),
+    @required Result timerStopped(CropTimerService timerService),
+    @required Result timerRestarted(CropTimerService timerService),
   }) {
     assert(timerStarted != null);
     assert(timerStopped != null);
-    assert(timerPaused != null);
     assert(timerRestarted != null);
-    return timerStarted();
+    return timerStarted(timerService);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result timerStarted(),
-    Result timerStopped(),
-    Result timerPaused(),
-    Result timerRestarted(),
+    Result timerStarted(CropTimerService timerService),
+    Result timerStopped(CropTimerService timerService),
+    Result timerRestarted(CropTimerService timerService),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (timerStarted != null) {
-      return timerStarted();
+      return timerStarted(timerService);
     }
     return orElse();
   }
@@ -149,12 +186,10 @@ class _$TimerStarted implements TimerStarted {
   Result map<Result extends Object>({
     @required Result timerStarted(TimerStarted value),
     @required Result timerStopped(TimerStopped value),
-    @required Result timerPaused(TimerPaused value),
     @required Result timerRestarted(TimerRestarted value),
   }) {
     assert(timerStarted != null);
     assert(timerStopped != null);
-    assert(timerPaused != null);
     assert(timerRestarted != null);
     return timerStarted(this);
   }
@@ -164,7 +199,6 @@ class _$TimerStarted implements TimerStarted {
   Result maybeMap<Result extends Object>({
     Result timerStarted(TimerStarted value),
     Result timerStopped(TimerStopped value),
-    Result timerPaused(TimerPaused value),
     Result timerRestarted(TimerRestarted value),
     @required Result orElse(),
   }) {
@@ -177,13 +211,21 @@ class _$TimerStarted implements TimerStarted {
 }
 
 abstract class TimerStarted implements CropsTimerEvent {
-  const factory TimerStarted() = _$TimerStarted;
+  const factory TimerStarted(CropTimerService timerService) = _$TimerStarted;
+
+  @override
+  CropTimerService get timerService;
+  @override
+  $TimerStartedCopyWith<TimerStarted> get copyWith;
 }
 
-abstract class $TimerStoppedCopyWith<$Res> {
+abstract class $TimerStoppedCopyWith<$Res>
+    implements $CropsTimerEventCopyWith<$Res> {
   factory $TimerStoppedCopyWith(
           TimerStopped value, $Res Function(TimerStopped) then) =
       _$TimerStoppedCopyWithImpl<$Res>;
+  @override
+  $Res call({CropTimerService timerService});
 }
 
 class _$TimerStoppedCopyWithImpl<$Res>
@@ -195,51 +237,71 @@ class _$TimerStoppedCopyWithImpl<$Res>
 
   @override
   TimerStopped get _value => super._value as TimerStopped;
+
+  @override
+  $Res call({
+    Object timerService = freezed,
+  }) {
+    return _then(TimerStopped(
+      timerService == freezed
+          ? _value.timerService
+          : timerService as CropTimerService,
+    ));
+  }
 }
 
 class _$TimerStopped implements TimerStopped {
-  const _$TimerStopped();
+  const _$TimerStopped(this.timerService) : assert(timerService != null);
+
+  @override
+  final CropTimerService timerService;
 
   @override
   String toString() {
-    return 'CropsTimerEvent.timerStopped()';
+    return 'CropsTimerEvent.timerStopped(timerService: $timerService)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is TimerStopped);
+    return identical(this, other) ||
+        (other is TimerStopped &&
+            (identical(other.timerService, timerService) ||
+                const DeepCollectionEquality()
+                    .equals(other.timerService, timerService)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(timerService);
+
+  @override
+  $TimerStoppedCopyWith<TimerStopped> get copyWith =>
+      _$TimerStoppedCopyWithImpl<TimerStopped>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result timerStarted(),
-    @required Result timerStopped(),
-    @required Result timerPaused(),
-    @required Result timerRestarted(),
+    @required Result timerStarted(CropTimerService timerService),
+    @required Result timerStopped(CropTimerService timerService),
+    @required Result timerRestarted(CropTimerService timerService),
   }) {
     assert(timerStarted != null);
     assert(timerStopped != null);
-    assert(timerPaused != null);
     assert(timerRestarted != null);
-    return timerStopped();
+    return timerStopped(timerService);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result timerStarted(),
-    Result timerStopped(),
-    Result timerPaused(),
-    Result timerRestarted(),
+    Result timerStarted(CropTimerService timerService),
+    Result timerStopped(CropTimerService timerService),
+    Result timerRestarted(CropTimerService timerService),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (timerStopped != null) {
-      return timerStopped();
+      return timerStopped(timerService);
     }
     return orElse();
   }
@@ -249,12 +311,10 @@ class _$TimerStopped implements TimerStopped {
   Result map<Result extends Object>({
     @required Result timerStarted(TimerStarted value),
     @required Result timerStopped(TimerStopped value),
-    @required Result timerPaused(TimerPaused value),
     @required Result timerRestarted(TimerRestarted value),
   }) {
     assert(timerStarted != null);
     assert(timerStopped != null);
-    assert(timerPaused != null);
     assert(timerRestarted != null);
     return timerStopped(this);
   }
@@ -264,7 +324,6 @@ class _$TimerStopped implements TimerStopped {
   Result maybeMap<Result extends Object>({
     Result timerStarted(TimerStarted value),
     Result timerStopped(TimerStopped value),
-    Result timerPaused(TimerPaused value),
     Result timerRestarted(TimerRestarted value),
     @required Result orElse(),
   }) {
@@ -277,113 +336,21 @@ class _$TimerStopped implements TimerStopped {
 }
 
 abstract class TimerStopped implements CropsTimerEvent {
-  const factory TimerStopped() = _$TimerStopped;
+  const factory TimerStopped(CropTimerService timerService) = _$TimerStopped;
+
+  @override
+  CropTimerService get timerService;
+  @override
+  $TimerStoppedCopyWith<TimerStopped> get copyWith;
 }
 
-abstract class $TimerPausedCopyWith<$Res> {
-  factory $TimerPausedCopyWith(
-          TimerPaused value, $Res Function(TimerPaused) then) =
-      _$TimerPausedCopyWithImpl<$Res>;
-}
-
-class _$TimerPausedCopyWithImpl<$Res>
-    extends _$CropsTimerEventCopyWithImpl<$Res>
-    implements $TimerPausedCopyWith<$Res> {
-  _$TimerPausedCopyWithImpl(
-      TimerPaused _value, $Res Function(TimerPaused) _then)
-      : super(_value, (v) => _then(v as TimerPaused));
-
-  @override
-  TimerPaused get _value => super._value as TimerPaused;
-}
-
-class _$TimerPaused implements TimerPaused {
-  const _$TimerPaused();
-
-  @override
-  String toString() {
-    return 'CropsTimerEvent.timerPaused()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is TimerPaused);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result timerStarted(),
-    @required Result timerStopped(),
-    @required Result timerPaused(),
-    @required Result timerRestarted(),
-  }) {
-    assert(timerStarted != null);
-    assert(timerStopped != null);
-    assert(timerPaused != null);
-    assert(timerRestarted != null);
-    return timerPaused();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result timerStarted(),
-    Result timerStopped(),
-    Result timerPaused(),
-    Result timerRestarted(),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (timerPaused != null) {
-      return timerPaused();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result timerStarted(TimerStarted value),
-    @required Result timerStopped(TimerStopped value),
-    @required Result timerPaused(TimerPaused value),
-    @required Result timerRestarted(TimerRestarted value),
-  }) {
-    assert(timerStarted != null);
-    assert(timerStopped != null);
-    assert(timerPaused != null);
-    assert(timerRestarted != null);
-    return timerPaused(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result timerStarted(TimerStarted value),
-    Result timerStopped(TimerStopped value),
-    Result timerPaused(TimerPaused value),
-    Result timerRestarted(TimerRestarted value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (timerPaused != null) {
-      return timerPaused(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class TimerPaused implements CropsTimerEvent {
-  const factory TimerPaused() = _$TimerPaused;
-}
-
-abstract class $TimerRestartedCopyWith<$Res> {
+abstract class $TimerRestartedCopyWith<$Res>
+    implements $CropsTimerEventCopyWith<$Res> {
   factory $TimerRestartedCopyWith(
           TimerRestarted value, $Res Function(TimerRestarted) then) =
       _$TimerRestartedCopyWithImpl<$Res>;
+  @override
+  $Res call({CropTimerService timerService});
 }
 
 class _$TimerRestartedCopyWithImpl<$Res>
@@ -395,51 +362,71 @@ class _$TimerRestartedCopyWithImpl<$Res>
 
   @override
   TimerRestarted get _value => super._value as TimerRestarted;
+
+  @override
+  $Res call({
+    Object timerService = freezed,
+  }) {
+    return _then(TimerRestarted(
+      timerService == freezed
+          ? _value.timerService
+          : timerService as CropTimerService,
+    ));
+  }
 }
 
 class _$TimerRestarted implements TimerRestarted {
-  const _$TimerRestarted();
+  const _$TimerRestarted(this.timerService) : assert(timerService != null);
+
+  @override
+  final CropTimerService timerService;
 
   @override
   String toString() {
-    return 'CropsTimerEvent.timerRestarted()';
+    return 'CropsTimerEvent.timerRestarted(timerService: $timerService)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is TimerRestarted);
+    return identical(this, other) ||
+        (other is TimerRestarted &&
+            (identical(other.timerService, timerService) ||
+                const DeepCollectionEquality()
+                    .equals(other.timerService, timerService)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(timerService);
+
+  @override
+  $TimerRestartedCopyWith<TimerRestarted> get copyWith =>
+      _$TimerRestartedCopyWithImpl<TimerRestarted>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result timerStarted(),
-    @required Result timerStopped(),
-    @required Result timerPaused(),
-    @required Result timerRestarted(),
+    @required Result timerStarted(CropTimerService timerService),
+    @required Result timerStopped(CropTimerService timerService),
+    @required Result timerRestarted(CropTimerService timerService),
   }) {
     assert(timerStarted != null);
     assert(timerStopped != null);
-    assert(timerPaused != null);
     assert(timerRestarted != null);
-    return timerRestarted();
+    return timerRestarted(timerService);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result timerStarted(),
-    Result timerStopped(),
-    Result timerPaused(),
-    Result timerRestarted(),
+    Result timerStarted(CropTimerService timerService),
+    Result timerStopped(CropTimerService timerService),
+    Result timerRestarted(CropTimerService timerService),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (timerRestarted != null) {
-      return timerRestarted();
+      return timerRestarted(timerService);
     }
     return orElse();
   }
@@ -449,12 +436,10 @@ class _$TimerRestarted implements TimerRestarted {
   Result map<Result extends Object>({
     @required Result timerStarted(TimerStarted value),
     @required Result timerStopped(TimerStopped value),
-    @required Result timerPaused(TimerPaused value),
     @required Result timerRestarted(TimerRestarted value),
   }) {
     assert(timerStarted != null);
     assert(timerStopped != null);
-    assert(timerPaused != null);
     assert(timerRestarted != null);
     return timerRestarted(this);
   }
@@ -464,7 +449,6 @@ class _$TimerRestarted implements TimerRestarted {
   Result maybeMap<Result extends Object>({
     Result timerStarted(TimerStarted value),
     Result timerStopped(TimerStopped value),
-    Result timerPaused(TimerPaused value),
     Result timerRestarted(TimerRestarted value),
     @required Result orElse(),
   }) {
@@ -477,7 +461,13 @@ class _$TimerRestarted implements TimerRestarted {
 }
 
 abstract class TimerRestarted implements CropsTimerEvent {
-  const factory TimerRestarted() = _$TimerRestarted;
+  const factory TimerRestarted(CropTimerService timerService) =
+      _$TimerRestarted;
+
+  @override
+  CropTimerService get timerService;
+  @override
+  $TimerRestartedCopyWith<TimerRestarted> get copyWith;
 }
 
 class _$CropsTimerStateTearOff {

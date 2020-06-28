@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:ecohint/injections.dart';
 import 'package:ecohint/screens/bloc/crops/crops_bloc.dart';
+import 'package:ecohint/screens/bloc/crops_timer/crops_timer_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ecohint/misc/k_constant.dart';
 import 'package:ecohint/screens/crop_data_screen.dart';
@@ -47,55 +49,61 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     _scale = 1 - _controller.value;
 
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: GestureDetector(
-        onTap: () {
-          _controller.forward().whenComplete(() {
-            _controller.reverse();
-            if (!kIsWeb) {
-              Navigator.of(context).pushNamed(CropDataScreen.routeName);
-            } else if (kIsWeb) {
-              //TODO: afficher les infos
-              //Navigator.of(context).pushNamed(CropDataScreen.routeName);
-            }
-          });
-        },
-        onLongPress: _showConfirmationDialog,
-        child: Transform.scale(
-          scale: _scale,
-          child: Container(
-            decoration: BoxDecoration(
-              boxShadow: const [
-                BoxShadow(
-                  offset: Offset(0, 5),
-                  blurRadius: 5,
+    return BlocProvider(
+      create: (context) => getIt<CropsTimerBloc>(),
+      child: BlocListener<CropsTimerBloc, CropsTimerState>(
+        listener: (context, state) {},
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: GestureDetector(
+            onTap: () {
+              _controller.forward().whenComplete(() {
+                _controller.reverse();
+                if (!kIsWeb) {
+                  Navigator.of(context).pushNamed(CropDataScreen.routeName);
+                } else if (kIsWeb) {
+                  //TODO: afficher les infos
+                  //Navigator.of(context).pushNamed(CropDataScreen.routeName);
+                }
+              });
+            },
+            onLongPress: _showConfirmationDialog,
+            child: Transform.scale(
+              scale: _scale,
+              child: Container(
+                decoration: BoxDecoration(
+                  boxShadow: const [
+                    BoxShadow(
+                      offset: Offset(0, 5),
+                      blurRadius: 5,
+                    ),
+                  ],
+                  borderRadius: const BorderRadius.all(Radius.circular(35)),
+                  color: kGreenBush,
+                  border: Border.all(
+                    color: kGreenAlgua,
+                    width: 2,
+                  ),
                 ),
-              ],
-              borderRadius: const BorderRadius.all(Radius.circular(35)),
-              color: kGreenBush,
-              border: Border.all(
-                color: kGreenAlgua,
-                width: 2,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      widget.crop.picture,
+                      style: const TextStyle(fontSize: 40.0),
+                    ),
+                    FittedBox(
+                        child: Text(
+                      widget.crop.name,
+                      style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.white),
+                    )),
+                    CropTimer(crop: widget.crop)
+                  ],
+                ),
               ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  widget.crop.picture,
-                  style: const TextStyle(fontSize: 40.0),
-                ),
-                FittedBox(
-                    child: Text(
-                  widget.crop.name,
-                  style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.white),
-                )),
-                CropTimer(crop: widget.crop)
-              ],
             ),
           ),
         ),
