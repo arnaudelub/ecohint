@@ -74,7 +74,7 @@ class _LoaderState extends State<Loader> with SingleTickerProviderStateMixin {
           Center(
               child: Transform.translate(
                   offset: const Offset(0.0, 60.0),
-                  child: const Text('ecohint',
+                  child: const Text('EcoHint',
                       style: TextStyle(
                           color: Colors.black,
                           fontFamily: 'Poppins',

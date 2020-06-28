@@ -1,6 +1,7 @@
 import 'package:ecohint/misc/k_constant.dart';
 import 'package:ecohint/injections.dart';
 import 'package:ecohint/screens/bloc/crops/crops_bloc.dart';
+import 'package:ecohint/screens/posts_screen.dart';
 import 'package:ecohint/widgets/crop_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,10 +14,39 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool _isLoading = true;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  int _selectedIndex = 0;
+  BuildContext blocContext;
+
+  static List<Widget> _widgetOptions;
+
+  Widget getProvider() {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+            create: (context) =>
+                getIt<CropsBloc>()..add(const CropsEvent.getCrops()))
+      ],
+      child: BlocBuilder<CropsBloc, CropsState>(builder: (newContext, state) {
+        blocContext = newContext;
+        return CropListener();
+      }),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _widgetOptions = [
+      getProvider(),
+      Text('Timers'),
+      PostsScreen(),
+      Text('About')
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
-    BuildContext blocContext;
     return FutureBuilder(
         future: getIt.allReady(),
         builder: (context, snapshot) {
@@ -64,31 +94,28 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              body: MultiBlocProvider(
-                providers: [
-                  BlocProvider(
-                      create: (context) =>
-                          getIt<CropsBloc>()..add(const CropsEvent.getCrops()))
-                ],
-                child: BlocBuilder<CropsBloc, CropsState>(
-                    builder: (newContext, state) {
-                  blocContext = newContext;
-                  return CropListener();
-                }),
-              ),
-              floatingActionButton: FloatingActionButton(
+              body: _widgetOptions.elementAt(_selectedIndex),
+              floatingActionButton: _selectedIndex == 0 ? FloatingActionButton(
                 clipBehavior: Clip.hardEdge,
                 onPressed: () => _showAddCropDialog(blocContext),
                 child: const Icon(Icons.add),
-              ),
+              ) : null,
               floatingActionButtonLocation:
-                  FloatingActionButtonLocation.centerDocked,
+                  FloatingActionButtonLocation.centerFloat,
               bottomNavigationBar: BottomNavigationBar(
+                currentIndex: _selectedIndex,
+                onTap: (index) {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                },
                 items: const <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
                       icon: Icon(Icons.local_florist), title: Text("Crops")),
                   BottomNavigationBarItem(
                       icon: Icon(Icons.access_alarms), title: Text("Timers")),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.developer_board), title: Text("Posts")),
                 ],
               ),
             );
@@ -124,12 +151,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Column(
                         children: [
                           TextFormField(
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please enter a name.';
-                              }
-                              return null;
-                            },
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Please enter a name.';
+                                }
+                                return null;
+                              },
                               decoration: const InputDecoration(
                                 prefixIcon: Icon(Icons.title),
                                 labelText: 'Name',

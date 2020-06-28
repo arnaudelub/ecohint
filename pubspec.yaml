@@ -35,12 +35,13 @@ dependencies:
   json_annotation:
   flutter_bloc: ^4.0.1
   slide_countdown_clock: ^1.0.3
+  http: ^0.12.1
+  url_launcher: ^5.4.11
 dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner:
   injectable_generator: ^0.4.0
-  lint: ^1.2.0
   freezed:
   json_serializable:
   # For information on the generic Dart part of this file, see the

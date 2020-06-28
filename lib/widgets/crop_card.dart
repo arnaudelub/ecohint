@@ -48,7 +48,7 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
               Navigator.of(context).pushNamed(CropDataScreen.routeName);
             } else if (kIsWeb) {
               //TODO: afficher les infos
-              Navigator.of(context).pushNamed(CropDataScreen.routeName);
+              //Navigator.of(context).pushNamed(CropDataScreen.routeName);
             }
           });
         },
