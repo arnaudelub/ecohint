@@ -20,7 +20,7 @@ class CropListener extends StatelessWidget {
               ),
               itemBuilder: (BuildContext context, int index) {
                 //return CropCard(state.crops[index]);
-                return CropCard(state.crops[index]);
+                return CropCard(state.crops[index], index);
               },
               itemCount: state.crops.length,
             );
