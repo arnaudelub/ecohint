@@ -74,13 +74,13 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
               children: [
                 Text(
                   widget.crop.picture,
-                  style: const TextStyle(fontSize: 50.0),
+                  style: const TextStyle(fontSize: 40.0),
                 ),
                 FittedBox(
                     child: Text(
                   widget.crop.name,
                   style: const TextStyle(
-                      fontSize: 25,
+                      fontSize: 20,
                       fontWeight: FontWeight.w300,
                       color: Colors.white),
                 )),

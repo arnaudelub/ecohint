@@ -12,6 +12,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool _isLoading = true;
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -119,18 +120,33 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: AlertDialog(
                     title: const Text("Add a new Crop"),
                     content: Form(
+                      key: _formKey,
                       child: Column(
                         children: [
                           TextFormField(
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Please enter a name.';
+                              }
+                              return null;
+                            },
                               decoration: const InputDecoration(
                                 prefixIcon: Icon(Icons.title),
-                                labelText: 'name',
+                                labelText: 'Name',
                               ),
                               onChanged: (value) => context
                                   .bloc<CropsBloc>()
                                   .add(CropsEvent.nameChanged(value))),
                           const SizedBox(height: 8),
                           TextFormField(
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Please enter an emoji.';
+                                } else if (value.length > 2) {
+                                  return 'Too long!';
+                                }
+                                return null;
+                              },
                               keyboardType: TextInputType.text,
                               decoration: const InputDecoration(
                                 prefixIcon: Icon(Icons.description),
@@ -145,10 +161,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     actions: <Widget>[
                       FlatButton(
                         onPressed: () {
-                          context
-                              .bloc<CropsBloc>()
-                              .add(const CropsEvent.createCrop());
-                          Navigator.of(context).pop();
+                          if (_formKey.currentState.validate()) {
+                            context
+                                .bloc<CropsBloc>()
+                                .add(const CropsEvent.createCrop());
+                            Navigator.of(context).pop();
+                          }
                         },
                         child: const Text('Save me!'),
                       )

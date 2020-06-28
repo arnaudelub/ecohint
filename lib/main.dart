@@ -46,6 +46,10 @@ class _MyAppState extends State<MyApp> {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: 'Poppins',
         accentColor: Colors.green,
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: Colors.green,
+          selectedItemColor: Colors.white
+        )
       ),
       home: _isLoading ? const Loader(loadTime: Duration(milliseconds: 2000)) : HomeScreen(),
       routes: {

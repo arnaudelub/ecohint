@@ -13,6 +13,7 @@ class _CropTimerState extends State<CropTimer> {
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: FittedBox(
           child: SlideCountdownClock(
+            textStyle: const TextStyle(color: Colors.white, fontSize: 24.0),
             duration: const Duration(days: 2),
             separator: ':',
             shouldShowDays: true,
