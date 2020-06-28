@@ -3,6 +3,7 @@ import 'package:ecohint/injections.dart';
 import 'package:ecohint/screens/bloc/crops/crops_bloc.dart';
 import 'package:ecohint/screens/bloc/crops_timer/crops_timer_bloc.dart';
 import 'package:ecohint/screens/posts_screen.dart';
+import 'package:ecohint/screens/timers_screen.dart';
 import 'package:ecohint/widgets/crop_listener.dart';
 import 'package:ecohint/widgets/item_selector_dropdown.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     _widgetOptions = [
       getProvider(),
-      Text('Timers'),
+      TimersScreen(),
       PostsScreen(),
       Text('About')
     ];

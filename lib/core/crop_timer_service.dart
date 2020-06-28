@@ -12,7 +12,10 @@ class CropTimerService extends ChangeNotifier {
   Duration get currentDuration => _currentDuration;
   Duration _currentDuration = Duration.zero;
 
-  bool get isRunning => _timers[index] != null;
+  bool get isRunning {
+    print("isRunning????");
+    return _timers[index] != null;
+  }
 
   CropTimerService() {
     _watch = Stopwatch();
