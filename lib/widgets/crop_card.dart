@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ecohint/core/crop_timer_service.dart';
 import 'package:ecohint/core/storage.dart';
 import 'package:ecohint/injections.dart';
@@ -85,40 +87,69 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
         onLongPress: _showConfirmationDialog,
         child: Transform.scale(
           scale: _scale,
-          child: Container(
-            decoration: BoxDecoration(
-              boxShadow: const [
-                BoxShadow(
-                  offset: Offset(0, 5),
-                  blurRadius: 5,
+          child: LayoutBuilder(builder: (context, constraints) {
+            return Stack(children: [
+              Container(
+                width: constraints.maxWidth,
+                decoration: BoxDecoration(
+                  boxShadow: const [
+                    BoxShadow(
+                      offset: Offset(0, 5),
+                      blurRadius: 5,
+                    ),
+                  ],
+                  borderRadius: const BorderRadius.all(Radius.circular(35)),
+                  color: kGreenBush,
+                  border: Border.all(
+                    color: kGreenAlgua,
+                    width: 2,
+                  ),
                 ),
-              ],
-              borderRadius: const BorderRadius.all(Radius.circular(35)),
-              color: kGreenBush,
-              border: Border.all(
-                color: kGreenAlgua,
-                width: 2,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      crop.picture,
+                      style: const TextStyle(fontSize: 40.0),
+                    ),
+                    FittedBox(
+                        child: Text(
+                      crop.name.toUCFirst(),
+                      style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.white),
+                    )),
+                    CropTimer(crop: crop)
+                  ],
+                ),
               ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  crop.picture,
-                  style: const TextStyle(fontSize: 40.0),
-                ),
-                FittedBox(
-                    child: Text(
-                  crop.name.toUCFirst(),
-                  style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.white),
-                )),
-                CropTimer(crop: crop)
-              ],
-            ),
-          ),
+              !kIsWeb
+                  ? Container()
+                  : Positioned(
+                      left: constraints.maxHeight * .75,
+                      child: InkWell(
+                        onTap: _showConfirmationDialog,
+                        child: FittedBox(
+                          child: Container(
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                                color: kCreme,
+                                border: Border.all(
+                                  color: kGreenAlgua,
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Icon(
+                              Icons.clear,
+                              color: kGreenAlgua,
+                            ),
+                          ),
+                        ),
+                      ))
+            ]);
+          }),
         ),
       ),
     );

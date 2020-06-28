@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:frefresh/frefresh.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:animated_card/animated_card.dart';
 
 List<Post> parsePosts(String responseBody) {
   /*final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
@@ -18,17 +19,11 @@ List<Post> parsePosts(String responseBody) {
     posts.add(Post(
         title: element['data']['title'],
         thumbnailUrl: element['data']['thumbnail'],
-        url: element['data']['url']));
+        url: element['data']['url'],
+        name: element['data']['name']));
   });
 
   return posts;
-}
-
-Future<List<Post>> fetchPosts(http.Client client, String sortBy) async {
-  final response =
-      await client.get('https://www.reddit.com/r/ecology/$sortBy.json?limit=100');
-
-  return compute(parsePosts, response.body);
 }
 
 class PostsScreen extends StatefulWidget {
@@ -38,12 +33,32 @@ class PostsScreen extends StatefulWidget {
 
 class _PostsScreenState extends State<PostsScreen> {
   String sortBy;
+  String after;
+  bool search;
+  String searchKeyword;
+
+  Future<List<Post>> fetchPosts(http.Client client, String sortBy,
+      {String fullname, String keyword}) async {
+    if (!search) {
+      final response = await client.get(
+          'https://www.reddit.com/r/plants/$sortBy.json${fullname != '' ? '?after=$fullname' : ''}');
+
+      return compute(parsePosts, response.body);
+    } else {
+      final response = await client.get(
+          'https://www.reddit.com/r/plants/search.json?q=$keyword&restrict_sr=on');
+
+      return compute(parsePosts, response.body);
+    }
+  }
 
   @override
   void initState() {
     super.initState();
 
     sortBy = 'hot';
+    search = false;
+    searchKeyword = '';
   }
 
   @override
@@ -61,7 +76,9 @@ class _PostsScreenState extends State<PostsScreen> {
               FlatButton.icon(
                   onPressed: () {
                     setState(() {
+                      search = false;
                       sortBy = 'hot';
+                      after = '';
                     });
                   },
                   icon: Icon(Icons.new_releases),
@@ -75,7 +92,9 @@ class _PostsScreenState extends State<PostsScreen> {
               FlatButton.icon(
                   onPressed: () {
                     setState(() {
+                      search = false;
                       sortBy = 'new';
+                      after = '';
                     });
                   },
                   icon: Icon(Icons.fiber_new),
@@ -84,19 +103,34 @@ class _PostsScreenState extends State<PostsScreen> {
                           fontWeight: sortBy == 'new'
                               ? FontWeight.bold
                               : FontWeight.normal))),
-              FlatButton.icon(
-                  onPressed: () {
-                    setState(() {
-                      sortBy = 'top';
-                    });
-                  },
-                  icon: Icon(Icons.format_list_numbered),
-                  label: Text('Top',
-                      style: TextStyle(
-                          fontWeight: sortBy == 'top'
-                              ? FontWeight.bold
-                              : FontWeight.normal))),
             ],
+          ),
+        ),
+        SizedBox(
+          height: 10.0,
+        ),
+        Container(
+          width: MediaQuery.of(context).size.width > 1080
+              ? MediaQuery.of(context).size.width / 2
+              : MediaQuery.of(context).size.width,
+          child: TextFormField(
+            decoration: InputDecoration(
+              labelText: 'Search...',
+              hintText: 'Press enter to search',
+              icon: Icon(Icons.search),
+            ),
+            onChanged: (value) {
+              if (value.isNotEmpty) {
+                setState(() {
+                  searchKeyword = value;
+                });
+              }
+            },
+            onEditingComplete: () {
+              setState(() {
+                search = true;
+              });
+            },
           ),
         ),
         SizedBox(
@@ -105,17 +139,17 @@ class _PostsScreenState extends State<PostsScreen> {
         Expanded(
           flex: 8,
           child: FutureBuilder(
-            future: fetchPosts(http.Client(), sortBy),
+            future: fetchPosts(http.Client(), sortBy,
+                fullname: after ?? '', keyword: searchKeyword),
             builder: (context, snapshot) {
               if (snapshot.hasError) print(snapshot.error);
-
               return snapshot.hasData
                   ? Container(
                       padding: EdgeInsets.all(8.0),
                       width: MediaQuery.of(context).size.width > 1080
                           ? MediaQuery.of(context).size.width / 2
                           : MediaQuery.of(context).size.width,
-                      child: PostsList(posts: snapshot.data))
+                      child: PostsList(this, posts: snapshot.data))
                   : Center(
                       child: CircularProgressIndicator(),
                     );
@@ -129,8 +163,9 @@ class _PostsScreenState extends State<PostsScreen> {
 
 class PostsList extends StatefulWidget {
   final List<Post> posts;
+  final _PostsScreenState parent;
 
-  PostsList({Key key, this.posts}) : super(key: key);
+  PostsList(this.parent, {Key key, this.posts}) : super(key: key);
 
   @override
   _PostsListState createState() => _PostsListState();
@@ -138,6 +173,7 @@ class PostsList extends StatefulWidget {
 
 class _PostsListState extends State<PostsList> {
   FRefreshController controller = FRefreshController();
+  ScrollController _scrollController = ScrollController();
 
   Future<void> _launchInWebViewWithJavaScript(String url) async {
     if (await canLaunch(url)) {
@@ -161,12 +197,20 @@ class _PostsListState extends State<PostsList> {
       footer: LinearProgressIndicator(),
       footerHeight: 20.0,
       onLoad: () {
+        widget.parent.setState(() {
+          widget.parent.after = widget.posts[widget.posts.length - 1].name;
+        });
+        controller.scrollTo(0);
         controller.finishLoad();
       },
-      onRefresh: () async {
+      onRefresh: () {
+        widget.parent.setState(() {
+          widget.parent.after = '';
+        });
         controller.finishRefresh();
       },
       child: ListView.builder(
+        controller: _scrollController,
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: widget.posts.length,
@@ -176,27 +220,33 @@ class _PostsListState extends State<PostsList> {
               _launchInWebViewWithJavaScript(widget.posts[index].url);
             },
             child: Card(
-              child: Column(
-                children: [
-                  widget.posts[index].thumbnailUrl.isNotEmpty &&
-                          widget.posts[index].thumbnailUrl.length > 10
-                      ? Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Image.network(
-                            widget.posts[index].thumbnailUrl,
-                            height: 250,
-                            fit: BoxFit.fill,
+              child: AnimatedCard(
+                direction: AnimatedCardDirection.left,
+                initDelay: Duration(milliseconds: 0),
+                duration: Duration(milliseconds: 100),
+                curve: Curves.easeInQuad,
+                child: Column(
+                  children: [
+                    widget.posts[index].thumbnailUrl.isNotEmpty &&
+                            widget.posts[index].thumbnailUrl.length > 10
+                        ? Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Image.network(
+                              widget.posts[index].thumbnailUrl,
+                              height: 250,
+                              fit: BoxFit.fill,
+                            ),
+                          )
+                        : Container(
+                            height: 0,
+                            width: 0,
                           ),
-                        )
-                      : Container(
-                          height: 0,
-                          width: 0,
-                        ),
-                  ListTile(
-                    contentPadding: EdgeInsets.all(20.0),
-                    title: Text(widget.posts[index].title),
-                  ),
-                ],
+                    ListTile(
+                      contentPadding: EdgeInsets.all(20.0),
+                      title: Text(widget.posts[index].title),
+                    ),
+                  ],
+                ),
               ),
             ),
           );
