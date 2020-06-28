@@ -15,6 +15,7 @@ class _ItemSelectorDropDownState extends State<ItemSelectorDropDown> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
+        isExpanded: true,
         value: dropdownValue,
         icon: Icon(Icons.arrow_downward),
         iconSize: 18,
