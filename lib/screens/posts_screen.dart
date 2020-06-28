@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:ecohint/models/post_model.dart';
 import 'package:flutter/material.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:frefresh/frefresh.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';

@@ -13,7 +13,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool _isLoading = true;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   int _selectedIndex = 0;
   BuildContext blocContext;
@@ -185,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     try {
                                       int.parse(value);
                                       return null;
-                                    } on FormatException catch (e) {
+                                    } on FormatException catch (_) {
                                       return "Enter a valid number";
                                     }
                                   }
