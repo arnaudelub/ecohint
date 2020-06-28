@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:ecohint/core/crop_timer_service.dart';
+import 'package:ecohint/injections.dart';
 import 'package:injectable/injectable.dart';
 import 'package:ecohint/core/storage.dart';
 import 'package:ecohint/models/crop.dart';
@@ -34,6 +36,7 @@ class CropsBloc extends Bloc<CropsEvent, CropsState> {
             cropStartDate: DateTime.now(),
             timer: 0,
             originalTimer: state.timer);
+        getIt<CropTimerService>().addingTimer(crop.timer != 0);
         await _storage.storeCrop(crop);
         listCrops.add(crop);
         yield state.copyWith(
@@ -68,6 +71,10 @@ class CropsBloc extends Bloc<CropsEvent, CropsState> {
           isLoading: true,
         );
         listCrops = _storage.getCrops();
+        getIt<CropTimerService>().resetTimers();
+        for (final crop in listCrops) {
+          getIt<CropTimerService>().addingTimer(crop.timer != 0);
+        }
         yield state.copyWith(
           isLoading: false,
           crops: listCrops,
@@ -80,7 +87,21 @@ class CropsBloc extends Bloc<CropsEvent, CropsState> {
         yield state.copyWith(cropPicture: value.picture);
       },
       timerChanged: (TimerChanged value) async* {
-        yield state.copyWith(timer: value.timer);
+        if (value.index != null) {
+          final Crop actual = state.crops[value.index];
+          final newList = state.crops;
+          newList[value.index] = Crop(
+            name: actual.name,
+            picture: actual.picture,
+            timer: value.timer,
+            originalTimer: actual.originalTimer,
+            cropStartDate: actual.cropStartDate,
+          );
+          print(state.crops);
+          yield state.copyWith(crops: newList);
+        } else {
+          yield state.copyWith(timer: value.timer);
+        }
       },
     );
   }

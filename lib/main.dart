@@ -1,10 +1,12 @@
 import 'package:ecohint/core/crop_timer_provider.dart';
 import 'package:ecohint/core/crop_timer_service.dart';
 import 'package:ecohint/misc/k_constant.dart';
+import 'package:ecohint/screens/bloc/crops/crops_bloc.dart';
 import 'package:ecohint/screens/crop_data_screen.dart';
 import 'package:ecohint/screens/home_screen.dart';
 import 'package:ecohint/screens/loader.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'injections.dart';
 import 'screens/home_screen.dart';
@@ -36,30 +38,36 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     const double loadTime = 2;
     doneLoading(loadTime.toInt() * 1000);
-    return MaterialApp(
-      title: 'EcoHint',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: kGreenAlgua,
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        fontFamily: 'Poppins',
-        accentColor: Colors.green,
-        colorScheme: ColorScheme.light(
-          //-> FloatingActionButton and FlatButton theme
-          primary: kGreenAlgua,
-          secondary: kGreenBush,
-          onSecondary: Colors.white,
-        ),
-        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-            backgroundColor: Colors.green, selectedItemColor: Colors.white),
-      ),
-      home: _isLoading
-          ? const Loader(loadTime: Duration(milliseconds: 2000))
-          : HomeScreen(),
-      routes: {
-        CropDataScreen.routeName: (BuildContext ctx) => CropDataScreen(),
-      },
-    );
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(
+              create: (context) =>
+                  getIt<CropsBloc>()..add(const CropsEvent.getCrops())),
+        ],
+        child: MaterialApp(
+          title: 'EcoHint',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primaryColor: kGreenAlgua,
+            primarySwatch: Colors.blue,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            fontFamily: 'Poppins',
+            accentColor: Colors.green,
+            colorScheme: ColorScheme.light(
+              //-> FloatingActionButton and FlatButton theme
+              primary: kGreenAlgua,
+              secondary: kGreenBush,
+              onSecondary: Colors.white,
+            ),
+            bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+                backgroundColor: Colors.green, selectedItemColor: Colors.white),
+          ),
+          home: _isLoading
+              ? const Loader(loadTime: Duration(milliseconds: 2000))
+              : HomeScreen(),
+          routes: {
+            CropDataScreen.routeName: (BuildContext ctx) => CropDataScreen(),
+          },
+        ));
   }
 }

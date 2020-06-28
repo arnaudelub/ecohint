@@ -11,6 +11,7 @@ class CropListener extends StatelessWidget {
     // TODO: For purpose of front testing
 
     return BlocBuilder<CropsBloc, CropsState>(builder: (context, state) {
+      print("New state: $state");
       return LayoutBuilder(
         builder: (context, constraints) {
           if (constraints.maxWidth < 770) {

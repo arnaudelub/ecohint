@@ -20,14 +20,28 @@ class TimerControllerWidget extends StatefulWidget {
 }
 
 class _TimerControllerWidgetState extends State<TimerControllerWidget> {
+  int index;
+  CropTimerService timerService;
+  Crop crop;
+  @override
+  void initState() {
+    crop = widget.crop;
+    timerService = widget.timerService;
+    index = widget.index;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CropsBloc, CropsState>(builder: (context, state) {
+      if (state.crops.isEmpty) {
+        return Center(child: CircularProgressIndicator());
+      }
       return Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("${widget.crop.picture} (${widget.crop.name.toUCFirst()})",
+          Text("${crop.picture} (${crop.name.toUCFirst()})",
               style: TextStyle(
                   fontSize: 22,
                   letterSpacing: 0.21,
@@ -39,19 +53,19 @@ class _TimerControllerWidgetState extends State<TimerControllerWidget> {
             children: [
               IconButton(
                   icon: Icon(Icons.play_arrow, size: 32),
-                  onPressed: widget.timerService.isRunning(widget.index)
+                  onPressed: timerService.isRunning(index)
                       ? null
-                      : () => start(widget.index)),
+                      : () => start(index)),
               IconButton(
                   icon: Icon(Icons.stop, size: 32),
-                  onPressed: !widget.timerService.isRunning(widget.index)
+                  onPressed: !timerService.isRunning(index)
                       ? null
-                      : () => stop(widget.index)),
+                      : () => stop(index)),
               IconButton(
                   icon: Icon(Icons.refresh, size: 32),
-                  onPressed: !widget.timerService.isRunning(widget.index)
+                  onPressed: !timerService.isRunning(index)
                       ? null
-                      : () => restart(widget.index)),
+                      : () => restart(index)),
             ],
           ))
         ],
@@ -60,26 +74,30 @@ class _TimerControllerWidgetState extends State<TimerControllerWidget> {
   }
 
   void stop(int index) {
-    widget.timerService.stop(index);
-    getIt<IStorage>().storeTimer(widget.crop, 0);
-    context.bloc<CropsBloc>().add(CropsEvent.timerChanged(0));
+    print("Stpoping crop $crop at index $index");
+    timerService.stop(index);
+    getIt<IStorage>().storeTimer(crop, 0);
+    context.bloc<CropsBloc>().add(CropsEvent.timerChanged(0, index: index));
     setState(() {});
   }
 
   void start(int index) {
-    widget.timerService.start(index);
-    getIt<IStorage>().storeTimer(widget.crop,
-        widget.crop.timer == 0 ? widget.crop.originalTimer : widget.crop.timer);
-    context.bloc<CropsBloc>().add(CropsEvent.timerChanged(widget.crop.timer));
+    print("starting index $index");
+    timerService.start(index);
+    getIt<IStorage>()
+        .storeTimer(crop, crop.timer == 0 ? crop.originalTimer : crop.timer);
+    context.bloc<CropsBloc>().add(CropsEvent.timerChanged(
+        crop.timer == 0 ? crop.originalTimer : crop.timer,
+        index: index));
     setState(() {});
   }
 
   void restart(int index) {
-    widget.timerService.restart(index);
-    getIt<IStorage>().storeTimer(widget.crop, widget.crop.originalTimer);
+    timerService.restart(index);
+    getIt<IStorage>().storeTimer(crop, crop.originalTimer);
     context
         .bloc<CropsBloc>()
-        .add(CropsEvent.timerChanged(widget.crop.originalTimer));
+        .add(CropsEvent.timerChanged(crop.originalTimer, index: index));
     setState(() {});
   }
 }

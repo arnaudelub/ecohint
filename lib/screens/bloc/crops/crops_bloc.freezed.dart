@@ -42,9 +42,10 @@ class _$CropsEventTearOff {
     );
   }
 
-  TimerChanged timerChanged(int timer) {
+  TimerChanged timerChanged(int timer, {int index}) {
     return TimerChanged(
       timer,
+      index: index,
     );
   }
 }
@@ -61,7 +62,7 @@ mixin _$CropsEvent {
     @required Result deleteCrops(),
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
-    @required Result timerChanged(int timer),
+    @required Result timerChanged(int timer, int index),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
@@ -71,7 +72,7 @@ mixin _$CropsEvent {
     Result deleteCrops(),
     Result nameChanged(String name),
     Result pictureChanged(String picture),
-    Result timerChanged(int timer),
+    Result timerChanged(int timer, int index),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -150,7 +151,7 @@ class _$GetCrops implements GetCrops {
     @required Result deleteCrops(),
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
-    @required Result timerChanged(int timer),
+    @required Result timerChanged(int timer, int index),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
@@ -171,7 +172,7 @@ class _$GetCrops implements GetCrops {
     Result deleteCrops(),
     Result nameChanged(String name),
     Result pictureChanged(String picture),
-    Result timerChanged(int timer),
+    Result timerChanged(int timer, int index),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -266,7 +267,7 @@ class _$CreateCrop implements CreateCrop {
     @required Result deleteCrops(),
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
-    @required Result timerChanged(int timer),
+    @required Result timerChanged(int timer, int index),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
@@ -287,7 +288,7 @@ class _$CreateCrop implements CreateCrop {
     Result deleteCrops(),
     Result nameChanged(String name),
     Result pictureChanged(String picture),
-    Result timerChanged(int timer),
+    Result timerChanged(int timer, int index),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -415,7 +416,7 @@ class _$DeleteCrop implements DeleteCrop {
     @required Result deleteCrops(),
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
-    @required Result timerChanged(int timer),
+    @required Result timerChanged(int timer, int index),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
@@ -436,7 +437,7 @@ class _$DeleteCrop implements DeleteCrop {
     Result deleteCrops(),
     Result nameChanged(String name),
     Result pictureChanged(String picture),
-    Result timerChanged(int timer),
+    Result timerChanged(int timer, int index),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -535,7 +536,7 @@ class _$DeleteCrops implements DeleteCrops {
     @required Result deleteCrops(),
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
-    @required Result timerChanged(int timer),
+    @required Result timerChanged(int timer, int index),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
@@ -556,7 +557,7 @@ class _$DeleteCrops implements DeleteCrops {
     Result deleteCrops(),
     Result nameChanged(String name),
     Result pictureChanged(String picture),
-    Result timerChanged(int timer),
+    Result timerChanged(int timer, int index),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -673,7 +674,7 @@ class _$NameChanged implements NameChanged {
     @required Result deleteCrops(),
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
-    @required Result timerChanged(int timer),
+    @required Result timerChanged(int timer, int index),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
@@ -694,7 +695,7 @@ class _$NameChanged implements NameChanged {
     Result deleteCrops(),
     Result nameChanged(String name),
     Result pictureChanged(String picture),
-    Result timerChanged(int timer),
+    Result timerChanged(int timer, int index),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -814,7 +815,7 @@ class _$PictureChanged implements PictureChanged {
     @required Result deleteCrops(),
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
-    @required Result timerChanged(int timer),
+    @required Result timerChanged(int timer, int index),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
@@ -835,7 +836,7 @@ class _$PictureChanged implements PictureChanged {
     Result deleteCrops(),
     Result nameChanged(String name),
     Result pictureChanged(String picture),
-    Result timerChanged(int timer),
+    Result timerChanged(int timer, int index),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -897,7 +898,7 @@ abstract class $TimerChangedCopyWith<$Res> {
   factory $TimerChangedCopyWith(
           TimerChanged value, $Res Function(TimerChanged) then) =
       _$TimerChangedCopyWithImpl<$Res>;
-  $Res call({int timer});
+  $Res call({int timer, int index});
 }
 
 class _$TimerChangedCopyWithImpl<$Res> extends _$CropsEventCopyWithImpl<$Res>
@@ -912,22 +913,26 @@ class _$TimerChangedCopyWithImpl<$Res> extends _$CropsEventCopyWithImpl<$Res>
   @override
   $Res call({
     Object timer = freezed,
+    Object index = freezed,
   }) {
     return _then(TimerChanged(
       timer == freezed ? _value.timer : timer as int,
+      index: index == freezed ? _value.index : index as int,
     ));
   }
 }
 
 class _$TimerChanged implements TimerChanged {
-  const _$TimerChanged(this.timer) : assert(timer != null);
+  const _$TimerChanged(this.timer, {this.index}) : assert(timer != null);
 
   @override
   final int timer;
+  @override
+  final int index;
 
   @override
   String toString() {
-    return 'CropsEvent.timerChanged(timer: $timer)';
+    return 'CropsEvent.timerChanged(timer: $timer, index: $index)';
   }
 
   @override
@@ -935,12 +940,16 @@ class _$TimerChanged implements TimerChanged {
     return identical(this, other) ||
         (other is TimerChanged &&
             (identical(other.timer, timer) ||
-                const DeepCollectionEquality().equals(other.timer, timer)));
+                const DeepCollectionEquality().equals(other.timer, timer)) &&
+            (identical(other.index, index) ||
+                const DeepCollectionEquality().equals(other.index, index)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(timer);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(timer) ^
+      const DeepCollectionEquality().hash(index);
 
   @override
   $TimerChangedCopyWith<TimerChanged> get copyWith =>
@@ -955,7 +964,7 @@ class _$TimerChanged implements TimerChanged {
     @required Result deleteCrops(),
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
-    @required Result timerChanged(int timer),
+    @required Result timerChanged(int timer, int index),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
@@ -964,7 +973,7 @@ class _$TimerChanged implements TimerChanged {
     assert(nameChanged != null);
     assert(pictureChanged != null);
     assert(timerChanged != null);
-    return timerChanged(timer);
+    return timerChanged(timer, index);
   }
 
   @override
@@ -976,12 +985,12 @@ class _$TimerChanged implements TimerChanged {
     Result deleteCrops(),
     Result nameChanged(String name),
     Result pictureChanged(String picture),
-    Result timerChanged(int timer),
+    Result timerChanged(int timer, int index),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (timerChanged != null) {
-      return timerChanged(timer);
+      return timerChanged(timer, index);
     }
     return orElse();
   }
@@ -1028,9 +1037,10 @@ class _$TimerChanged implements TimerChanged {
 }
 
 abstract class TimerChanged implements CropsEvent {
-  const factory TimerChanged(int timer) = _$TimerChanged;
+  const factory TimerChanged(int timer, {int index}) = _$TimerChanged;
 
   int get timer;
+  int get index;
   $TimerChangedCopyWith<TimerChanged> get copyWith;
 }
 

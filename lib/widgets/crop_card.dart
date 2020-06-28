@@ -27,9 +27,13 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
   AnimationController _controller;
   CropTimerService timerService;
   int timerCounter;
+  int cropIndex;
+  Crop crop;
   @override
   void initState() {
     super.initState();
+    cropIndex = widget.cropIndex;
+    crop = widget.crop;
     timerCounter = 0;
     _controller = AnimationController(
       vsync: this,
@@ -43,11 +47,10 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
   }
 
   void _onTick() {
-    print("Tick");
     timerCounter += 1;
-    final timerDif = widget.crop.timer - timerCounter;
+    final timerDif = crop.timer - timerCounter;
     if (timerDif >= 0) {
-      getIt<IStorage>().storeTimer(widget.crop, timerDif);
+      getIt<IStorage>().storeTimer(crop, timerDif);
     } else {
       timerService.removeListener(_onTick);
     }
@@ -101,18 +104,18 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  widget.crop.picture,
+                  crop.picture,
                   style: const TextStyle(fontSize: 40.0),
                 ),
                 FittedBox(
                     child: Text(
-                  widget.crop.name.toUCFirst(),
+                  crop.name.toUCFirst(),
                   style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w300,
                       color: Colors.white),
                 )),
-                CropTimer(crop: widget.crop)
+                CropTimer(crop: crop)
               ],
             ),
           ),
@@ -130,15 +133,13 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
                 textAlign: TextAlign.center,
               ),
               content: Text(
-                "Are you sure you want to remove this crop: ${widget.crop.name} ${widget.crop.picture}?",
+                "Are you sure you want to remove this crop: ${crop.name} ${crop.picture}?",
                 textAlign: TextAlign.center,
               ),
               actions: [
                 FlatButton(
                   onPressed: () {
-                    context
-                        .bloc<CropsBloc>()
-                        .add(CropsEvent.deleteCrop(widget.crop));
+                    context.bloc<CropsBloc>().add(CropsEvent.deleteCrop(crop));
                     Navigator.of(context).pop();
                   },
                   child: const Text("Yes"),

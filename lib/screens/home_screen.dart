@@ -21,17 +21,10 @@ class _HomeScreenState extends State<HomeScreen> {
   static List<Widget> _widgetOptions;
 
   Widget getProvider() {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-            create: (context) =>
-                getIt<CropsBloc>()..add(const CropsEvent.getCrops())),
-      ],
-      child: BlocBuilder<CropsBloc, CropsState>(builder: (newContext, state) {
-        blocContext = newContext;
-        return CropListener();
-      }),
-    );
+    return BlocBuilder<CropsBloc, CropsState>(builder: (newContext, state) {
+      blocContext = newContext;
+      return CropListener();
+    });
   }
 
   @override
