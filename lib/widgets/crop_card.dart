@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:ecohint/screens/bloc/crops/crops_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ecohint/misc/k_constant.dart';
 import 'package:ecohint/screens/crop_data_screen.dart';
 import 'package:ecohint/models/crop.dart';
@@ -52,6 +54,7 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
             }
           });
         },
+        onLongPress: _showConfirmationDialog,
         child: Transform.scale(
           scale: _scale,
           child: Container(
@@ -91,5 +94,35 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
         ),
       ),
     );
+  }
+
+  void _showConfirmationDialog() {
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              title: const Text(
+                "Removing crop",
+                textAlign: TextAlign.center,
+              ),
+              content: Text(
+                "Are you sure you want to remove this crop: ${widget.crop.name} ${widget.crop.picture}?",
+                textAlign: TextAlign.center,
+              ),
+              actions: [
+                FlatButton(
+                  onPressed: () {
+                    context
+                        .bloc<CropsBloc>()
+                        .add(CropsEvent.deleteCrop(widget.crop));
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Yes"),
+                ),
+                FlatButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text("No"),
+                ),
+              ],
+            ));
   }
 }

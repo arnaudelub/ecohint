@@ -181,6 +181,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     actions: <Widget>[
                       FlatButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        child: const Text('Cancel'),
+                      ),
+                      FlatButton(
                         onPressed: () {
                           if (_formKey.currentState.validate()) {
                             context

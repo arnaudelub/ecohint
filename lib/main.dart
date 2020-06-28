@@ -35,8 +35,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-      const double loadTime = 2;
-            doneLoading(loadTime.toInt() * 1000);
+    const double loadTime = 2;
+    doneLoading(loadTime.toInt() * 1000);
     return MaterialApp(
       title: 'EcoHint',
       debugShowCheckedModeBanner: false,
@@ -46,12 +46,18 @@ class _MyAppState extends State<MyApp> {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: 'Poppins',
         accentColor: Colors.green,
+        colorScheme: ColorScheme.light(
+          //-> FloatingActionButton and FlatButton theme
+          primary: kGreenAlgua,
+          secondary: kGreenBush,
+          onSecondary: Colors.white,
+        ),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          backgroundColor: Colors.green,
-          selectedItemColor: Colors.white
-        )
+            backgroundColor: Colors.green, selectedItemColor: Colors.white),
       ),
-      home: _isLoading ? const Loader(loadTime: Duration(milliseconds: 2000)) : HomeScreen(),
+      home: _isLoading
+          ? const Loader(loadTime: Duration(milliseconds: 2000))
+          : HomeScreen(),
       routes: {
         CropDataScreen.routeName: (BuildContext ctx) => CropDataScreen(),
       },
