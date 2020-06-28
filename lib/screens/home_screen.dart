@@ -79,27 +79,32 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 actions: [
-                  PopupMenuButton(
-                    onSelected: (_) => _showConfirmationDialog(blocContext),
-                    icon: const Icon(Icons.menu),
-                    elevation: 12,
-                    itemBuilder: (BuildContext context) {
-                      return {'Remove crops'}
-                          .map((choice) => PopupMenuItem(
-                                value: choice,
-                                child: Text(choice),
-                              ))
-                          .toList();
-                    },
-                  ),
+                  _selectedIndex == 0
+                      ? PopupMenuButton(
+                          onSelected: (_) =>
+                              _showConfirmationDialog(blocContext),
+                          icon: const Icon(Icons.menu),
+                          elevation: 12,
+                          itemBuilder: (BuildContext context) {
+                            return {'Remove crops'}
+                                .map((choice) => PopupMenuItem(
+                                      value: choice,
+                                      child: Text(choice),
+                                    ))
+                                .toList();
+                          },
+                        )
+                      : Text(''),
                 ],
               ),
               body: _widgetOptions.elementAt(_selectedIndex),
-              floatingActionButton: _selectedIndex == 0 ? FloatingActionButton(
-                clipBehavior: Clip.hardEdge,
-                onPressed: () => _showAddCropDialog(blocContext),
-                child: const Icon(Icons.add),
-              ) : null,
+              floatingActionButton: _selectedIndex == 0
+                  ? FloatingActionButton(
+                      clipBehavior: Clip.hardEdge,
+                      onPressed: () => _showAddCropDialog(blocContext),
+                      child: const Icon(Icons.add),
+                    )
+                  : null,
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerFloat,
               bottomNavigationBar: BottomNavigationBar(
@@ -146,43 +151,45 @@ class _HomeScreenState extends State<HomeScreen> {
                   opacity: anim1.value,
                   child: AlertDialog(
                     title: const Text("Add a new Crop"),
-                    content: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          TextFormField(
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'Please enter a name.';
-                                }
-                                return null;
-                              },
-                              decoration: const InputDecoration(
-                                prefixIcon: Icon(Icons.title),
-                                labelText: 'Name',
-                              ),
-                              onChanged: (value) => context
-                                  .bloc<CropsBloc>()
-                                  .add(CropsEvent.nameChanged(value))),
-                          const SizedBox(height: 8),
-                          TextFormField(
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'Please enter an emoji.';
-                                } else if (value.length > 2) {
-                                  return 'Too long!';
-                                }
-                                return null;
-                              },
-                              keyboardType: TextInputType.text,
-                              decoration: const InputDecoration(
-                                prefixIcon: Icon(Icons.description),
-                                labelText: 'Emoji',
-                              ),
-                              onChanged: (value) => context
-                                  .bloc<CropsBloc>()
-                                  .add(CropsEvent.pictureChanged(value))),
-                        ],
+                    content: SingleChildScrollView(
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            TextFormField(
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Please enter a name.';
+                                  }
+                                  return null;
+                                },
+                                decoration: const InputDecoration(
+                                  prefixIcon: Icon(Icons.title),
+                                  labelText: 'Name',
+                                ),
+                                onChanged: (value) => context
+                                    .bloc<CropsBloc>()
+                                    .add(CropsEvent.nameChanged(value))),
+                            const SizedBox(height: 8),
+                            TextFormField(
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Please enter an emoji.';
+                                  } else if (value.length > 2) {
+                                    return 'Too long!';
+                                  }
+                                  return null;
+                                },
+                                keyboardType: TextInputType.text,
+                                decoration: const InputDecoration(
+                                  prefixIcon: Icon(Icons.description),
+                                  labelText: 'Emoji',
+                                ),
+                                onChanged: (value) => context
+                                    .bloc<CropsBloc>()
+                                    .add(CropsEvent.pictureChanged(value))),
+                          ],
+                        ),
                       ),
                     ),
                     actions: <Widget>[

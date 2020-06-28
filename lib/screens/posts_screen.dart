@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:html';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:ecohint/models/post_model.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:frefresh/frefresh.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
@@ -55,13 +55,11 @@ class _PostsScreenState extends State<PostsScreen> {
         SizedBox(
           height: 10.0,
         ),
-        Padding(
-          padding:
-              const EdgeInsets.symmetric(horizontal: kIsWeb ? 500.0 : 10.0),
+        Container(
+          width: MediaQuery.of(context).size.width,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Sort by : '),
               FlatButton.icon(
                   onPressed: () {
                     setState(() {
@@ -114,9 +112,11 @@ class _PostsScreenState extends State<PostsScreen> {
               if (snapshot.hasError) print(snapshot.error);
 
               return snapshot.hasData
-                  ? Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: kIsWeb ? 500.0 : 10.0),
+                  ? Container(
+                      padding: EdgeInsets.all(8.0),
+                      width: MediaQuery.of(context).size.width > 1080
+                          ? MediaQuery.of(context).size.width / 2
+                          : MediaQuery.of(context).size.width,
                       child: PostsList(posts: snapshot.data))
                   : Center(
                       child: CircularProgressIndicator(),
@@ -129,10 +129,17 @@ class _PostsScreenState extends State<PostsScreen> {
   }
 }
 
-class PostsList extends StatelessWidget {
+class PostsList extends StatefulWidget {
   final List<Post> posts;
 
   PostsList({Key key, this.posts}) : super(key: key);
+
+  @override
+  _PostsListState createState() => _PostsListState();
+}
+
+class _PostsListState extends State<PostsList> {
+  FRefreshController controller = FRefreshController();
 
   Future<void> _launchInWebViewWithJavaScript(String url) async {
     if (await canLaunch(url)) {
@@ -149,39 +156,54 @@ class PostsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: posts.length,
-      itemBuilder: (context, index) {
-        return GestureDetector(
-          onTap: () {
-            _launchInWebViewWithJavaScript(posts[index].url);
-          },
-          child: Card(
-            child: Column(
-              children: [
-                posts[index].thumbnailUrl.isNotEmpty &&
-                        posts[index].thumbnailUrl.length > 10
-                    ? Padding(
-                        padding: const EdgeInsets.only(top: 16.0),
-                        child: Image.network(
-                          posts[index].thumbnailUrl,
-                          height: 250,
-                          fit: BoxFit.fill,
-                        ),
-                      )
-                    : Container(
-                        height: 0,
-                        width: 0,
-                      ),
-                ListTile(
-                  contentPadding: EdgeInsets.all(20.0),
-                  title: Text(posts[index].title),
-                ),
-              ],
-            ),
-          ),
-        );
+    return FRefresh(
+      controller: controller,
+      header: CircularProgressIndicator(),
+      headerHeight: 75.0,
+      footer: LinearProgressIndicator(),
+      footerHeight: 20.0,
+      onLoad: () {
+        controller.finishLoad();
       },
+      onRefresh: () {
+        controller.finishRefresh();
+      },
+      child: ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: widget.posts.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              _launchInWebViewWithJavaScript(widget.posts[index].url);
+            },
+            child: Card(
+              child: Column(
+                children: [
+                  widget.posts[index].thumbnailUrl.isNotEmpty &&
+                          widget.posts[index].thumbnailUrl.length > 10
+                      ? Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Image.network(
+                            widget.posts[index].thumbnailUrl,
+                            height: 250,
+                            fit: BoxFit.fill,
+                          ),
+                        )
+                      : Container(
+                          height: 0,
+                          width: 0,
+                        ),
+                  ListTile(
+                    contentPadding: EdgeInsets.all(20.0),
+                    title: Text(widget.posts[index].title),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
