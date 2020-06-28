@@ -21,6 +21,13 @@ class _LoaderState extends State<Loader> with SingleTickerProviderStateMixin {
   double radius = 0.0;
 
   @override
+  void dispose() {
+    controller.dispose();
+    this.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
 
@@ -59,15 +66,15 @@ class _LoaderState extends State<Loader> with SingleTickerProviderStateMixin {
 
     controller.repeat();
 
-    Future.delayed(widget.loadTime - const Duration(milliseconds: 500), () {
+    /*Future.delayed(widget.loadTime - const Duration(milliseconds: 500), () {
       controller.dispose();
-    });
+    });*/
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+        color: Colors.white,
         width: 100.0,
         height: 100.0,
         child: Stack(children: [
@@ -76,13 +83,12 @@ class _LoaderState extends State<Loader> with SingleTickerProviderStateMixin {
                   offset: const Offset(0.0, 60.0),
                   child: const Text('EcoHint',
                       style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: 'Poppins',
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.normal,
-                          decorationColor: Colors.white,
-                      ))
-                      )),
+                        color: Colors.black,
+                        fontFamily: 'Poppins',
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.normal,
+                        decorationColor: Colors.white,
+                      )))),
           Center(
             child: RotationTransition(
               turns: animationRotation,

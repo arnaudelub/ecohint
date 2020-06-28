@@ -94,7 +94,7 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
                       fontWeight: FontWeight.w300,
                       color: Colors.white),
                 )),
-                CropTimer()
+                CropTimer(crop: widget.crop)
               ],
             ),
           ),

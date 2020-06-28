@@ -12,6 +12,15 @@ class ItemSelectorDropDown extends StatefulWidget {
 
 class _ItemSelectorDropDownState extends State<ItemSelectorDropDown> {
   String dropdownValue = '🍈';
+
+  @override
+  void initState() {
+    widget.blocContext
+        .bloc<CropsBloc>()
+        .add(CropsEvent.pictureChanged(dropdownValue));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
@@ -19,8 +28,8 @@ class _ItemSelectorDropDownState extends State<ItemSelectorDropDown> {
         value: dropdownValue,
         icon: Icon(Icons.arrow_downward),
         underline: Container(
-          height: 2,
-          color: Theme.of(context).accentColor,
+          height: 1,
+          color: Theme.of(context).primaryColor,
         ),
         iconSize: 18,
         elevation: 12,

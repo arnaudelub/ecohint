@@ -8,8 +8,11 @@ abstract class IStorage {
   Future<void> storeCrop(Crop crop);
   List<Crop> getCrops();
   Crop getCrop(String key);
-  Future<void> removeCrop(String key);
+  Future<void> removeCrop(Crop crop);
   Future<void> removeCrops();
+  Future<void> storeTimer(Crop crop, int timer);
+  int getTimer(Crop crop);
+  Future<void> removeTimer(Crop crop);
 }
 
 @LazySingleton(as: IStorage)
@@ -40,6 +43,7 @@ class Storage implements IStorage {
         final String json = _storage.getString(key);
         final Map<String, dynamic> decoded =
             jsonDecode(json) as Map<String, dynamic>;
+        decoded['timer'] = getTimer(Crop.fromJson(decoded));
         cropsList.add(Crop.fromJson(decoded));
       }
       return cropsList;
@@ -49,9 +53,10 @@ class Storage implements IStorage {
   }
 
   @override
-  Future<void> removeCrop(String key) async {
+  Future<void> removeCrop(Crop crop) async {
     try {
-      await _storage.remove(key);
+      await _storage.remove('crop_${crop.name}');
+      await removeTimer(crop);
     } catch (_) {
       throw 'Error';
     }
@@ -62,6 +67,7 @@ class Storage implements IStorage {
     try {
       await _storage.setString(
           'crop_${crop.name}', jsonEncode(crop.toJson()).toString());
+      await storeTimer(crop, crop.timer);
     } catch (_) {
       throw 'Error';
     }
@@ -70,5 +76,33 @@ class Storage implements IStorage {
   @override
   Future<void> removeCrops() async {
     await _storage.clear();
+  }
+
+  @override
+  Future<void> storeTimer(Crop crop, int timer) async {
+    try {
+      await _storage.setInt('timer_${crop.name}', timer);
+    } catch (_) {
+      throw 'Error';
+    }
+  }
+
+  @override
+  Future<void> removeTimer(Crop crop) async {
+    try {
+      await _storage.remove('timer_${crop.name}');
+    } catch (_) {
+      throw 'Error';
+    }
+  }
+
+  @override
+  int getTimer(Crop crop) {
+    try {
+      final int timer = _storage.getInt('timer_${crop.name}');
+      return timer;
+    } catch (_) {
+      throw 'Error';
+    }
   }
 }

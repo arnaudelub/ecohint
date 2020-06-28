@@ -8,4 +8,5 @@ abstract class CropsEvent with _$CropsEvent {
   const factory CropsEvent.deleteCrops() = DeleteCrops;
   const factory CropsEvent.nameChanged(String name) = NameChanged;
   const factory CropsEvent.pictureChanged(String picture) = PictureChanged;
+  const factory CropsEvent.timerChanged(int timer) = TimerChanged;
 }

@@ -175,6 +175,32 @@ class _HomeScreenState extends State<HomeScreen> {
                                     .add(CropsEvent.nameChanged(value))),
                             const SizedBox(height: 8),
                             ItemSelectorDropDown(blocContext: context),
+                            const SizedBox(height: 8),
+                            TextFormField(
+                                keyboardType: TextInputType.number,
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Please enter a timer.';
+                                  } else {
+                                    try {
+                                      int.parse(value);
+                                      return null;
+                                    } on FormatException catch (e) {
+                                      return "Enter a valid number";
+                                    }
+                                  }
+                                },
+                                decoration: const InputDecoration(
+                                  prefixIcon: Icon(Icons.timer),
+                                  labelText: 'Hours',
+                                ),
+                                onChanged: (value) {
+                                  final timer =
+                                      Duration(hours: int.parse(value));
+                                  context.bloc<CropsBloc>().add(
+                                      CropsEvent.timerChanged(
+                                          timer.inMilliseconds));
+                                }),
                           ],
                         ),
                       ),
