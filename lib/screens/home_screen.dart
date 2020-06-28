@@ -5,6 +5,7 @@ import 'package:ecohint/screens/posts_screen.dart';
 import 'package:ecohint/screens/timers_screen.dart';
 import 'package:ecohint/widgets/crop_listener.dart';
 import 'package:ecohint/widgets/item_selector_dropdown.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -49,47 +50,70 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: kCreme,
               appBar: AppBar(
                 centerTitle: true,
-                title: Container(
-                  width: 100,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Image.asset(
-                        "assets/images/logoSmall.png",
-                        height: 40,
-                      ),
-                      const Positioned(
-                        top: 15,
-                        child: FittedBox(
-                          child: Text(
-                            "EcoHint",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w100),
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    kIsWeb
+                        ? InkWell(
+                            onTap: () => _showAddCropDialog(blocContext),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 5),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: kGreenBush,
+                              ),
+                              child: Text(
+                                "Add a new crop",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                              ),
+                            ),
+                          )
+                        : Container(),
+                    Container(
+                      width: 100,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Image.asset(
+                            "assets/images/logoSmall.png",
+                            height: 40,
                           ),
-                        ),
-                      )
-                    ],
-                  ),
+                          const Positioned(
+                            top: 15,
+                            child: FittedBox(
+                              child: Text(
+                                "EcoHint",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w100),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    _selectedIndex == 0
+                        ? PopupMenuButton(
+                            onSelected: (_) =>
+                                _showConfirmationDialog(blocContext),
+                            icon: const Icon(Icons.menu),
+                            elevation: 12,
+                            itemBuilder: (BuildContext context) {
+                              return {'Remove crops'}
+                                  .map((choice) => PopupMenuItem(
+                                        value: choice,
+                                        child: Text(choice),
+                                      ))
+                                  .toList();
+                            },
+                          )
+                        : Container(),
+                  ],
                 ),
-                actions: [
-                  _selectedIndex == 0
-                      ? PopupMenuButton(
-                          onSelected: (_) =>
-                              _showConfirmationDialog(blocContext),
-                          icon: const Icon(Icons.menu),
-                          elevation: 12,
-                          itemBuilder: (BuildContext context) {
-                            return {'Remove crops'}
-                                .map((choice) => PopupMenuItem(
-                                      value: choice,
-                                      child: Text(choice),
-                                    ))
-                                .toList();
-                          },
-                        )
-                      : Text(''),
-                ],
+                actions: [],
               ),
               body: _widgetOptions.elementAt(_selectedIndex),
               floatingActionButton: _selectedIndex == 0
@@ -100,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     )
                   : null,
               floatingActionButtonLocation:
-                  FloatingActionButtonLocation.centerFloat,
+                  FloatingActionButtonLocation.endFloat,
               bottomNavigationBar: BottomNavigationBar(
                 currentIndex: _selectedIndex,
                 onTap: (index) {
