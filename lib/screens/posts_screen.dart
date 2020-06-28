@@ -113,6 +113,7 @@ class _PostsScreenState extends State<PostsScreen> {
           width: MediaQuery.of(context).size.width > 1080
               ? MediaQuery.of(context).size.width / 2
               : MediaQuery.of(context).size.width,
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: TextFormField(
             decoration: InputDecoration(
               labelText: 'Search...',
