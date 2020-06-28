@@ -7,6 +7,8 @@ import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'injections.dart';
 import 'screens/home_screen.dart';
+import 'screens/home_screen.dart';
+import 'screens/home_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,9 +17,26 @@ Future<void> main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool _isLoading = true;
+
+  void doneLoading(int loadTime) {
+    Future.delayed(Duration(milliseconds: loadTime), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+      const double loadTime = 2;
+            doneLoading(loadTime.toInt() * 1000);
     return MaterialApp(
       title: 'EcoHint',
       debugShowCheckedModeBanner: false,
@@ -27,8 +46,12 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: 'Poppins',
         accentColor: Colors.green,
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: Colors.green,
+          selectedItemColor: Colors.white
+        )
       ),
-      home: HomeScreen(),
+      home: _isLoading ? const Loader(loadTime: Duration(milliseconds: 2000)) : HomeScreen(),
       routes: {
         CropDataScreen.routeName: (BuildContext ctx) => CropDataScreen(),
       },

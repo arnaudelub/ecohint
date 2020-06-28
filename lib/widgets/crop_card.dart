@@ -27,7 +27,7 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 100),
       upperBound: 0.1,
     )..addListener(() {
         setState(() {});
@@ -36,28 +36,22 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    void _onTapDown(TapDownDetails details) {
-      _controller.forward();
-    }
-
-    void _onTapUp(TapUpDetails details) {
-      _controller.reverse();
-    }
-
     _scale = 1 - _controller.value;
 
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: GestureDetector(
-        onTapDown: _onTapDown,
-        onTapUp: _onTapUp,
-        /*onTap: () {
-          /*if (Platform.isIOS || Platform.isAndroid) {
-            Navigator.of(context).pushNamed(CropDataScreen.routeName);
-          } else if (kIsWeb) {
-            //TODO: afficher les infos
-          }*/
-        },*/
+        onTap: () {
+          _controller.forward().whenComplete(() {
+            _controller.reverse();
+            if (!kIsWeb) {
+              Navigator.of(context).pushNamed(CropDataScreen.routeName);
+            } else if (kIsWeb) {
+              //TODO: afficher les infos
+              //Navigator.of(context).pushNamed(CropDataScreen.routeName);
+            }
+          });
+        },
         child: Transform.scale(
           scale: _scale,
           child: Container(
@@ -80,13 +74,13 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
               children: [
                 Text(
                   widget.crop.picture,
-                  style: const TextStyle(fontSize: 70.0),
+                  style: const TextStyle(fontSize: 40.0),
                 ),
                 FittedBox(
                     child: Text(
                   widget.crop.name,
                   style: const TextStyle(
-                      fontSize: 25,
+                      fontSize: 20,
                       fontWeight: FontWeight.w300,
                       color: Colors.white),
                 )),
