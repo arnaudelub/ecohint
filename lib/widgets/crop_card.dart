@@ -43,7 +43,6 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
   }
 
   void _onTick() {
-    print("Tick");
     timerCounter += 1;
     final timerDif = widget.crop.timer - timerCounter;
     if (timerDif >= 0) {

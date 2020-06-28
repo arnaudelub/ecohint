@@ -39,6 +39,7 @@ dependencies:
   url_launcher: ^5.4.11
   webview_flutter: ^0.3.22+1
   frefresh: ^1.1.0
+  animated_card: ^1.0.0+8
 dev_dependencies:
   flutter_test:
     sdk: flutter
