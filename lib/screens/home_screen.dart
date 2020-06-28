@@ -3,6 +3,7 @@ import 'package:ecohint/injections.dart';
 import 'package:ecohint/screens/bloc/crops/crops_bloc.dart';
 import 'package:ecohint/screens/posts_screen.dart';
 import 'package:ecohint/widgets/crop_listener.dart';
+import 'package:ecohint/widgets/item_selector_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -171,23 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     .bloc<CropsBloc>()
                                     .add(CropsEvent.nameChanged(value))),
                             const SizedBox(height: 8),
-                            TextFormField(
-                                validator: (value) {
-                                  if (value.isEmpty) {
-                                    return 'Please enter an emoji.';
-                                  } else if (value.length > 2) {
-                                    return 'Too long!';
-                                  }
-                                  return null;
-                                },
-                                keyboardType: TextInputType.text,
-                                decoration: const InputDecoration(
-                                  prefixIcon: Icon(Icons.description),
-                                  labelText: 'Emoji',
-                                ),
-                                onChanged: (value) => context
-                                    .bloc<CropsBloc>()
-                                    .add(CropsEvent.pictureChanged(value))),
+                            ItemSelectorDropDown(blocContext: context),
                           ],
                         ),
                       ),
