@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'package:injectable/injectable.dart';
 import 'package:ecohint/core/storage.dart';
-import 'package:ecohint/injections.dart';
 import 'package:ecohint/models/crop.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:injectable/injectable.dart';
 
 part 'crops_event.dart';
 part 'crops_state.dart';
