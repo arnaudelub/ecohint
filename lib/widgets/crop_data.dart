@@ -27,13 +27,13 @@ class CropData extends StatelessWidget {
               ? Flexible(
                   child: WebBrowser(
                     initialUrl:
-                        "http://www.gardenology.org/wiki/${picture.split('_')[1]}",
+                        "https://en.wikipedia.org/wiki/${picture.split('_')[1]}",
                     javascriptEnabled: true,
                   ),
                 )
               : Flexible(
                   child: WebBrowser(
-                    initialUrl: "http://www.gardenology.org/wiki",
+                    initialUrl: "https://en.wikipedia.org/wiki/",
                     javascriptEnabled: true,
                   ),
                 ),
