@@ -1,4 +1,5 @@
 import 'package:ecohint/misc/k_constant.dart';
+import 'package:ecohint/models/crop.dart';
 import 'package:ecohint/screens/bloc/crops/crops_bloc.dart';
 import 'package:ecohint/widgets/crop_card.dart';
 import 'package:ecohint/widgets/crop_data.dart';
@@ -57,12 +58,12 @@ class CropListener extends StatelessWidget {
                           height: constraints.maxHeight - 10,
                           width: (constraints.maxWidth * .75) - 10,
                           decoration: BoxDecoration(
-                            color: kGreenAlgua.withOpacity(.7),
+                            color: kCreme,
                             borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(65),
                             ),
                           ),
-                          child: Container(
+                          /*child: Container(
                             margin: const EdgeInsets.only(top: 10, left: 40),
                             height: constraints.maxHeight - 10,
                             width: (constraints.maxWidth * .7) - 40,
@@ -72,9 +73,9 @@ class CropListener extends StatelessWidget {
                                 topLeft: Radius.circular(65),
                               ),
                             ),
-                            child: CropData(),
+                            child: CropData(crop: Crop(cropStartDate: DateTime.now(), name: '', picture: '', originalTimer: 0, timer: 0),),
                           ),
-                        ),
+                        ),*/)
                       ],
                     ),
                   ],

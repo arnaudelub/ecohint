@@ -4,6 +4,7 @@ import 'package:ecohint/core/storage.dart';
 import 'package:ecohint/injections.dart';
 import 'package:ecohint/routes/router.gr.dart';
 import 'package:ecohint/screens/bloc/crops/crops_bloc.dart';
+import 'package:ecohint/screens/crop_data_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ecohint/misc/k_constant.dart';
 import 'package:ecohint/models/crop.dart';
@@ -11,6 +12,7 @@ import 'package:ecohint/widgets/crop_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:ecohint/core/string_extensions.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CropCard extends StatefulWidget {
   final Crop crop;
@@ -77,7 +79,7 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
                   arguments: CropDataScreenArguments(crop: crop));
             } else if (kIsWeb) {
               //TODO: afficher les infos
-              //Navigator.of(context).pushNamed(CropDataScreen.routeName);
+              launch("http://www.gardenology.org/wiki/${crop.picture.split('_')[1]}");
             }
           });
         },

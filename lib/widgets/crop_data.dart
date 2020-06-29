@@ -29,6 +29,8 @@ class _CropDataState extends State<CropData> {
 
   @override
   Widget build(BuildContext context) {
+    String picture = widget.crop.picture ?? '';
+    print("picture");
     return Center(
       child: Column(
         children: [
@@ -42,19 +44,19 @@ class _CropDataState extends State<CropData> {
                       fontSize: 34)),
             ),
           ),
-          Flexible(
+          widget.crop.picture != '' ? Flexible(
             child: WillPopScope(
               onWillPop: () => _webViewPlugin.close(),
               child: WebviewScaffold(
                 url:
-                    "http://www.gardenology.org/wiki/${widget.crop.picture.split('_')[1]}",
+                    "http://www.gardenology.org/wiki/${picture.split('_')[1]}",
                 withZoom: false,
                 withLocalStorage: true,
                 withJavascript: true,
                 appCacheEnabled: true,
               ),
             ),
-          ),
+          ) : Flexible(child: Text('')),
         ],
       ),
     );
