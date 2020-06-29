@@ -33,7 +33,7 @@ class CropData extends StatelessWidget {
                 )
               : Flexible(
                   child: WebBrowser(
-                    initialUrl: "https://en.wikipedia.org/wiki/",
+                    initialUrl: "https://en.wikipedia.org/wiki/Crop_diversity",
                     javascriptEnabled: true,
                   ),
                 ),
