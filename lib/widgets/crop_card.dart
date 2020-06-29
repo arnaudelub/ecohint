@@ -5,7 +5,6 @@ import 'package:ecohint/core/storage.dart';
 import 'package:ecohint/injections.dart';
 import 'package:ecohint/routes/router.gr.dart';
 import 'package:ecohint/screens/bloc/crops/crops_bloc.dart';
-import 'package:ecohint/screens/home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ecohint/misc/k_constant.dart';
 import 'package:ecohint/models/crop.dart';
@@ -33,11 +32,10 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
   int cropIndex;
   Crop crop;
   ValueStream<Map<String, dynamic>> timerStoper = timerSubject.stream;
-
+  String cropname = '';
   @override
   void initState() {
     super.initState();
-    print("INIT!!!!!!!!!!");
     timerService = getIt<CropTimerService>();
 
     timerService.removeListener(_onTick);
@@ -60,7 +58,6 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
     timerCounter += 1;
     final timerDif = crop.timer - timerCounter;
     if (timerDif >= 0) {
-      print("storing timer at $cropIndex");
       getIt<IStorage>().storeTimer(crop, timerDif);
       timerSubject.add({
         'timer': timerDif,
@@ -74,7 +71,6 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
 
   void _onSignalReceived(Map<String, dynamic> data) {
     if (data['stop']) {
-      print("stop received");
       timerService.removeListener(_onTick);
     }
   }
@@ -99,12 +95,16 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
               ExtendedNavigator.of(context).pushNamed(Routes.cropDataScreen,
                   arguments: CropDataScreenArguments(crop: crop));
             } else if (kIsWeb) {
-              //TODO: afficher les infos
-              //Navigator.of(context).pushNamed(CropDataScreen.routeName);
+              setState(() {
+                cropname = crop.picture.split("_")[1];
+              });
             }
+            context.bloc<CropsBloc>().add(CropsEvent.cropSelected(crop));
           });
         },
-        onLongPress: _showConfirmationDialog,
+        onLongPress: () => _showConfirmationDialog().then(
+          (_) => cardClickedSubject.add(1),
+        ),
         child: Transform.scale(
           scale: _scale,
           child: LayoutBuilder(builder: (context, constraints) {
@@ -149,7 +149,8 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
                   : Positioned(
                       left: constraints.maxHeight * .75,
                       child: InkWell(
-                        onTap: _showConfirmationDialog,
+                        onTap: () => _showConfirmationDialog()
+                            .then((_) => cardClickedSubject.add(1)),
                         child: FittedBox(
                           child: Container(
                             height: 30,
@@ -175,8 +176,9 @@ class _CropCardState extends State<CropCard> with TickerProviderStateMixin {
     );
   }
 
-  void _showConfirmationDialog() {
-    showDialog(
+  Future<Null> _showConfirmationDialog() {
+    cardClickedSubject.add(1);
+    return showDialog(
         context: context,
         builder: (_) => AlertDialog(
               title: const Text(

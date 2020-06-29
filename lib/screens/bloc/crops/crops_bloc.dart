@@ -27,81 +27,76 @@ class CropsBloc extends Bloc<CropsEvent, CropsState> {
     CropsEvent event,
   ) async* {
     List<Crop> listCrops = state.crops;
-    yield* event.map(
-      createCrop: (CreateCrop value) async* {
-        yield state.copyWith(isLoading: true);
-        final Crop crop = Crop(
-            name: state.cropName,
-            picture: state.cropPicture,
-            cropStartDate: DateTime.now(),
-            timer: 0,
-            originalTimer: state.timer);
+    yield* event.map(createCrop: (CreateCrop value) async* {
+      yield state.copyWith(isLoading: true);
+      final Crop crop = Crop(
+          name: state.cropName,
+          picture: state.cropPicture,
+          cropStartDate: DateTime.now(),
+          timer: 0,
+          originalTimer: state.timer);
+      getIt<CropTimerService>().addingTimer(crop.timer != 0);
+      await _storage.storeCrop(crop);
+      listCrops.add(crop);
+      yield state.copyWith(
+        isLoading: false,
+        selectedCrop: crop,
+        crops: listCrops,
+      );
+    }, deleteCrop: (DeleteCrop value) async* {
+      yield state.copyWith(
+        isLoading: true,
+      );
+      await _storage.removeCrop(state.crops[value.cropIndex]);
+      listCrops.removeAt(value.cropIndex);
+      yield state.copyWith(
+        isLoading: false,
+        crops: listCrops,
+      );
+    }, deleteCrops: (DeleteCrops value) async* {
+      yield state.copyWith(
+        isLoading: true,
+      );
+      await _storage.removeCrops();
+      listCrops.clear();
+      yield state.copyWith(
+        isLoading: false,
+        crops: listCrops,
+      );
+    }, getCrops: (GetCrops value) async* {
+      yield state.copyWith(
+        isLoading: true,
+      );
+      listCrops = _storage.getCrops();
+      getIt<CropTimerService>().resetTimers();
+      for (final crop in listCrops) {
         getIt<CropTimerService>().addingTimer(crop.timer != 0);
-        await _storage.storeCrop(crop);
-        listCrops.add(crop);
-        yield state.copyWith(
-          isLoading: false,
-          crops: listCrops,
+      }
+      yield state.copyWith(
+        isLoading: false,
+        crops: listCrops,
+      );
+    }, nameChanged: (NameChanged value) async* {
+      yield state.copyWith(cropName: value.name);
+    }, pictureChanged: (PictureChanged value) async* {
+      yield state.copyWith(cropPicture: value.picture);
+    }, timerChanged: (TimerChanged value) async* {
+      if (value.index != null) {
+        final Crop actual = state.crops[value.index];
+        final List<Crop> newList = List.from(state.crops);
+        newList[value.index] = Crop(
+          name: actual.name,
+          picture: actual.picture,
+          timer: value.timer,
+          originalTimer: actual.originalTimer,
+          cropStartDate: actual.cropStartDate,
         );
-      },
-      deleteCrop: (DeleteCrop value) async* {
-        yield state.copyWith(
-          isLoading: true,
-        );
-        await _storage.removeCrop(state.crops[value.cropIndex]);
-        listCrops.removeAt(value.cropIndex);
-        yield state.copyWith(
-          isLoading: false,
-          crops: listCrops,
-        );
-      },
-      deleteCrops: (DeleteCrops value) async* {
-        yield state.copyWith(
-          isLoading: true,
-        );
-        await _storage.removeCrops();
-        listCrops.clear();
-        yield state.copyWith(
-          isLoading: false,
-          crops: listCrops,
-        );
-      },
-      getCrops: (GetCrops value) async* {
-        yield state.copyWith(
-          isLoading: true,
-        );
-        listCrops = _storage.getCrops();
-        getIt<CropTimerService>().resetTimers();
-        for (final crop in listCrops) {
-          getIt<CropTimerService>().addingTimer(crop.timer != 0);
-        }
-        yield state.copyWith(
-          isLoading: false,
-          crops: listCrops,
-        );
-      },
-      nameChanged: (NameChanged value) async* {
-        yield state.copyWith(cropName: value.name);
-      },
-      pictureChanged: (PictureChanged value) async* {
-        yield state.copyWith(cropPicture: value.picture);
-      },
-      timerChanged: (TimerChanged value) async* {
-        if (value.index != null) {
-          final Crop actual = state.crops[value.index];
-          final List<Crop> newList = List.from(state.crops);
-          newList[value.index] = Crop(
-            name: actual.name,
-            picture: actual.picture,
-            timer: value.timer,
-            originalTimer: actual.originalTimer,
-            cropStartDate: actual.cropStartDate,
-          );
-          yield state.copyWith(crops: newList);
-        } else {
-          yield state.copyWith(timer: value.timer);
-        }
-      },
-    );
+        yield state.copyWith(crops: newList);
+      } else {
+        yield state.copyWith(timer: value.timer);
+      }
+    }, cropSelected: (CropSelected value) async* {
+      yield state.copyWith(selectedCrop: value.crop);
+    });
   }
 }

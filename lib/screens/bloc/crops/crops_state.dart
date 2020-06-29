@@ -9,14 +9,21 @@ abstract class CropsState with _$CropsState {
     @required String cropName,
     @required String cropPicture,
     @required int timer,
+    @required Crop selectedCrop,
   }) = _CropState;
 
-  factory CropsState.initial() => const CropsState(
+  factory CropsState.initial() => CropsState(
         isLoading: false,
         showErrorMessage: false,
         crops: [],
         cropName: '',
         cropPicture: '',
         timer: 0,
+        selectedCrop: Crop(
+            name: '',
+            picture: '',
+            originalTimer: 0,
+            timer: 0,
+            cropStartDate: DateTime.now()),
       );
 }

@@ -244,7 +244,7 @@ class _PostsListState extends State<PostsList> {
                           ),
                     ListTile(
                       contentPadding: EdgeInsets.all(20.0),
-                      title: Text(widget.posts[index].title),
+                      title: Text(widget.posts[index].title, textAlign: TextAlign.center,),
                     ),
                   ],
                 ),

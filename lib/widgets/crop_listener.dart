@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CropListener extends StatelessWidget {
-  const CropListener({Key key}) : super(key: key);
+  final bool showCropData;
+  const CropListener({Key key, this.showCropData = true}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     // TODO: For purpose of front testing
@@ -56,7 +57,7 @@ class CropListener extends StatelessWidget {
                           height: constraints.maxHeight - 10,
                           width: (constraints.maxWidth * .75) - 10,
                           decoration: BoxDecoration(
-                            color: kGreenAlgua.withOpacity(.7),
+                            color: kCreme,
                             borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(65),
                             ),
@@ -71,7 +72,12 @@ class CropListener extends StatelessWidget {
                                 topLeft: Radius.circular(65),
                               ),
                             ),
-                            child: CropData(),
+                            child: Visibility(
+                              visible: showCropData,
+                              child: CropData(
+                                crop: state.selectedCrop,
+                              ),
+                            ),
                           ),
                         ),
                       ],

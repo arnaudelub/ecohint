@@ -23,15 +23,38 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   int _selectedIndex = 0;
+  bool showCropData = true;
   ValueStream<Map<String, dynamic>> timerObs = timerSubject.stream;
+  ValueStream<int> dialogObs = cardClickedSubject.stream;
   static List<Widget> _widgetOptions;
 
   @override
   void initState() {
     super.initState();
     timerObs.listen(_onValue);
+    dialogObs.listen(_onClick);
     _widgetOptions = [
-      CropListener(),
+      CropListener(showCropData: showCropData),
+      TimersScreen(),
+      PostsScreen(),
+      Text('About')
+    ];
+  }
+
+  _setCropDataVisibility() {
+    setState(() {
+      showCropData = !showCropData;
+    });
+    reSetWidgetOptions();
+  }
+
+  void _onClick(int value) {
+    _setCropDataVisibility();
+  }
+
+  void reSetWidgetOptions() {
+    _widgetOptions = [
+      CropListener(showCropData: showCropData),
       TimersScreen(),
       PostsScreen(),
       Text('About')
@@ -60,7 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: <Widget>[
                     kIsWeb
                         ? InkWell(
-                            onTap: () => _showAddCropDialog(context),
+                            onTap: () => _showAddCropDialog(context)
+                                .then((_) => _setCropDataVisibility()),
                             child: Container(
                               padding: EdgeInsets.symmetric(
                                   vertical: 5, horizontal: 5),
@@ -101,7 +125,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     _selectedIndex == 0
                         ? PopupMenuButton(
-                            onSelected: (_) => _showConfirmationDialog(context),
+                            onSelected: (_) =>
+                                _showConfirmationDialog(context).then(
+                              (_) => _setCropDataVisibility(),
+                            ),
                             icon: const Icon(Icons.menu),
                             elevation: 12,
                             itemBuilder: (BuildContext context) {
@@ -122,7 +149,9 @@ class _HomeScreenState extends State<HomeScreen> {
               floatingActionButton: _selectedIndex == 0
                   ? FloatingActionButton(
                       clipBehavior: Clip.hardEdge,
-                      onPressed: () => _showAddCropDialog(context),
+                      onPressed: () => _showAddCropDialog(context).then(
+                        (_) => _setCropDataVisibility(),
+                      ),
                       child: const Icon(Icons.add),
                     )
                   : null,
@@ -154,8 +183,9 @@ class _HomeScreenState extends State<HomeScreen> {
         });
   }
 
-  void _showAddCropDialog(BuildContext context) {
-    showGeneralDialog(
+  Future<Null> _showAddCropDialog(BuildContext context) {
+    _setCropDataVisibility();
+    return showGeneralDialog(
         context: context,
         pageBuilder: (context, anim1, anim2) {
           return null;
@@ -226,7 +256,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     actions: <Widget>[
                       FlatButton(
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
                         child: const Text('Cancel'),
                       ),
                       FlatButton(
@@ -245,8 +277,9 @@ class _HomeScreenState extends State<HomeScreen> {
         });
   }
 
-  void _showConfirmationDialog(BuildContext context) {
-    showDialog(
+  Future<Null> _showConfirmationDialog(BuildContext context) {
+    _setCropDataVisibility();
+    return showDialog(
         context: context,
         builder: (_) => AlertDialog(
               title: const Text(

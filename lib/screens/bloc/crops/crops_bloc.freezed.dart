@@ -48,6 +48,12 @@ class _$CropsEventTearOff {
       index: index,
     );
   }
+
+  CropSelected cropSelected(Crop crop) {
+    return CropSelected(
+      crop,
+    );
+  }
 }
 
 // ignore: unused_element
@@ -63,6 +69,7 @@ mixin _$CropsEvent {
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
     @required Result timerChanged(int timer, int index),
+    @required Result cropSelected(Crop crop),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
@@ -73,6 +80,7 @@ mixin _$CropsEvent {
     Result nameChanged(String name),
     Result pictureChanged(String picture),
     Result timerChanged(int timer, int index),
+    Result cropSelected(Crop crop),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -84,6 +92,7 @@ mixin _$CropsEvent {
     @required Result nameChanged(NameChanged value),
     @required Result pictureChanged(PictureChanged value),
     @required Result timerChanged(TimerChanged value),
+    @required Result cropSelected(CropSelected value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
@@ -94,6 +103,7 @@ mixin _$CropsEvent {
     Result nameChanged(NameChanged value),
     Result pictureChanged(PictureChanged value),
     Result timerChanged(TimerChanged value),
+    Result cropSelected(CropSelected value),
     @required Result orElse(),
   });
 }
@@ -152,6 +162,7 @@ class _$GetCrops implements GetCrops {
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
     @required Result timerChanged(int timer, int index),
+    @required Result cropSelected(Crop crop),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
@@ -160,6 +171,7 @@ class _$GetCrops implements GetCrops {
     assert(nameChanged != null);
     assert(pictureChanged != null);
     assert(timerChanged != null);
+    assert(cropSelected != null);
     return getCrops();
   }
 
@@ -173,6 +185,7 @@ class _$GetCrops implements GetCrops {
     Result nameChanged(String name),
     Result pictureChanged(String picture),
     Result timerChanged(int timer, int index),
+    Result cropSelected(Crop crop),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -192,6 +205,7 @@ class _$GetCrops implements GetCrops {
     @required Result nameChanged(NameChanged value),
     @required Result pictureChanged(PictureChanged value),
     @required Result timerChanged(TimerChanged value),
+    @required Result cropSelected(CropSelected value),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
@@ -200,6 +214,7 @@ class _$GetCrops implements GetCrops {
     assert(nameChanged != null);
     assert(pictureChanged != null);
     assert(timerChanged != null);
+    assert(cropSelected != null);
     return getCrops(this);
   }
 
@@ -213,6 +228,7 @@ class _$GetCrops implements GetCrops {
     Result nameChanged(NameChanged value),
     Result pictureChanged(PictureChanged value),
     Result timerChanged(TimerChanged value),
+    Result cropSelected(CropSelected value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -268,6 +284,7 @@ class _$CreateCrop implements CreateCrop {
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
     @required Result timerChanged(int timer, int index),
+    @required Result cropSelected(Crop crop),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
@@ -276,6 +293,7 @@ class _$CreateCrop implements CreateCrop {
     assert(nameChanged != null);
     assert(pictureChanged != null);
     assert(timerChanged != null);
+    assert(cropSelected != null);
     return createCrop();
   }
 
@@ -289,6 +307,7 @@ class _$CreateCrop implements CreateCrop {
     Result nameChanged(String name),
     Result pictureChanged(String picture),
     Result timerChanged(int timer, int index),
+    Result cropSelected(Crop crop),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -308,6 +327,7 @@ class _$CreateCrop implements CreateCrop {
     @required Result nameChanged(NameChanged value),
     @required Result pictureChanged(PictureChanged value),
     @required Result timerChanged(TimerChanged value),
+    @required Result cropSelected(CropSelected value),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
@@ -316,6 +336,7 @@ class _$CreateCrop implements CreateCrop {
     assert(nameChanged != null);
     assert(pictureChanged != null);
     assert(timerChanged != null);
+    assert(cropSelected != null);
     return createCrop(this);
   }
 
@@ -329,6 +350,7 @@ class _$CreateCrop implements CreateCrop {
     Result nameChanged(NameChanged value),
     Result pictureChanged(PictureChanged value),
     Result timerChanged(TimerChanged value),
+    Result cropSelected(CropSelected value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -406,6 +428,7 @@ class _$DeleteCrop implements DeleteCrop {
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
     @required Result timerChanged(int timer, int index),
+    @required Result cropSelected(Crop crop),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
@@ -414,6 +437,7 @@ class _$DeleteCrop implements DeleteCrop {
     assert(nameChanged != null);
     assert(pictureChanged != null);
     assert(timerChanged != null);
+    assert(cropSelected != null);
     return deleteCrop(cropIndex);
   }
 
@@ -427,6 +451,7 @@ class _$DeleteCrop implements DeleteCrop {
     Result nameChanged(String name),
     Result pictureChanged(String picture),
     Result timerChanged(int timer, int index),
+    Result cropSelected(Crop crop),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -446,6 +471,7 @@ class _$DeleteCrop implements DeleteCrop {
     @required Result nameChanged(NameChanged value),
     @required Result pictureChanged(PictureChanged value),
     @required Result timerChanged(TimerChanged value),
+    @required Result cropSelected(CropSelected value),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
@@ -454,6 +480,7 @@ class _$DeleteCrop implements DeleteCrop {
     assert(nameChanged != null);
     assert(pictureChanged != null);
     assert(timerChanged != null);
+    assert(cropSelected != null);
     return deleteCrop(this);
   }
 
@@ -467,6 +494,7 @@ class _$DeleteCrop implements DeleteCrop {
     Result nameChanged(NameChanged value),
     Result pictureChanged(PictureChanged value),
     Result timerChanged(TimerChanged value),
+    Result cropSelected(CropSelected value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -526,6 +554,7 @@ class _$DeleteCrops implements DeleteCrops {
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
     @required Result timerChanged(int timer, int index),
+    @required Result cropSelected(Crop crop),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
@@ -534,6 +563,7 @@ class _$DeleteCrops implements DeleteCrops {
     assert(nameChanged != null);
     assert(pictureChanged != null);
     assert(timerChanged != null);
+    assert(cropSelected != null);
     return deleteCrops();
   }
 
@@ -547,6 +577,7 @@ class _$DeleteCrops implements DeleteCrops {
     Result nameChanged(String name),
     Result pictureChanged(String picture),
     Result timerChanged(int timer, int index),
+    Result cropSelected(Crop crop),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -566,6 +597,7 @@ class _$DeleteCrops implements DeleteCrops {
     @required Result nameChanged(NameChanged value),
     @required Result pictureChanged(PictureChanged value),
     @required Result timerChanged(TimerChanged value),
+    @required Result cropSelected(CropSelected value),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
@@ -574,6 +606,7 @@ class _$DeleteCrops implements DeleteCrops {
     assert(nameChanged != null);
     assert(pictureChanged != null);
     assert(timerChanged != null);
+    assert(cropSelected != null);
     return deleteCrops(this);
   }
 
@@ -587,6 +620,7 @@ class _$DeleteCrops implements DeleteCrops {
     Result nameChanged(NameChanged value),
     Result pictureChanged(PictureChanged value),
     Result timerChanged(TimerChanged value),
+    Result cropSelected(CropSelected value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -664,6 +698,7 @@ class _$NameChanged implements NameChanged {
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
     @required Result timerChanged(int timer, int index),
+    @required Result cropSelected(Crop crop),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
@@ -672,6 +707,7 @@ class _$NameChanged implements NameChanged {
     assert(nameChanged != null);
     assert(pictureChanged != null);
     assert(timerChanged != null);
+    assert(cropSelected != null);
     return nameChanged(name);
   }
 
@@ -685,6 +721,7 @@ class _$NameChanged implements NameChanged {
     Result nameChanged(String name),
     Result pictureChanged(String picture),
     Result timerChanged(int timer, int index),
+    Result cropSelected(Crop crop),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -704,6 +741,7 @@ class _$NameChanged implements NameChanged {
     @required Result nameChanged(NameChanged value),
     @required Result pictureChanged(PictureChanged value),
     @required Result timerChanged(TimerChanged value),
+    @required Result cropSelected(CropSelected value),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
@@ -712,6 +750,7 @@ class _$NameChanged implements NameChanged {
     assert(nameChanged != null);
     assert(pictureChanged != null);
     assert(timerChanged != null);
+    assert(cropSelected != null);
     return nameChanged(this);
   }
 
@@ -725,6 +764,7 @@ class _$NameChanged implements NameChanged {
     Result nameChanged(NameChanged value),
     Result pictureChanged(PictureChanged value),
     Result timerChanged(TimerChanged value),
+    Result cropSelected(CropSelected value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -805,6 +845,7 @@ class _$PictureChanged implements PictureChanged {
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
     @required Result timerChanged(int timer, int index),
+    @required Result cropSelected(Crop crop),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
@@ -813,6 +854,7 @@ class _$PictureChanged implements PictureChanged {
     assert(nameChanged != null);
     assert(pictureChanged != null);
     assert(timerChanged != null);
+    assert(cropSelected != null);
     return pictureChanged(picture);
   }
 
@@ -826,6 +868,7 @@ class _$PictureChanged implements PictureChanged {
     Result nameChanged(String name),
     Result pictureChanged(String picture),
     Result timerChanged(int timer, int index),
+    Result cropSelected(Crop crop),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -845,6 +888,7 @@ class _$PictureChanged implements PictureChanged {
     @required Result nameChanged(NameChanged value),
     @required Result pictureChanged(PictureChanged value),
     @required Result timerChanged(TimerChanged value),
+    @required Result cropSelected(CropSelected value),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
@@ -853,6 +897,7 @@ class _$PictureChanged implements PictureChanged {
     assert(nameChanged != null);
     assert(pictureChanged != null);
     assert(timerChanged != null);
+    assert(cropSelected != null);
     return pictureChanged(this);
   }
 
@@ -866,6 +911,7 @@ class _$PictureChanged implements PictureChanged {
     Result nameChanged(NameChanged value),
     Result pictureChanged(PictureChanged value),
     Result timerChanged(TimerChanged value),
+    Result cropSelected(CropSelected value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -954,6 +1000,7 @@ class _$TimerChanged implements TimerChanged {
     @required Result nameChanged(String name),
     @required Result pictureChanged(String picture),
     @required Result timerChanged(int timer, int index),
+    @required Result cropSelected(Crop crop),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
@@ -962,6 +1009,7 @@ class _$TimerChanged implements TimerChanged {
     assert(nameChanged != null);
     assert(pictureChanged != null);
     assert(timerChanged != null);
+    assert(cropSelected != null);
     return timerChanged(timer, index);
   }
 
@@ -975,6 +1023,7 @@ class _$TimerChanged implements TimerChanged {
     Result nameChanged(String name),
     Result pictureChanged(String picture),
     Result timerChanged(int timer, int index),
+    Result cropSelected(Crop crop),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -994,6 +1043,7 @@ class _$TimerChanged implements TimerChanged {
     @required Result nameChanged(NameChanged value),
     @required Result pictureChanged(PictureChanged value),
     @required Result timerChanged(TimerChanged value),
+    @required Result cropSelected(CropSelected value),
   }) {
     assert(getCrops != null);
     assert(createCrop != null);
@@ -1002,6 +1052,7 @@ class _$TimerChanged implements TimerChanged {
     assert(nameChanged != null);
     assert(pictureChanged != null);
     assert(timerChanged != null);
+    assert(cropSelected != null);
     return timerChanged(this);
   }
 
@@ -1015,6 +1066,7 @@ class _$TimerChanged implements TimerChanged {
     Result nameChanged(NameChanged value),
     Result pictureChanged(PictureChanged value),
     Result timerChanged(TimerChanged value),
+    Result cropSelected(CropSelected value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1033,6 +1085,165 @@ abstract class TimerChanged implements CropsEvent {
   $TimerChangedCopyWith<TimerChanged> get copyWith;
 }
 
+abstract class $CropSelectedCopyWith<$Res> {
+  factory $CropSelectedCopyWith(
+          CropSelected value, $Res Function(CropSelected) then) =
+      _$CropSelectedCopyWithImpl<$Res>;
+  $Res call({Crop crop});
+
+  $CropCopyWith<$Res> get crop;
+}
+
+class _$CropSelectedCopyWithImpl<$Res> extends _$CropsEventCopyWithImpl<$Res>
+    implements $CropSelectedCopyWith<$Res> {
+  _$CropSelectedCopyWithImpl(
+      CropSelected _value, $Res Function(CropSelected) _then)
+      : super(_value, (v) => _then(v as CropSelected));
+
+  @override
+  CropSelected get _value => super._value as CropSelected;
+
+  @override
+  $Res call({
+    Object crop = freezed,
+  }) {
+    return _then(CropSelected(
+      crop == freezed ? _value.crop : crop as Crop,
+    ));
+  }
+
+  @override
+  $CropCopyWith<$Res> get crop {
+    if (_value.crop == null) {
+      return null;
+    }
+    return $CropCopyWith<$Res>(_value.crop, (value) {
+      return _then(_value.copyWith(crop: value));
+    });
+  }
+}
+
+class _$CropSelected implements CropSelected {
+  const _$CropSelected(this.crop) : assert(crop != null);
+
+  @override
+  final Crop crop;
+
+  @override
+  String toString() {
+    return 'CropsEvent.cropSelected(crop: $crop)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is CropSelected &&
+            (identical(other.crop, crop) ||
+                const DeepCollectionEquality().equals(other.crop, crop)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(crop);
+
+  @override
+  $CropSelectedCopyWith<CropSelected> get copyWith =>
+      _$CropSelectedCopyWithImpl<CropSelected>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result getCrops(),
+    @required Result createCrop(),
+    @required Result deleteCrop(int cropIndex),
+    @required Result deleteCrops(),
+    @required Result nameChanged(String name),
+    @required Result pictureChanged(String picture),
+    @required Result timerChanged(int timer, int index),
+    @required Result cropSelected(Crop crop),
+  }) {
+    assert(getCrops != null);
+    assert(createCrop != null);
+    assert(deleteCrop != null);
+    assert(deleteCrops != null);
+    assert(nameChanged != null);
+    assert(pictureChanged != null);
+    assert(timerChanged != null);
+    assert(cropSelected != null);
+    return cropSelected(crop);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result getCrops(),
+    Result createCrop(),
+    Result deleteCrop(int cropIndex),
+    Result deleteCrops(),
+    Result nameChanged(String name),
+    Result pictureChanged(String picture),
+    Result timerChanged(int timer, int index),
+    Result cropSelected(Crop crop),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (cropSelected != null) {
+      return cropSelected(crop);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result getCrops(GetCrops value),
+    @required Result createCrop(CreateCrop value),
+    @required Result deleteCrop(DeleteCrop value),
+    @required Result deleteCrops(DeleteCrops value),
+    @required Result nameChanged(NameChanged value),
+    @required Result pictureChanged(PictureChanged value),
+    @required Result timerChanged(TimerChanged value),
+    @required Result cropSelected(CropSelected value),
+  }) {
+    assert(getCrops != null);
+    assert(createCrop != null);
+    assert(deleteCrop != null);
+    assert(deleteCrops != null);
+    assert(nameChanged != null);
+    assert(pictureChanged != null);
+    assert(timerChanged != null);
+    assert(cropSelected != null);
+    return cropSelected(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result getCrops(GetCrops value),
+    Result createCrop(CreateCrop value),
+    Result deleteCrop(DeleteCrop value),
+    Result deleteCrops(DeleteCrops value),
+    Result nameChanged(NameChanged value),
+    Result pictureChanged(PictureChanged value),
+    Result timerChanged(TimerChanged value),
+    Result cropSelected(CropSelected value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (cropSelected != null) {
+      return cropSelected(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CropSelected implements CropsEvent {
+  const factory CropSelected(Crop crop) = _$CropSelected;
+
+  Crop get crop;
+  $CropSelectedCopyWith<CropSelected> get copyWith;
+}
+
 class _$CropsStateTearOff {
   const _$CropsStateTearOff();
 
@@ -1042,7 +1253,8 @@ class _$CropsStateTearOff {
       @required List<Crop> crops,
       @required String cropName,
       @required String cropPicture,
-      @required int timer}) {
+      @required int timer,
+      @required Crop selectedCrop}) {
     return _CropState(
       isLoading: isLoading,
       showErrorMessage: showErrorMessage,
@@ -1050,6 +1262,7 @@ class _$CropsStateTearOff {
       cropName: cropName,
       cropPicture: cropPicture,
       timer: timer,
+      selectedCrop: selectedCrop,
     );
   }
 }
@@ -1064,6 +1277,7 @@ mixin _$CropsState {
   String get cropName;
   String get cropPicture;
   int get timer;
+  Crop get selectedCrop;
 
   $CropsStateCopyWith<CropsState> get copyWith;
 }
@@ -1078,7 +1292,10 @@ abstract class $CropsStateCopyWith<$Res> {
       List<Crop> crops,
       String cropName,
       String cropPicture,
-      int timer});
+      int timer,
+      Crop selectedCrop});
+
+  $CropCopyWith<$Res> get selectedCrop;
 }
 
 class _$CropsStateCopyWithImpl<$Res> implements $CropsStateCopyWith<$Res> {
@@ -1096,6 +1313,7 @@ class _$CropsStateCopyWithImpl<$Res> implements $CropsStateCopyWith<$Res> {
     Object cropName = freezed,
     Object cropPicture = freezed,
     Object timer = freezed,
+    Object selectedCrop = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
@@ -1107,7 +1325,19 @@ class _$CropsStateCopyWithImpl<$Res> implements $CropsStateCopyWith<$Res> {
       cropPicture:
           cropPicture == freezed ? _value.cropPicture : cropPicture as String,
       timer: timer == freezed ? _value.timer : timer as int,
+      selectedCrop:
+          selectedCrop == freezed ? _value.selectedCrop : selectedCrop as Crop,
     ));
+  }
+
+  @override
+  $CropCopyWith<$Res> get selectedCrop {
+    if (_value.selectedCrop == null) {
+      return null;
+    }
+    return $CropCopyWith<$Res>(_value.selectedCrop, (value) {
+      return _then(_value.copyWith(selectedCrop: value));
+    });
   }
 }
 
@@ -1122,7 +1352,11 @@ abstract class _$CropStateCopyWith<$Res> implements $CropsStateCopyWith<$Res> {
       List<Crop> crops,
       String cropName,
       String cropPicture,
-      int timer});
+      int timer,
+      Crop selectedCrop});
+
+  @override
+  $CropCopyWith<$Res> get selectedCrop;
 }
 
 class __$CropStateCopyWithImpl<$Res> extends _$CropsStateCopyWithImpl<$Res>
@@ -1141,6 +1375,7 @@ class __$CropStateCopyWithImpl<$Res> extends _$CropsStateCopyWithImpl<$Res>
     Object cropName = freezed,
     Object cropPicture = freezed,
     Object timer = freezed,
+    Object selectedCrop = freezed,
   }) {
     return _then(_CropState(
       isLoading: isLoading == freezed ? _value.isLoading : isLoading as bool,
@@ -1152,6 +1387,8 @@ class __$CropStateCopyWithImpl<$Res> extends _$CropsStateCopyWithImpl<$Res>
       cropPicture:
           cropPicture == freezed ? _value.cropPicture : cropPicture as String,
       timer: timer == freezed ? _value.timer : timer as int,
+      selectedCrop:
+          selectedCrop == freezed ? _value.selectedCrop : selectedCrop as Crop,
     ));
   }
 }
@@ -1163,13 +1400,15 @@ class _$_CropState implements _CropState {
       @required this.crops,
       @required this.cropName,
       @required this.cropPicture,
-      @required this.timer})
+      @required this.timer,
+      @required this.selectedCrop})
       : assert(isLoading != null),
         assert(showErrorMessage != null),
         assert(crops != null),
         assert(cropName != null),
         assert(cropPicture != null),
-        assert(timer != null);
+        assert(timer != null),
+        assert(selectedCrop != null);
 
   @override
   final bool isLoading;
@@ -1183,10 +1422,12 @@ class _$_CropState implements _CropState {
   final String cropPicture;
   @override
   final int timer;
+  @override
+  final Crop selectedCrop;
 
   @override
   String toString() {
-    return 'CropsState(isLoading: $isLoading, showErrorMessage: $showErrorMessage, crops: $crops, cropName: $cropName, cropPicture: $cropPicture, timer: $timer)';
+    return 'CropsState(isLoading: $isLoading, showErrorMessage: $showErrorMessage, crops: $crops, cropName: $cropName, cropPicture: $cropPicture, timer: $timer, selectedCrop: $selectedCrop)';
   }
 
   @override
@@ -1208,7 +1449,10 @@ class _$_CropState implements _CropState {
                 const DeepCollectionEquality()
                     .equals(other.cropPicture, cropPicture)) &&
             (identical(other.timer, timer) ||
-                const DeepCollectionEquality().equals(other.timer, timer)));
+                const DeepCollectionEquality().equals(other.timer, timer)) &&
+            (identical(other.selectedCrop, selectedCrop) ||
+                const DeepCollectionEquality()
+                    .equals(other.selectedCrop, selectedCrop)));
   }
 
   @override
@@ -1219,7 +1463,8 @@ class _$_CropState implements _CropState {
       const DeepCollectionEquality().hash(crops) ^
       const DeepCollectionEquality().hash(cropName) ^
       const DeepCollectionEquality().hash(cropPicture) ^
-      const DeepCollectionEquality().hash(timer);
+      const DeepCollectionEquality().hash(timer) ^
+      const DeepCollectionEquality().hash(selectedCrop);
 
   @override
   _$CropStateCopyWith<_CropState> get copyWith =>
@@ -1233,7 +1478,8 @@ abstract class _CropState implements CropsState {
       @required List<Crop> crops,
       @required String cropName,
       @required String cropPicture,
-      @required int timer}) = _$_CropState;
+      @required int timer,
+      @required Crop selectedCrop}) = _$_CropState;
 
   @override
   bool get isLoading;
@@ -1247,6 +1493,8 @@ abstract class _CropState implements CropsState {
   String get cropPicture;
   @override
   int get timer;
+  @override
+  Crop get selectedCrop;
   @override
   _$CropStateCopyWith<_CropState> get copyWith;
 }
